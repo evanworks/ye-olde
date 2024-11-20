@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Micro+5&display=swap');
+body {
+  background: #313638;
+  color: white;
+  user-select: none;
+}
+img {
+  width: 125px;
+  margin: 10px;
+  align-items: center;
+}
+.slot {
+  margin: 5px;
+  background: #252928;
+  width: 145px;
+  border-radius: 15px;
+  height: 190px;
+  display: inline-block;
+}
+.slot:hover {
+  transform: rotate(1deg);
+}
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+.tooltip:hover {
+  transform: rotate(2deg);
+}
+b {
+  font-size: 20px;
+}
+.tooltip .tooltiptext {
+  font-size: 18px;
+  font-family: "Micro 5", sans-serif;
+
+  visibility: hidden;
+  width: 140px;
+  background-color: rgba(25, 25, 25, 0.8);
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  top: 98%;
+  right: -2%;
+  padding: 5px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  transform: rotate(-3deg);
+}

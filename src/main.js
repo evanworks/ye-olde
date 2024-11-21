@@ -1,7 +1,10 @@
 let deck = [];
 let battle = true;
+let currentMonster;
 let health = 50;
 let squad = []
+
+// CARDS
 
 const rustySword = {
   name: "Rusty Sword",
@@ -20,8 +23,22 @@ const slimeball = {
   img: "slimeball.png"
 }
 
+// MONSTERS
+
+const slime = {
+  name: "Slime",
+  description: "It's like jell-o - but don't eat it!",
+  img: "res/img/placeholder-portrait.png",
+  health: 15,
+  deck: [5],
+  loot: [slimeball]
+}
+
+
+
 function start() {
-  deck.push(rustySword, slimeball)
+  deck.push(rustySword, slimeball);
+  enterBattle(slime)
 }
 
 function deal() {
@@ -45,6 +62,7 @@ function displayCard(card, parent) {
   const img = document.createElement("img");
   img.src = "res/img/"+card.img;
   img.draggable = false;
+  img.id = card.name;
   necessaryDiv.appendChild(img);
   sample = 0;
   while (true) {
@@ -74,12 +92,33 @@ function displayCard(card, parent) {
 
   necessaryDiv.appendChild(tooltip);
 
+  document.getElementById(card.name).addEventListener("click", function(){
+    attack(card.damage)
+  }); 
+
 }
 
-function enterBattle() {
-
+function enterBattle(monster) {
+  deal()
+  
+  document.getElementById("monster-img").src = monster.img;
+  document.getElementById("monster-name").innerHTML = monster.name;
+  document.getElementById("monster-desc").innerHTML = monster.description;
+  document.getElementById("monster-health-num").innerHTML = monster.health;
+  enemyHealth = monster.health;
+  currentMonster = monster;
 }
 
+function attack(damage) {
+  info = document.getElementById("monster-health-bar").getBoundingClientRect();
+  let percent = (damage * 100) / enemyHealth;
+  let barWidth = ( info.width - ((info.width / 100) * percent) );
+
+  enemyHealth -= damage;
+
+  document.getElementById("monster-health-num").innerHTML = enemyHealth;
+  document.getElementById("monster-health-bar").style.width = barWidth+"px";
+}
 
 // coolaj68 on Stack Overflow...
 

@@ -6,8 +6,8 @@ Very much a work in progress.
 
 ### Things added:
 
-* You can have cards in your deck
-* Press a button to deal six or less cards into six slots
+* cards (most of them don't work)
+* enemy health
 
 ### Things to add:
 

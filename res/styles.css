@@ -1,8 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Micro+5&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
 body {
+  font-family: "Micro 5", sans-serif;
   background: #313638;
   color: white;
   user-select: none;
+  overflow: hidden;
 }
 img {
   width: 125px;
@@ -51,4 +54,48 @@ b {
 .tooltip:hover .tooltiptext {
   visibility: visible;
   transform: rotate(-3deg);
+}
+
+
+#top {
+  height: 50vh;
+}
+#bottom {
+  height: 50vh;
+}
+#playercards {
+  margin-top: 50px;
+  text-align: center;
+}
+
+#monster-details {
+  width: 140px;
+  border: 4px solid #625565;
+  margin: 10px;
+  padding: 10px;
+}
+#monster-img {
+  width: 120px;
+  margin-bottom: -1px;
+}
+#monster-name {
+  /*font-family: "Jersey 10", sans-serif;*/
+  font-size: 40px;
+  margin-left: 10px;
+}
+#monster-desc {
+  font-size: 20px;
+  font-style: italic;
+  margin-left: 10px;
+}
+
+#monster-health-bar {
+  width: 93vw;
+  background: red;
+  height: 25px;
+}
+#monster-health-num {
+  color: red;
+  font-size: 52px;
+  margin-left: 10px;
 }

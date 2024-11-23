@@ -4,6 +4,7 @@ let currentMonster;
 let health = 50;
 let squad = []
 let selectedCards = [];
+let moves = 4;
 
 // CARDS
 
@@ -11,6 +12,7 @@ const rustySword = {
   name: "Rusty Sword",
   type: "attack",
   damage: 5,
+  actions: 1,
   price: 3,
   action: '',
   img: "rustySword.png"
@@ -19,9 +21,19 @@ const slimeball = {
   name: "Slimeball",
   type: "magic",
   damage: 0,
+  actions: 0,
   price: 6,
   action: 'Play with an attack card to use it twice!',
   img: "slimeball.png"
+}
+const sword = {
+  name: "Sword",
+  type: "attack",
+  damage: 8,
+  actions: 1,
+  price: 9,
+  action: '',
+  img: "sword.png"
 }
 
 // MONSTERS
@@ -36,16 +48,25 @@ const slime = {
 }
 
 
-
 function start() {
-  deck.push(rustySword, slimeball);
-  enterBattle(slime)
+  deck.push(rustySword, slimeball, rustySword);
+  fullDeck = deck;
+  console.log(fullDeck);
+  enterBattle(slime);
 }
 
-function deal() {
-  shuffledDeck = shuffle(deck);
-  for (let i = 0; i < 6; i++) { 
-    if (shuffledDeck.length < 6) {
+function deal(amount, first) {
+  if (first) {
+    shuffledDeck = shuffle(fullDeck);
+  } else {
+    if (shuffledDeck != []) {
+      shuffledDeck = shuffle(shuffledDeck);
+    } else {
+      alert("out of cards!")
+    }
+  }
+  for (let i = 0; i < amount; i++) { 
+    if (shuffledDeck.length < amount) {
       for (let card in shuffledDeck) {
         displayCard(shuffledDeck.pop(), 'slot');
       }
@@ -68,13 +89,11 @@ function displayCard(card, parent) {
   sample = 0;
   while (true) {
     sample += 1;
-    console.log(parent+sample)
     if (document.getElementById(parent + sample).innerHTML == "") {
       parent += sample;
       break;
     }
   }
-  console.log(parent)
   const element = document.getElementById(parent);
   element.appendChild(necessaryDiv);
 
@@ -87,6 +106,14 @@ function displayCard(card, parent) {
   if (card.damage != 0) {
     tooltip.innerHTML += "<i>"+card.damage+" damage</i><br/>";
   }
+  if (card.actions != 0) {
+    if (card.actions = 1) {
+      g = "action"
+    } else {
+      g = "actions"
+    }
+    tooltip.innerHTML += "<i style='color: #fbff86;'>+"+card.actions+" "+g+"</i><br/>";
+  }
   if (card.action != "") {
     tooltip.innerHTML += card.action;
   }
@@ -96,9 +123,12 @@ function displayCard(card, parent) {
   document.getElementById(card.name).addEventListener("click", function() {
     select();
     selectedCards.push(card);
-    attack(card.damage);
   }); 
 
+}
+
+function discardCard(card) {
+  document.getElementById(card.name).parentElement.remove();
 }
 
 function select() {
@@ -109,8 +139,33 @@ function select() {
   /*elementH.parentElement.style.background = "transparent";*/
 }
 
+function play() {
+  if (selectedCards==""){return;}
+
+  moves -= 1;
+  document.getElementById("moves").innerHTML = "Moves left: " + moves;
+  for (let i in selectedCards) {
+    let card = selectedCards[i];
+    if (card.type == "attack") {
+
+      attack(card.damage);
+
+      if (selectedCards.includes(slimeball)) {
+        attack(card.damage);
+        removeItem(selectedCards, slimeball);
+      }
+
+    }
+    discardCard(card)
+  }
+  deal(6, false)
+  selectedCards = [];
+  
+  
+}
+
 function enterBattle(monster) {
-  deal()
+  deal(6, true)
 
   document.getElementById("monster-img").src = monster.img;
   document.getElementById("monster-name").innerHTML = monster.name;
@@ -154,5 +209,10 @@ function shuffle(array) {
 }
 let arr = [2, 11, 37, 42];
 bean = shuffle(arr);
-console.log(arr);
-console.log(bean)
+
+function removeItem (array, item) {
+  const index = array.indexOf(item);
+  if (index > -1) { // only splice array when item is found
+    array.splice(index, 1); // 2nd parameter means remove one item only
+  }
+}

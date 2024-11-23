@@ -169,7 +169,14 @@ b {
 }
 #playButton {
   position: absolute;
-  bottom: 150px;
+  bottom: 23vh;
+}
+#moves {
+  position: absolute;
+  bottom: 38vh;
+  left: 34px;
+  font-size: 32px;
+  font-family: "Jersey 10", sans-serif;
 }
 #playbuttonimg {
   width: 180px;

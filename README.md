@@ -6,7 +6,7 @@ Very much a work in progress.
 
 ### Things added:
 
-* cards (most of them don't work)
+* sword cards, magic cards
 * enemy health
 
 ### Things to add:

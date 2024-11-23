@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Micro+5&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jacquard+12&display=swap');
 body {
   font-family: "Micro 5", sans-serif;
   background: #313638;
@@ -20,16 +21,38 @@ img {
   height: 190px;
   display: inline-block;
 }
-.slot:hover {
-  transform: rotate(1deg);
+@keyframes idle {
+  0% { transform: rotate(1deg); }
+  50% { transform: rotate(-1deg); }
+  100% { transform: rotate(1deg); }
+}
+@keyframes move {
+  0% { top: 0px; }
+  100% { top: -30px; }
+}
+@keyframes fade {
+  0% { background:#e83b3b; }
+  100% { background: transparent; }
 }
 .tooltip {
   position: relative;
   display: inline-block;
+  /*animation: idle 4s infinite;*/
 }
 .tooltip:hover {
+  animation: none;
   transform: rotate(2deg);
 }
+.tooltip:active {
+  position: relative;
+  animation: move 0.05s 1;
+  top: -30px;
+}
+.tooltip:active .slot {
+  background: red;
+  /*animation: fade 1s 1;*/
+}
+
 b {
   font-size: 20px;
 }
@@ -64,38 +87,96 @@ b {
   height: 50vh;
 }
 #playercards {
-  margin-top: 50px;
+  margin-top: 30px;
   text-align: center;
+  margin-left: 150px;
 }
 
 #monster-details {
-  width: 140px;
-  border: 4px solid #625565;
-  margin: 10px;
-  padding: 10px;
+  width: 180px;
+  background: #252928;
+  margin-left: -10px;
+  padding: 15px;
 }
 #monster-img {
   width: 120px;
   margin-bottom: -1px;
 }
 #monster-name {
-  /*font-family: "Jersey 10", sans-serif;*/
-  font-size: 40px;
+  font-family: "Jacquard 12", sans-serif;
+  font-size: 48px;
   margin-left: 10px;
 }
 #monster-desc {
   font-size: 20px;
+  font-weight: 100;
   font-style: italic;
   margin-left: 10px;
 }
 
-#monster-health-bar {
+#player-health {
+  position: absolute;
+  margin-top: 80px;
+  background: #252928;
+  width: 100vw;
+  bottom: 0px;
+  left: 0px;
+
+}
+
+#monster-health-bar, #player-health-bar {
   width: 93vw;
-  background: red;
+  background: #7a3045;
+  border: 2px solid #252928;
   height: 25px;
 }
-#monster-health-num {
-  color: red;
-  font-size: 52px;
+#monster-health-num, #player-health-num {
+  font-family: "Jersey 10", sans-serif;
+  color: #e83b3b;
+  font-size: 46px;
   margin-left: 10px;
+}
+#monster-health {
+  background: #252928;
+  margin-left: -10px;
+  margin-top: -10px;
+  width: 100vw;
+}
+
+#player-health-num {
+  margin-left: 20px;
+  font-size: 48px;
+  margin-top: 5px;
+}
+#money {
+  display: inline-block;
+  color: #fbb954;
+  padding: 10px;
+  margin-right: 20px;
+}
+#XP {
+  padding: 10px;
+  display: inline-block;
+}
+#player-details {
+  font-size: 48px;
+  font-family: "Jersey 10", sans-serif;
+  position: absolute;
+  background: #252928;
+  left: 20px;
+  bottom: 50px;
+  border-radius: 10px;
+}
+#playButton {
+  position: absolute;
+  bottom: 150px;
+}
+#playbuttonimg {
+  width: 180px;
+}
+#playbuttonimg:hover {
+  content:url(img/play-hover.png);
+}
+#playbuttonimg:active {
+  content:url(img/play-active.png);
 }

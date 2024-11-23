@@ -3,6 +3,7 @@ let battle = true;
 let currentMonster;
 let health = 50;
 let squad = []
+let selectedCards = [];
 
 // CARDS
 
@@ -19,7 +20,7 @@ const slimeball = {
   type: "magic",
   damage: 0,
   price: 6,
-  action: 'Play along with an attack card to use it twice!',
+  action: 'Play with an attack card to use it twice!',
   img: "slimeball.png"
 }
 
@@ -92,17 +93,28 @@ function displayCard(card, parent) {
 
   necessaryDiv.appendChild(tooltip);
 
-  document.getElementById(card.name).addEventListener("click", function(){
-    attack(card.damage)
+  document.getElementById(card.name).addEventListener("click", function() {
+    select();
+    selectedCards.push(card);
+    attack(card.damage);
   }); 
 
 }
 
+function select() {
+  element = event.target;
+  elementH = element.parentElement;
+  element.parentElement.style.position = "relative";
+  element.parentElement.style.top = "-30px";
+  /*elementH.parentElement.style.background = "transparent";*/
+}
+
 function enterBattle(monster) {
   deal()
-  
+
   document.getElementById("monster-img").src = monster.img;
   document.getElementById("monster-name").innerHTML = monster.name;
+  document.getElementById("monster-lvl").innerHTML = "Level " + 1;
   document.getElementById("monster-desc").innerHTML = monster.description;
   document.getElementById("monster-health-num").innerHTML = monster.health;
   enemyHealth = monster.health;

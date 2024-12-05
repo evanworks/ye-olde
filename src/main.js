@@ -1,57 +1,18 @@
 let deck = [];
+let health = 50;
+
 let battle = true;
 let currentMonster;
-let health = 50;
 let squad = []
 let selectedCards = [];
 let moves = 4;
-
-// CARDS
-
-const rustySword = {
-  name: "Rusty Sword",
-  type: "attack",
-  damage: 5,
-  actions: 1,
-  price: 3,
-  action: '',
-  img: "rustySword.png"
-}
-const slimeball = {
-  name: "Slimeball",
-  type: "magic",
-  damage: 0,
-  actions: 0,
-  price: 6,
-  action: 'Play with an attack card to use it twice!',
-  img: "slimeball.png"
-}
-const sword = {
-  name: "Sword",
-  type: "attack",
-  damage: 8,
-  actions: 1,
-  price: 9,
-  action: '',
-  img: "sword.png"
-}
-
-// MONSTERS
-
-const slime = {
-  name: "Slime",
-  description: "It's like jell-o - but don't eat it!",
-  img: "res/img/placeholder-portrait.png",
-  health: 15,
-  deck: [5],
-  loot: [slimeball]
-}
+let turn = true;
+let idonthaveagoodnameforthis = 0;
 
 
 function start() {
-  deck.push(rustySword, slimeball, rustySword);
+  deck.push(rustySword, slimeball, rustySword, mace, bone, redSlimeball);
   fullDeck = deck;
-  console.log(fullDeck);
   enterBattle(slime);
 }
 
@@ -62,7 +23,7 @@ function deal(amount, first) {
     if (shuffledDeck != []) {
       shuffledDeck = shuffle(shuffledDeck);
     } else {
-      alert("out of cards!")
+      alert("out of cards!");
     }
   }
   for (let i = 0; i < amount; i++) { 
@@ -77,14 +38,14 @@ function deal(amount, first) {
 }
 
 function displayCard(card, parent) {
-
   // img/tooltip prep
   const necessaryDiv = document.createElement("div");
   necessaryDiv.className = "tooltip";
   const img = document.createElement("img");
   img.src = "res/img/"+card.img;
   img.draggable = false;
-  img.id = card.name;
+  img.id = card.file + idonthaveagoodnameforthis;
+  idonthaveagoodnameforthis += 1;
   necessaryDiv.appendChild(img);
   sample = 0;
   while (true) {
@@ -120,15 +81,15 @@ function displayCard(card, parent) {
 
   necessaryDiv.appendChild(tooltip);
 
-  document.getElementById(card.name).addEventListener("click", function() {
+  img.addEventListener("click", function() {
     select();
-    selectedCards.push(card);
+    selectedCards.push(event.target.id);
   }); 
 
 }
 
 function discardCard(card) {
-  document.getElementById(card.name).parentElement.remove();
+  document.getElementById(card).parentElement.remove();
 }
 
 function select() {
@@ -140,28 +101,111 @@ function select() {
 }
 
 function play() {
-  if (selectedCards==""){return;}
+  if (selectedCards.length === 0) return;
 
+  const animationArea = document.getElementById("animation-area");
+  const cardsToAnimate = [...selectedCards]; // Local copy of selectedCards
+  cardsToAnimate.forEach((card, index) => {
+    card = card.slice(0, -1)
+  });
+  console.log(cardsToAnimate)
   moves -= 1;
   document.getElementById("moves").innerHTML = "Moves left: " + moves;
-  for (let i in selectedCards) {
-    let card = selectedCards[i];
-    if (card.type == "attack") {
 
-      attack(card.damage);
+  const cardCount = cardsToAnimate.length;
+  const centerX = window.innerWidth / 2;
+  const centerY = window.innerHeight / 2;
+  const spacing = 150; // Distance between cards in the blank space
 
-      if (selectedCards.includes(slimeball)) {
-        attack(card.damage);
-        removeItem(selectedCards, slimeball);
-      }
+  cardsToAnimate.forEach((card, index) => {
+    const offsetX = (index - Math.floor(cardCount / 2)) * spacing;
+    const targetX = centerX + offsetX - 62.5;
+    const targetY = centerY - 62.5 - 100;
+    let cardName = card.slice(0, -1);
+    const cardElement = document.getElementById(card);
+    const rect = cardElement.getBoundingClientRect();
 
-    }
-    discardCard(card)
+    const animatedCard = document.createElement("img");
+    animatedCard.src = "res/img/" + cardName + ".png";
+    animatedCard.style.setProperty("filter", "drop-shadow(-5px 5px 10px black)");
+    animatedCard.className = "card-animation";
+    animatedCard.style.left = `${rect.left}px`;
+    animatedCard.style.top = `${rect.top + 140 + 150}px`;
+    animationArea.appendChild(animatedCard);
+
+    setTimeout(() => {
+      
+      animatedCard.style.transform = `translate(${targetX - rect.left}px, ${targetY - rect.top}px)`;
+      animatedCard.classList.add("show");
+
+      setTimeout(() => {
+        card = eval(cardName);
+        if (card.type === "attack") {
+          setTimeout(function(){
+            const damageIndicator = document.createElement("div");
+            console.log(card.damage)
+            damageIndicator.className = "damage-indicator";
+            damageIndicator.innerText = `+${card.damage} damage`;
+            damageIndicator.style.left = `${targetX + 30}px`;
+            damageIndicator.style.top = `${targetY - 30 + 140 + 150}px`;
+            animationArea.appendChild(damageIndicator);
+  
+            damageIndicator.addEventListener("animationend", () => damageIndicator.remove());
+          }, 200)
+          attack(card.damage);
+          if (selectedCards.includes(slimeball)) {
+            setTimeout(function(){
+              useSlimeball(targetX, targetY, card.damage);
+            }, 400);
+          }
+        }
+
+        setTimeout(() => {
+          animatedCard.style.opacity = 0;
+          animatedCard.addEventListener("transitionend", () => animatedCard.remove());
+        }, 1000);
+
+      }, index * 200);
+    }, 0);
+
+    discardCard(card);
+  });
+
+  function useSlimeball(targetX, targetY, damage) {
+    console.log("SLIMBELA")
+    const slimeEffectIndicator = document.createElement("div");
+    slimeEffectIndicator.className = "slime-effect";
+    slimeEffectIndicator.innerText = "Double Attack!";
+    slimeEffectIndicator.style.left = `${targetX + 30}px`;
+    slimeEffectIndicator.style.top = `${targetY - 10 + 140 + 150}px`;
+    document.getElementById("animation-area").appendChild(slimeEffectIndicator);
+
+    removeItem(selectedCards, slimeball);
+    attack(damage);
+    slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
   }
-  deal(6, false)
+
+  setTimeout(() => {
+    deal(6, false);
+  }, 2000);
+
   selectedCards = [];
-  
-  
+  switchTurn();
+}
+
+function switchTurn() {
+  if (turn == true) {
+    // enemy turn (dang this is just blackjack again)
+    turn == false;
+    monsterAttack();
+  } else if (turn == false) {
+    // player turn
+    turn == true;
+  } else {
+    alert("Invalid turn sequence.")
+    alert("Beginning escape process...")
+    alert("Just kidding haha")
+  }
 }
 
 function enterBattle(monster) {
@@ -176,15 +220,51 @@ function enterBattle(monster) {
   currentMonster = monster;
 }
 
+function monsterAttack() {
+  const healthBar = document.getElementById("player-health-bar");
+  const healthNum = document.getElementById("player-health-num");
+  
+  let monster = currentMonster;
+
+  damage = monster.damage;
+
+  let percent = (damage * 100) / health;
+  let newWidth = healthBar.offsetWidth - (healthBar.offsetWidth / 100) * percent;
+
+  health -= damage;
+
+  setTimeout(function(){
+    healthBar.classList.add("flash");
+  }, 900)
+
+  
+
+  setTimeout(function() {
+    healthNum.innerHTML = health;
+    healthBar.style.width = newWidth + "px";
+  }, 1400);
+
+  setTimeout(function() {
+    healthBar.classList.remove("flash");
+  }, 4000)
+}
+
+// THESE TWO ARE SEPARATE ( i've had enough mistakes already )
+
 function attack(damage) {
-  info = document.getElementById("monster-health-bar").getBoundingClientRect();
+  const healthBar = document.getElementById("monster-health-bar");
+  const healthNum = document.getElementById("monster-health-num");
+
   let percent = (damage * 100) / enemyHealth;
-  let barWidth = ( info.width - ((info.width / 100) * percent) );
+  let newWidth = healthBar.offsetWidth - (healthBar.offsetWidth / 100) * percent;
 
   enemyHealth -= damage;
 
-  document.getElementById("monster-health-num").innerHTML = enemyHealth;
-  document.getElementById("monster-health-bar").style.width = barWidth+"px";
+  // Update health number and animate bar to shrink gosh chatgpt
+  setTimeout(function() {
+    healthNum.innerHTML = enemyHealth;
+    healthBar.style.width = newWidth + "px";
+  }, 200);
 }
 
 // coolaj68 on Stack Overflow...

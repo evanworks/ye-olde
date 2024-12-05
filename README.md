@@ -7,8 +7,8 @@ Very much a work in progress.
 ### Things added:
 
 * sword cards, magic cards
-* enemy health
+* enemy
 
 ### Things to add:
 
-* basically everything
+* basically everything - mostly shop, enemy, and cards

@@ -141,6 +141,7 @@ b {
   margin-left: -10px;
   margin-top: -10px;
   width: 100vw;
+  transition: transform 2 ease;
 }
 
 #player-health-num {
@@ -168,6 +169,7 @@ b {
   border-radius: 10px;
 }
 #playButton {
+  cursor: pointer;
   position: absolute;
   bottom: 23vh;
 }
@@ -186,4 +188,84 @@ b {
 }
 #playbuttonimg:active {
   content:url(img/play-active.png);
+}
+
+/*
+
+START OF CHAPGPT
+
+*/
+
+#animation-area {
+  position: fixed;
+  top: -300px;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.card-animation {
+  position: absolute;
+  z-index: 100;
+  width: 125px;
+  opacity: 0; /* Start hidden */
+  transition: transform 0.5s ease;
+}
+
+.card-animation.show {
+  opacity: 1; /* Appear smoothly */
+}
+
+.damage-indicator {
+  font-size: 24px;
+  color: #fbff86;
+  font-weight: bold;
+  position: absolute;
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeUp {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50px);
+  }
+}
+
+@keyframes fadeIn {
+  0% { transform: translateY(-1px); opacity: 0.5; z-index: -10;}
+  100% { transform: translateY(0px); opacity: 1;}
+}
+
+/* Style for the slimeball effect indicator */
+.slime-effect {
+  font-size: 18px;
+  color: #ff6d00;
+  font-weight: bold;
+  position: absolute;
+  animation: fadeIn 1s ease-out;
+}
+
+#monster-health-bar, #player-health-bar {
+  width: 93vw;
+  background: #7a3045;
+  border: 2px solid #252928;
+  height: 25px;
+  transition: width 0.2s ease-in-out; /* Smooth transition */
+}
+#player-health-bar {
+  transition: width 0.5s ease-in-out;
+}
+
+@keyframes flash {
+  0% {background: #7a3045;}
+  50% { background: #e83b3b;}
+}
+
+
+.flash {
+  animation: flash 3s infinite;
 }

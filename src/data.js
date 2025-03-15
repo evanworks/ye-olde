@@ -20,12 +20,22 @@ const sword = {
   action: '',
   img: "sword.png"
 }
+const scimitar = {
+  file: "scimitar",
+  name: "Scimitar",
+  type: "attack",
+  damage: 11,
+  actions: 1,
+  price: 10,
+  action: '',
+  img: "scimitar.png"
+}
 const mace = {
   file: "mace",
   name: "Mace",
   type: "attack",
   damage: 10,
-  actions: 0,
+  actions: 1,
   price: 8,
   action: '',
   img: "mace.png"
@@ -62,6 +72,17 @@ const bone = {
   price: 12,
   action: '<span style="color:salmon;">2x damage</span> on all played metal cards.',
   img: "bone.png"
+}
+// SPECIAL
+const luckPotion = {
+  file: "luckPotion",
+  name: "Luck Potion",
+  type: "special",
+  damage: 0,
+  actions: 1,
+  price: 30,
+  action: 'Get <span style="color: #f4d29c">twice</span> as much loot when you kill the enemy.',
+  img: "luckPotion.png"
 }
 
 // MONSTERS

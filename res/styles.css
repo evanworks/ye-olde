@@ -37,11 +37,11 @@ img {
 .tooltip {
   position: relative;
   display: inline-block;
-  /*animation: idle 4s infinite;*/
+  animation: idle 4s infinite;
 }
 .tooltip:hover {
   animation: none;
-  transform: rotate(2deg);
+  transform: scale(1.03)
 }
 .tooltip:active {
   position: relative;
@@ -76,7 +76,6 @@ b {
 
 .tooltip:hover .tooltiptext {
   visibility: visible;
-  transform: rotate(-3deg);
 }
 
 
@@ -153,7 +152,8 @@ b {
   display: inline-block;
   color: #fbb954;
   padding: 10px;
-  margin-right: 20px;
+  margin-right: 12px;
+  margin-left: 8px;
 }
 #XP {
   padding: 10px;
@@ -173,12 +173,29 @@ b {
   position: absolute;
   bottom: 23vh;
 }
-#moves {
+#actions {
   position: absolute;
   bottom: 38vh;
   left: 34px;
-  font-size: 32px;
+  font-size: 30px;
   font-family: "Jersey 10", sans-serif;
+  color: white;
+  background: #484a77;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#plays {
+  position: absolute;
+  bottom: 38vh;
+  left: 112px;
+  font-size: 30px;
+  font-family: "Jersey 10", sans-serif;
+  color: white;
+  background: #ae2334;
+  border-radius: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
 #playbuttonimg {
   width: 180px;
@@ -210,8 +227,8 @@ START OF CHAPGPT
   position: absolute;
   z-index: 100;
   width: 125px;
-  opacity: 0; /* Start hidden */
-  transition: transform 0.5s ease;
+  opacity: 1;
+  transition: transform 0.3s ease;
 }
 
 .card-animation.show {
@@ -268,4 +285,14 @@ START OF CHAPGPT
 
 .flash {
   animation: flash 3s infinite;
+}
+
+@keyframes shake {
+  0% { transform: translate(5px, 0px); }
+  50% {transform: translate(-5px, 0px);}
+  100% { transform: translate(5px, 0px); }
+}
+
+.shake {
+  animation: shake 0.4s infinite;
 }

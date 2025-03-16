@@ -11,4 +11,12 @@ Very much a work in progress.
 
 ### Things to add:
 
-* basically everything - mostly shop, enemy, and cards
+* shop
+* more stuff
+
+### Known bugs:
+
+* cards not played in the correct order
+* slimeball plays on all cards
+* deselecting cards is impossible
+* bone and frog don't work

@@ -1,13 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Micro+5&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jacquard+12&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Jacquard+24&display=swap');
 body {
   font-family: "Micro 5", sans-serif;
-  background: #313638;
+  background: linear-gradient(120deg, #313638, #3d4345);
   color: white;
   user-select: none;
   overflow: hidden;
+  background-size: 200% 200%;
+  animation: waveBackground 20s infinite alternate ease-in-out;
 }
+@keyframes waveBackground {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+/* ----- */
+/* BATTLE */
+/* ----- */
+/* ----- */
+/* ----- */
+
 img {
   width: 125px;
   margin: 10px;
@@ -20,6 +34,7 @@ img {
   border-radius: 15px;
   height: 190px;
   display: inline-block;
+  z-index: -3;
 }
 @keyframes idle {
   0% { transform: rotate(1deg); }
@@ -38,10 +53,12 @@ img {
   position: relative;
   display: inline-block;
   animation: idle 4s infinite;
+  z-index: 0;
 }
 .tooltip:hover {
   animation: none;
-  transform: scale(1.03)
+  transform: scale(1.03);
+  z-index: 10000000000000000;
 }
 .tooltip:active {
   position: relative;
@@ -68,10 +85,11 @@ b {
   border-radius: 6px;
   padding: 5px 0;
   position: absolute;
-  z-index: 1;
+  z-index: 100000000000000000000000000;
   top: 98%;
   right: -2%;
   padding: 5px;
+  opacity: 0.99;
 }
 
 .tooltip:hover .tooltiptext {
@@ -201,10 +219,10 @@ b {
   width: 180px;
 }
 #playbuttonimg:hover {
-  content:url(img/play-hover.png);
+  content:url(img/buttons/play-hover.png);
 }
 #playbuttonimg:active {
-  content:url(img/play-active.png);
+  content:url(img/buttons/play-active.png);
 }
 
 /*
@@ -240,7 +258,7 @@ START OF CHAPGPT
   color: #fbff86;
   font-weight: bold;
   position: absolute;
-  animation: fadeIn 1s ease-out;
+  animation: fadeShrink 1s ease-out;
 }
 
 @keyframes fadeUp {
@@ -257,13 +275,21 @@ START OF CHAPGPT
   100% { transform: translateY(0px); opacity: 1;}
 }
 
+@keyframes fadeShrink {
+  0% { transform: translateY(-1px); opacity: 1; z-index: -10;}
+  100% { transform: translateY(0px); opacity: 0;}
+}
+.fadeShrink-class {
+  animation: fadeShrink 0.4s ease-out;
+}
+
 /* Style for the slimeball effect indicator */
 .slime-effect {
   font-size: 18px;
   color: #ff6d00;
   font-weight: bold;
   position: absolute;
-  animation: fadeIn 1s ease-out;
+  animation: fadeShrink 2s ease-out;
 }
 
 #monster-health-bar, #player-health-bar {
@@ -282,7 +308,6 @@ START OF CHAPGPT
   50% { background: #e83b3b;}
 }
 
-
 .flash {
   animation: flash 3s infinite;
 }
@@ -295,4 +320,137 @@ START OF CHAPGPT
 
 .shake {
   animation: shake 0.4s infinite;
+}
+
+@keyframes juice_up {
+  0% { transform: translate(0px,-200px) scale(1) rotate(0deg); filter: brightness(1); }
+  15% { transform: translate(0px,-200px) scale(1.15) rotate(-3deg); filter: brightness(1.3); }
+  30% { transform: translate(0px,-200px) scale(1) rotate(2deg); filter: brightness(1.1); }
+  45% { transform: translate(0px,-200px) scale(1.1) rotate(-1deg); filter: brightness(1.2); }
+  60% { transform: translate(0px,-200px) scale(1) rotate(0deg); filter: brightness(1); }
+  100% { transform: translate(0px,-200px) scale(1) rotate(0deg); filter: brightness(1); }
+}
+
+.juicy {
+  animation: juice_up 0.5s ease-out;
+}
+
+
+/* ----- */
+/* TITLE */
+/* ----- */
+/* ----- */
+/* ----- */
+
+#center {
+  margin-top: 20vh;
+  align-items: center;
+  text-align: center;
+}
+#title-text {
+  font-size: 128px;
+  font-family: "Jacquard 24";
+  animation: fadeIn 6s;
+}
+@keyframes fadeIn {
+  0% { transform: translateY(-50px); opacity: 0; }
+  100% { transform: translateY(0px); opacity: 1;}
+}
+#title-playbutton {
+  cursor: pointer;
+  width: 156px;
+  animation: appearRandomly 12s;
+  z-index: 10000;
+}
+#title-playbutton:hover {
+  content:url(img/buttons/play-hover.png);
+}
+#title-playbutton:active {
+  content:url(img/buttons/play-active.png);
+}
+@keyframes appearRandomly {
+  0% { opacity: 0; }
+  25% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+/* ----- */
+/* SHOP */
+/* ----- */
+/* ----- */
+/* ----- */
+
+#shop-details {
+  width: 180px;
+  background: #252928;
+  margin-left: -10px;
+  padding: 15px;
+  float: left;
+}
+
+#attack-row {
+  margin-top: 24px;
+  width: calc(100vw - 240px);
+  float: right;
+  height: 30vh;
+  margin-left: 19px;
+}
+#magic-row {
+  margin-top: 8px;
+  width: calc(100vw - 240px);
+  float: right;
+  height: 30vh;
+  margin-left: 19px;
+}
+#food-row {
+  margin-top: 8px;
+  width: calc(100vw - 240px);
+  float: right;
+  height: 30vh;
+  margin-left: 19px;
+}
+#shop-name {
+  font-family: "Jacquard 12", sans-serif;
+  font-size: 48px;
+  margin-left: 10px;
+}
+#shop-desc {
+  font-size: 20px;
+  font-weight: 100;
+  font-style: italic;
+  margin-left: 10px;
+}
+.price {
+  color: #fbb954;
+  margin: 5px;
+  background: #252928;
+  border-radius: 15px;
+  height: 50px;
+  width: 50px;
+  text-align: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: none;
+  position: absolute;
+  font-size: 40px;
+  font-family: "Jersey 10", sans-serif;
+  margin-top: -30px;
+  margin-left: 42px;
+  z-index: -4;
+}
+#leaveButton {
+  position: absolute;
+  left: 5px;
+  top: 230px;
+}
+#leavebuttonimg {
+  width: 180px;
+  cursor: pointer;
+  animation: idle 10s infinite;
+}
+#leavebuttonimg:hover {
+  content:url(img/buttons/leave-hover.png);
+}
+#leavebuttonimg:active {
+  content:url(img/buttons/leave-active.png);
 }

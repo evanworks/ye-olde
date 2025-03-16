@@ -1,3 +1,24 @@
+function enterBattle() {
+  monster = chooseMonster()
+  document.getElementById("shop").style.display = "none";
+  document.getElementById("battle").style.display = "block";
+  deal(5, true)
+
+  document.getElementById("monster-img").src = monster.img;
+  document.getElementById("monster-name").innerHTML = monster.name;
+  document.getElementById("monster-lvl").innerHTML = "Level " + 1;
+  document.getElementById("monster-desc").innerHTML = monster.description;
+  document.getElementById("monster-health-num").innerHTML = monster.health;
+  enemyHealth = monster.health;
+  currentMonster = monster;
+}
+
+function chooseMonster() {
+  if (level < 2) {
+    return getRandomItem([slime])
+  }
+}
+
 function deal(amount, first) {
   if (first) {
     shuffledDeck = shuffle(fullDeck);
@@ -30,15 +51,16 @@ function displayCard(card, parent) {
   idonthaveagoodnameforthis += 1;
   necessaryDiv.appendChild(img);
   sample = 0;
+
   for (let i = 0; i < 6; i++) {
     sample += 1;
-    if (document.getElementById(parent + sample).innerHTML == "") {
+    if (document.getElementById(parent + sample).innerHTML == null || document.getElementById(parent + sample).innerHTML == "") {
       parent += sample;
+      
       break;
     }
   }
   const element = document.getElementById(parent);
-
   element.appendChild(necessaryDiv);
 
   // tooltip insides
@@ -71,22 +93,28 @@ function displayCard(card, parent) {
 
   necessaryDiv.appendChild(tooltip);
 
+  // selects cards
+
   img.addEventListener("click", function() {
-    // decreases actions
-    if (actions > 0 || card.actions >= 1) {
-      select();
-      actions += card.actions;
-      actions -= 1;
-      document.getElementById("actions-num").innerHTML = actions;
-      selectedCards.push(event.target.id);
-      console.log(selectedCards)
+    if (document.getElementById("shop").style.display == "block") {
+      buyCardInShop(card, parent);
     } else {
-      document.getElementById("actions-num").style.color = "#e83b3b";
-      document.getElementById("actions-num").classList.add("shake");
-      setTimeout(() => {
-        document.getElementById("actions-num").style.color = "white";
-        document.getElementById("actions-num").classList.remove("shake");
-      }, 800)
+      // decreases actions
+      if (actions > 0 || card.actions >= 1) {
+        select();
+        actions += card.actions;
+        actions -= 1;
+        document.getElementById("actions-num").innerHTML = actions;
+        selectedCards.push(event.target.id);
+        event.target.classList.add('selected-card');
+      } else {
+        document.getElementById("actions-num").style.color = "#e83b3b";
+        document.getElementById("actions-num").classList.add("shake");
+        setTimeout(() => {
+          document.getElementById("actions-num").style.color = "white";
+          document.getElementById("actions-num").classList.remove("shake");
+        }, 800)
+      }
     }
   }); 
 
@@ -108,6 +136,9 @@ function play() {
   if (selectedCards.length === 0) return;
 
   console.log(selectedCards)
+
+  hands -= 1;
+  document.getElementById("hands-num").innerHTML = hands;
 
   const animationArea = document.getElementById("animation-area");
   const cardsToAnimate = [...selectedCards]; // Local copy of selectedCards
@@ -132,14 +163,13 @@ function play() {
 
     const animatedCard = document.createElement("img");
     animatedCard.src = "res/img/" + cardName + ".png";
-    animatedCard.style.setProperty("filter", "drop-shadow(-5px 5px 10px black)");
     animatedCard.className = "card-animation";
     animatedCard.style.left = `${rect.left}px`;
     animatedCard.style.top = `${rect.top + 140 + 150}px`;
     animationArea.appendChild(animatedCard);
 
     setTimeout(() => {
-      animatedCard.style.transform = `translate(0px,-150px)`
+      animatedCard.style.transform = `translate(0px,-200px)`
       //animatedCard.style.transform = `translate(${targetX - rect.left}px, ${targetY - rect.top}px)`;
       animatedCard.classList.add("show");
 
@@ -147,13 +177,12 @@ function play() {
         card = eval(cardName);
         if (card.type === "attack") {
           setTimeout(function(){
-            juice_up(animatedCard, 1)
+            juice_up(animatedCard)
             const damageIndicator = document.createElement("div");
-            console.log(card.damage)
             damageIndicator.className = "damage-indicator";
             damageIndicator.innerText = `+${card.damage} damage`;
             damageIndicator.style.left = `${rect.left + 30}px`;
-            damageIndicator.style.top = `${rect.top+120}px`;
+            damageIndicator.style.top = `${rect.top+70}px`;
             animationArea.appendChild(damageIndicator);
   
             damageIndicator.addEventListener("animationend", () => damageIndicator.remove());
@@ -161,8 +190,14 @@ function play() {
           attack(card.damage);
           if (cardNames.includes("slimeball")) {
             setTimeout(function(){
-              juice_up(animatedCard, 1)
+              juice_up(animatedCard)
               useSlimeball(rect.left, rect.top, card.damage);
+            }, 400);
+          }
+          if (cardNames.includes("redSlimeball")) {
+            setTimeout(function(){
+              juice_up(animatedCard)
+              useRedSlimeball(rect.left, rect.top, card.damage);
             }, 400);
           }
         }
@@ -184,12 +219,31 @@ function play() {
     slimeEffectIndicator.className = "slime-effect";
     slimeEffectIndicator.innerText = "Double Attack!";
     slimeEffectIndicator.style.left = `${targetX + 30}px`;
-    slimeEffectIndicator.style.top = `${targetY + 105}px`;
+    slimeEffectIndicator.style.top = `${targetY + 55}px`;
     document.getElementById("animation-area").appendChild(slimeEffectIndicator);
 
     removeItem(selectedCards, slimeball);
     attack(damage);
     slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
+  }
+
+  function useRedSlimeball(targetX, targetY, damage) {
+    //for (let i = 0; i > 3; i++) {
+      let slimeEffectIndicator = document.createElement("div");
+      slimeEffectIndicator.className = "slime-effect";
+      slimeEffectIndicator.innerText = "Triple attack!";
+      slimeEffectIndicator.style.left = `${targetX + 30}px`;
+      slimeEffectIndicator.style.top = `${targetY + 55}px`;
+      document.getElementById("animation-area").appendChild(slimeEffectIndicator);
+  
+      attack(damage);
+  
+      attack(damage);
+  
+      removeItem(selectedCards, slimeball);
+      attack(damage);
+      slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
+    //}
   }
 
   setTimeout(() => {
@@ -213,18 +267,6 @@ function switchTurn() {
     alert("Beginning escape process...")
     alert("Just kidding haha")
   }
-}
-
-function enterBattle(monster) {
-  deal(5, true)
-
-  document.getElementById("monster-img").src = monster.img;
-  document.getElementById("monster-name").innerHTML = monster.name;
-  document.getElementById("monster-lvl").innerHTML = "Level " + 1;
-  document.getElementById("monster-desc").innerHTML = monster.description;
-  document.getElementById("monster-health-num").innerHTML = monster.health;
-  enemyHealth = monster.health;
-  currentMonster = monster;
 }
 
 function monsterAttack() {
@@ -259,8 +301,6 @@ function monsterAttack() {
 // THESE TWO ARE SEPARATE ( i've had enough mistakes already )
 
 function attack(damage) {
-  
-
   // healthbar
   const healthBar = document.getElementById("monster-health-bar");
   const healthNum = document.getElementById("monster-health-num");
@@ -270,22 +310,29 @@ function attack(damage) {
 
   enemyHealth -= damage;
 
-  // Update health number and animate bar to shrink gosh chatgpt
-  setTimeout(function() {
-    healthNum.innerHTML = enemyHealth;
-    healthBar.style.width = newWidth + "px";
-  }, 200);
+  
+    // Update health number and animate bar to shrink gosh chatgpt
+    setTimeout(function() {
+      
+      if (enemyHealth > 0) {
+        healthNum.innerHTML = enemyHealth;
+        healthBar.style.width = newWidth + "px";
+      } else {
+        healthNum.innerHTML = 0;
+        healthBar.style.width = "0px";
+        setTimeout(function() {
+          enterShop();
+        }, 500)
+      }
+    }, 200);
 }
 
 // yells at a card to rotate
-function juice_up(card, amount) {
-  card.style.rotate = `${amount}deg`
+function juice_up(card) {
+  card.classList.add("juicy");
   setTimeout(() => {
-    card.style.rotate = `-${amount}deg`
-    setTimeout(() => {
-      card.style.rotate = `0deg`
-    }, 100)
-  }, 100)
+    card.classList.remove("juicy");
+  }, 500)
 }
 
 // coolaj68 on Stack Overflow...
@@ -316,4 +363,8 @@ function removeItem (array, item) {
   if (index > -1) { // only splice array when item is found
     array.splice(index, 1); // 2nd parameter means remove one item only
   }
+}
+function getRandomItem(array) {
+  const randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
 }

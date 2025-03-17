@@ -2,6 +2,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jacquard+12&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jacquard+24&display=swap');
+
+:root {
+  --shadow: #252928;
+
+  --healthFull: #e83b3b;
+  --healthEmpty: #7a3045;
+
+  --money: #fbb954;
+
+  --attack: #1ebc73;
+  --magic: #a884f3;
+  --food: #8fd3ff;
+  --special: #fbff86;
+}
+
+
 body {
   font-family: "Micro 5", sans-serif;
   background: linear-gradient(120deg, #313638, #3d4345);
@@ -29,7 +45,7 @@ img {
 }
 .slot {
   margin: 5px;
-  background: #252928;
+  background: var(--shadow);
   width: 145px;
   border-radius: 15px;
   height: 190px;
@@ -46,7 +62,7 @@ img {
   100% { top: -30px; }
 }
 @keyframes fade {
-  0% { background:#e83b3b; }
+  0% { background:var(--healthFull); }
   100% { background: transparent; }
 }
 .tooltip {
@@ -83,13 +99,17 @@ b {
   color: #fff;
   text-align: center;
   border-radius: 6px;
-  padding: 5px 0;
   position: absolute;
   z-index: 100000000000000000000000000;
   top: 98%;
   right: -2%;
   padding: 5px;
   opacity: 0.99;
+}
+.tooltip .above {
+  top: -40%;
+  right: -2%;
+  margin-left: -70px;
 }
 
 .tooltip:hover .tooltiptext {
@@ -111,9 +131,10 @@ b {
 
 #monster-details {
   width: 180px;
-  background: #252928;
+  background: var(--shadow);
   margin-left: -10px;
   padding: 15px;
+  animation: funSlide 0.2s;
 }
 #monster-img {
   width: 120px;
@@ -134,7 +155,7 @@ b {
 #player-health {
   position: absolute;
   margin-top: 80px;
-  background: #252928;
+  background: var(--shadow);
   width: 100vw;
   bottom: 0px;
   left: 0px;
@@ -143,18 +164,18 @@ b {
 
 #monster-health-bar, #player-health-bar {
   width: 93vw;
-  background: #7a3045;
-  border: 2px solid #252928;
+  background: var(--healthEmpty);
+  border: 2px solid var(--shadow);
   height: 25px;
 }
 #monster-health-num, #player-health-num {
   font-family: "Jersey 10", sans-serif;
-  color: #e83b3b;
+  color: var(--healthFull);
   font-size: 46px;
   margin-left: 10px;
 }
 #monster-health {
-  background: #252928;
+  background: var(--shadow);
   margin-left: -10px;
   margin-top: -10px;
   width: 100vw;
@@ -168,7 +189,7 @@ b {
 }
 #money {
   display: inline-block;
-  color: #fbb954;
+  color: var(--money);
   padding: 10px;
   margin-right: 12px;
   margin-left: 8px;
@@ -181,7 +202,7 @@ b {
   font-size: 48px;
   font-family: "Jersey 10", sans-serif;
   position: absolute;
-  background: #252928;
+  background: var(--shadow);
   left: 20px;
   bottom: 50px;
   border-radius: 10px;
@@ -260,6 +281,13 @@ START OF CHAPGPT
   position: absolute;
   animation: fadeShrink 1s ease-out;
 }
+.health-indicator {
+  font-size: 24px;
+  color: #f04f78;
+  font-weight: bold;
+  position: absolute;
+  animation: fadeShrink 1s ease-out;
+}
 
 @keyframes fadeUp {
   0% {
@@ -294,8 +322,8 @@ START OF CHAPGPT
 
 #monster-health-bar, #player-health-bar {
   width: 93vw;
-  background: #7a3045;
-  border: 2px solid #252928;
+  background: var(--healthEmpty);
+  border: 2px solid var(--shadow);
   height: 25px;
   transition: width 0.2s ease-in-out; /* Smooth transition */
 }
@@ -304,8 +332,8 @@ START OF CHAPGPT
 }
 
 @keyframes flash {
-  0% {background: #7a3045;}
-  50% { background: #e83b3b;}
+  0% {background: var(--healthEmpty);}
+  50% { background: var(--healthFull);}
 }
 
 .flash {
@@ -382,12 +410,34 @@ START OF CHAPGPT
 
 #shop-details {
   width: 180px;
-  background: #252928;
+  background: var(--shadow);
   margin-left: -10px;
   padding: 15px;
   float: left;
+  animation: funSlide 0.2s;
 }
-
+@keyframes funSlide {
+  0% {
+    transform: translateX(-180px);
+  }
+  90% {
+    transform: translateX(10px);
+  }
+  100% {
+    transform: translateX(0px);
+  }
+}
+#shop-name {
+  font-family: "Jacquard 12", sans-serif;
+  font-size: 48px;
+  margin-left: 10px;
+}
+#shop-desc {
+  font-size: 20px;
+  font-weight: 100;
+  font-style: italic;
+  margin-left: 10px;
+}
 #attack-row {
   margin-top: 24px;
   width: calc(100vw - 240px);
@@ -409,22 +459,16 @@ START OF CHAPGPT
   height: 30vh;
   margin-left: 19px;
 }
-#shop-name {
-  font-family: "Jacquard 12", sans-serif;
-  font-size: 48px;
-  margin-left: 10px;
-}
-#shop-desc {
-  font-size: 20px;
-  font-weight: 100;
-  font-style: italic;
-  margin-left: 10px;
+.shop-slot .tooltip:active {
+  animation: none;
+  top: 0px;
 }
 .price {
-  color: #fbb954;
+  color: var(--money);
   margin: 5px;
-  background: #252928;
-  border-radius: 15px;
+  background: var(--shadow);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
   height: 50px;
   width: 50px;
   text-align: center;
@@ -437,6 +481,29 @@ START OF CHAPGPT
   margin-top: -30px;
   margin-left: 42px;
   z-index: -4;
+  animation: moreFunSlide 0.2s;
+}
+@keyframes moreFunSlide {
+  0% {
+    transform: translateY(50px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+@keyframes try {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(50px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+.goesDownAndBackUp {
+  animation: try 0.3s;
 }
 #leaveButton {
   position: absolute;
@@ -453,4 +520,42 @@ START OF CHAPGPT
 }
 #leavebuttonimg:active {
   content:url(img/buttons/leave-active.png);
+}
+
+/* ----- */
+/* LOOT */
+/* ----- */
+/* ----- */
+/* ----- */
+
+#loot {
+  transition: 2s;
+}
+
+#win-msg {
+  font-size: 48px;
+  font-family: "Jacquard 12", sans-serif;
+  text-align: center;
+  margin-top: 20vh;
+}
+#lootslots {
+  margin-top: 24px;
+  text-align: center;
+}
+#collectbuttonimg {
+  width: 180px;
+  cursor: pointer;
+  animation: idle 10s infinite;
+}
+#collectbuttonimg:hover {
+  content:url(img/buttons/collect-hover.png);
+}
+#collectbuttonimg:active {
+  content:url(img/buttons/collect-active.png);
+}
+#loot-money {
+  color: var(--money);
+  font-size: 40px;
+  font-family: "Jersey 10", sans-serif;
+  transform: translateY(-47%);
 }

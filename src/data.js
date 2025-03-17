@@ -3,14 +3,14 @@
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 
 const rustySword = {
-  file: "rustySword",
-  name: "Rusty Sword",
-  type: "attack",
-  damage: 5,
-  actions: 1,
-  price: 3,
-  action: '',
-  img: "rustySword.png"
+  file: "rustySword", // camelCase name
+  name: "Rusty Sword", // in-game name
+  type: "attack", // attack, magic, food, special
+  damage: 5, // damage
+  actions: 1, // if it gives any extra actions (number of selected cards)
+  price: 3, // price in shop
+  action: '', // describes special quality
+  img: "rustySword.png" // img file (res/img/...)
 }
 // battle axe
 // club
@@ -73,6 +73,7 @@ const longbow = {
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 // MAGIC //
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
+
 const slimeball = {
   file: "slimeball",
   name: "Slimeball",
@@ -80,7 +81,7 @@ const slimeball = {
   damage: 0,
   actions: 0,
   price: 6,
-  action: 'Play with a single attack card to use it <span style="color:#a884f3">twice</span>!',
+  action: 'Play with a single attack card to use it <span style="color:var(--magic);">twice</span>!',
   img: "slimeball.png"
 }
 const redSlimeball = {
@@ -100,7 +101,7 @@ const greenToad = {
   damage: 0,
   actions: 1,
   price: 0,
-  action: 'Repeat least expensive card <span style="color:#a884f3">twice</span> and earn its <span style="color:#f9c22b;">sell value</span>',
+  action: 'Repeat least expensive card <span style="color:var(--magic);">twice</span> and earn its <span style="var(--money)">sell value</span>',
   img: 'rustySword.png',
 }
 const bone = {
@@ -110,8 +111,24 @@ const bone = {
   damage: 0,
   actions: 1,
   price: 12,
-  action: '<span style="color:salmon;">2x damage</span> on all played metal cards.',
+  action: '<span style="color:var(--healthFull);">2x</span> damage on all played metal cards.',
   img: "bone.png"
+}
+
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
+// FOOD
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
+
+const juice = {
+  file: "juice",
+  name: "Juice",
+  type: "food",
+  damage: 0,
+  actions: 1,
+  health: 10, // how much health it heals (in percentage)
+  price: 3,
+  action: 'Heals <span style="color:var(--healthFull);">10%</span> of total Health',
+  img: "juice.png"
 }
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
@@ -125,7 +142,7 @@ const luckPotion = {
   damage: 0,
   actions: 1,
   price: 30,
-  action: 'Get <span style="color: #f4d29c">twice</span> as much loot when you kill the enemy.',
+  action: 'Get <span style="color:var(--money)">twice</span> as much loot when you kill the enemy.',
   img: "luckPotion.png"
 }
 
@@ -140,7 +157,8 @@ const slime = {
   img: "res/img/placeholder-portrait.png",
   health: 15,
   damage: 5,
-  loot: [slimeball],
+  money: 10,
+  loot: [slimeball, juice],
 }
 
 const skeleton = {
@@ -156,12 +174,13 @@ const skeleton = {
 // SHOPS
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 
+// works the same as marketStall but has less good loot
 const firstMarketStall = {
   name: "Market Stall",
   description: "A bright but lonely stall. You wonder how it got here - you're in a dungeon, after all.",
   lootAttack: [rustySword, sword],
-  lootMagic: [slimeball, bone],
-  lootFood: []
+  lootMagic: [slimeball, slimeball, bone], // slight weight on slimeball
+  lootFood: [juice]
 }
 
 const marketStall = {
@@ -170,29 +189,4 @@ const marketStall = {
   lootAttack: [rustySword, sword, longbow],
   lootMagic: [slimeball, bone, greenToad],
   lootFood: []
-}
-
-
-
-
-
-
-
-const testWeapon = {
-  file: "testWeapon",
-  name: "Test Weapon",
-  type: "attack",
-  damage: 25,
-  actions: 1,
-  price: 1,
-  action: '',
-  img: "nothing.png"
-}
-const testMonster = {
-  name: "Test Monster",
-  description: "Testing, testing, oops I beat it",
-  img: "is this necessary",
-  health: 1000,
-  damage: 0,
-  loot: [],
 }

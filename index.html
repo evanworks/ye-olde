@@ -3,6 +3,8 @@
   <head>
     <title>Ye Olde</title>
     <link rel="stylesheet" href="res/styles.css">
+    <script src="src/utilities.js"></script>
+    <script src="src/cards.js"></script>
     <script src="src/main.js"></script>
     <script src="src/data.js"></script>
     <script src="src/shop.js"></script>
@@ -45,14 +47,14 @@
           <div class="slot" id="slot5"></div>
           <div class="slot" id="slot6"></div>
         </div>
-        <div id="actions"><img style="width:24px;margin:0px;image-rendering:pixelated;"src="res/img/sword-icon.png"> <span style="margin-left: 3px;" id="actions-num">1</span></div>
-        <div id="plays"><img style="width:24px;margin:0px;image-rendering:pixelated;"src="res/img/hand-icon.png"> <span style="margin-left: 3px;" id="hands-num">2</span></div>
+        <div id="actions"><img style="width:24px;margin:0px;image-rendering:pixelated;"src="res/img/icons/sword.png"> <span style="margin-left: 3px;" id="actions-num">1</span></div>
+        <div id="plays"><img style="width:24px;margin:0px;image-rendering:pixelated;"src="res/img/icons/hand.png"> <span style="margin-left: 3px;" id="hands-num">2</span></div>
         <div id="playButton" onclick="play()"><img id="playbuttonimg" src="res/img/buttons/play.png"></div>
       </div>
     </div>
     
     <div id="player-details">
-      <span id="money">$5</span>
+      <span id="money">$0</span>
       <span id="XP">0 XP</span>
     </div>
     <div id="player-health">
@@ -60,6 +62,16 @@
         <div id="player-health-bar"></div>
       </div>
       <span id="player-health-num">50</span></div>
+    </div>
+
+    <div id="loot" style="opacity: 0;">
+      <div id="win-msg"></div>
+      <div id="lootslots">
+        <div class="slot" id="loot-slot1"></div>
+        <div class="slot" id="loot-slot2"></div>
+        <div class="slot" style="text-align: center;" id="loot-money"><div style="margin-top: 45%; animation: idle 4s infinite;" id="loot-money-txt">$NaN</div></div>
+      </div>
+      <div id="collectButton" style="text-align: center;" onclick="enterShop()"><img id="collectbuttonimg" src="res/img/buttons/collect.png"></div>
     </div>
 
     <div id="shop" style="display: none;">
@@ -71,39 +83,39 @@
 
       <div id="attack-row">
         <div class="price" id="price-attack-slot1">$0</div>
-        <div class="slot" id="attack-slot1"></div>
+        <div class="slot shop-slot" id="attack-slot1"></div>
         <div class="price" id="price-attack-slot2">$0</div>
-        <div class="slot" id="attack-slot2"></div>
+        <div class="slot shop-slot" id="attack-slot2"></div>
         <div class="price" id="price-attack-slot3">$0</div>
-        <div class="slot" id="attack-slot3"></div>
+        <div class="slot shop-slot" id="attack-slot3"></div>
         <div class="price" id="price-attack-slot4">$0</div>
-        <div class="slot" id="attack-slot4"></div>
+        <div class="slot shop-slot" id="attack-slot4"></div>
         <div class="price" id="price-attack-slot5">$0</div>
-        <div class="slot" id="attack-slot5"></div>
+        <div class="slot shop-slot" id="attack-slot5"></div>
       </div>
       <div id="magic-row">
         <div class="price" id="price-magic-slot1">$0</div>
-        <div class="slot" id="magic-slot1"></div>
+        <div class="slot shop-slot" id="magic-slot1"></div>
         <div class="price" id="price-magic-slot2">$0</div>
-        <div class="slot" id="magic-slot2"></div>
+        <div class="slot shop-slot" id="magic-slot2"></div>
         <div class="price" id="price-magic-slot3">$0</div>
-        <div class="slot" id="magic-slot3"></div>
+        <div class="slot shop-slot" id="magic-slot3"></div>
         <div class="price" id="price-magic-slot4">$0</div>
-        <div class="slot" id="magic-slot4"></div>
+        <div class="slot shop-slot" id="magic-slot4"></div>
         <div class="price" id="price-magic-slot5">$0</div>
-        <div class="slot" id="magic-slot5"></div>
+        <div class="slot shop-slot" id="magic-slot5"></div>
       </div>
       <div id="food-row">
         <div class="price" id="price-food-slot1">$0</div>
-        <div class="slot" id="food-slot1"></div>
+        <div class="slot shop-slot" id="food-slot1"></div>
         <div class="price" id="price-food-slot2">$0</div>
-        <div class="slot" id="food-slot2"></div>
+        <div class="slot shop-slot" id="food-slot2"></div>
         <div class="price" id="price-food-slot3">$0</div>
-        <div class="slot" id="food-slot3"></div>
+        <div class="slot shop-slot" id="food-slot3"></div>
         <div class="price" id="price-food-slot4">$0</div>
-        <div class="slot" id="food-slot4"></div>
+        <div class="slot shop-slot" id="food-slot4"></div>
         <div class="price" id="price-food-slot5">$0</div>
-        <div class="slot" id="food-slot5"></div>
+        <div class="slot shop-slot" id="food-slot5"></div>
       </div>
     </div>
   </body>

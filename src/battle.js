@@ -4,17 +4,29 @@ function enterBattle() {
   document.getElementById("battle").style.display = "block";
   deal(5, true)
 
+  // displays monster info
   document.getElementById("monster-img").src = monster.img;
   document.getElementById("monster-name").innerHTML = monster.name;
   document.getElementById("monster-lvl").innerHTML = "Level " + 1;
   document.getElementById("monster-desc").innerHTML = monster.description;
   document.getElementById("monster-health-num").innerHTML = monster.health;
+  document.getElementById("monster-health-bar").style.width = "93vw";
+
   enemyHealth = monster.health;
   currentMonster = monster;
+
+  // resets all values
+  idonthaveagoodnameforthis = 0; // great job past self
+
+  actions = maxActions;
+  hands = maxHands;
+
+  document.getElementById("hands-num").innerHTML = hands;
+  document.getElementById("actions-num").innerHTML = actions;
 }
 
 function chooseMonster() {
-  if (level < 2) {
+  if (xp < 2) {
     return getRandomItem([slime])
   }
 }
@@ -66,7 +78,9 @@ function displayCard(card, parent) {
   // tooltip insides
 
   const tooltip = document.createElement("span");
-  tooltip.className = "tooltiptext";
+  tooltip.classList.add("tooltiptext");
+  if (card.type == "food" && parent.includes("food"))
+  tooltip.classList.add("above");
   
   // displays name in bold
   tooltip.innerHTML = "<b>"+card.name+"</b><br/>";
@@ -96,28 +110,59 @@ function displayCard(card, parent) {
   // selects cards
 
   img.addEventListener("click", function() {
-    if (document.getElementById("shop").style.display == "block") {
-      buyCardInShop(card, parent);
-    } else {
-      // decreases actions
-      if (actions > 0 || card.actions >= 1) {
-        select();
-        actions += card.actions;
-        actions -= 1;
-        document.getElementById("actions-num").innerHTML = actions;
-        selectedCards.push(event.target.id);
-        event.target.classList.add('selected-card');
-      } else {
-        document.getElementById("actions-num").style.color = "#e83b3b";
-        document.getElementById("actions-num").classList.add("shake");
-        setTimeout(() => {
-          document.getElementById("actions-num").style.color = "white";
-          document.getElementById("actions-num").classList.remove("shake");
-        }, 800)
-      }
-    }
+    selectCard(card, parent)
   }); 
+}
 
+function selectCard(card, parent) {
+  if (document.getElementById("shop").style.display == "block") {
+
+    // 'are you sure?'
+    let parentelmnt = event.target.parentElement;
+    setTimeout(()=>{
+      parentelmnt.parentElement.previousElementSibling.innerHTML = "BUY";
+      parentelmnt.parentElement.previousElementSibling.style.color = "white";
+      parentelmnt.parentElement.previousElementSibling.style.cursor = "pointer";
+    }, 150)
+    parentelmnt.parentElement.previousElementSibling.classList.add("goesDownAndBackUp");
+
+    // completes purchase
+    parentelmnt.parentElement.previousElementSibling.addEventListener("click", function() {
+      buyCardInShop(card, parent);
+    });
+
+    // resets purchase or whatever
+    event.target.addEventListener("click", function() {
+      event.preventDefault()
+      let parentelmnt = event.target.parentElement;
+      parentelmnt.parentElement.previousElementSibling.innerHTML = "$" + card.price;
+      parentelmnt.parentElement.previousElementSibling.style.color = "#fbb954";
+      parentelmnt.parentElement.previousElementSibling.style.background = "#252928";
+      parentelmnt.parentElement.previousElementSibling.style.cursor = "default";
+      
+      // future-proof totally
+      event.target.addEventListener("click", function() {
+        selectCard(card)
+      })
+    });
+  } else {
+    // decreases actions
+    if (actions > 0 || card.actions >= 1) {
+      select();
+      actions += card.actions;
+      actions -= 1;
+      document.getElementById("actions-num").innerHTML = actions;
+      selectedCards.push(event.target.id);
+      event.target.classList.add('selected-card');
+    } else {
+      document.getElementById("actions-num").style.color = "#e83b3b";
+      document.getElementById("actions-num").classList.add("shake");
+      setTimeout(() => {
+        document.getElementById("actions-num").style.color = "white";
+        document.getElementById("actions-num").classList.remove("shake");
+      }, 800)
+    }
+  }
 }
 
 function discardCard(card) {
@@ -135,8 +180,6 @@ function select() {
 function play() {
   if (selectedCards.length === 0) return;
 
-  console.log(selectedCards)
-
   hands -= 1;
   document.getElementById("hands-num").innerHTML = hands;
 
@@ -144,7 +187,7 @@ function play() {
   const cardsToAnimate = [...selectedCards]; // Local copy of selectedCards
   const cardNames = [...cardsToAnimate]
   cardNames.forEach((card, index) => {
-    cardNames[index] = card.slice(0, -1);
+    cardNames[index] = removeNumbers(card)
   });
   document.getElementById("actions-num").innerHTML = actions;
 
@@ -157,7 +200,7 @@ function play() {
     const offsetX = (index - Math.floor(cardCount / 2)) * spacing;
     const targetX = centerX + offsetX - 62.5;
     const targetY = centerY - 62.5 - 100;
-    let cardName = card.slice(0, -1);
+    let cardName = removeNumbers(card)
     const cardElement = document.getElementById(card);
     const rect = cardElement.getBoundingClientRect();
 
@@ -176,89 +219,37 @@ function play() {
       setTimeout(() => {
         card = eval(cardName);
         if (card.type === "attack") {
-          setTimeout(function(){
-            juice_up(animatedCard)
-            const damageIndicator = document.createElement("div");
-            damageIndicator.className = "damage-indicator";
-            damageIndicator.innerText = `+${card.damage} damage`;
-            damageIndicator.style.left = `${rect.left + 30}px`;
-            damageIndicator.style.top = `${rect.top+70}px`;
-            animationArea.appendChild(damageIndicator);
-  
-            damageIndicator.addEventListener("animationend", () => damageIndicator.remove());
-          }, 200)
-          attack(card.damage);
-          if (cardNames.includes("slimeball")) {
-            setTimeout(function(){
-              juice_up(animatedCard)
-              useSlimeball(rect.left, rect.top, card.damage);
-            }, 400);
-          }
-          if (cardNames.includes("redSlimeball")) {
-            setTimeout(function(){
-              juice_up(animatedCard)
-              useRedSlimeball(rect.left, rect.top, card.damage);
-            }, 400);
-          }
+          useAttackCard(animatedCard, card, rect, cardNames)
+        } else if (card.type === "food") {
+          useFoodCard(animatedCard, card, rect)
         }
-
         setTimeout(() => {
           animatedCard.style.opacity = 0;
           animatedCard.addEventListener("transitionend", () => animatedCard.remove());
         }, 1000);
-
       }, index * 200);
     }, 0);
 
     discardCard(card);
   });
 
-  function useSlimeball(targetX, targetY, damage) {
-    
-    const slimeEffectIndicator = document.createElement("div");
-    slimeEffectIndicator.className = "slime-effect";
-    slimeEffectIndicator.innerText = "Double Attack!";
-    slimeEffectIndicator.style.left = `${targetX + 30}px`;
-    slimeEffectIndicator.style.top = `${targetY + 55}px`;
-    document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-
-    removeItem(selectedCards, slimeball);
-    attack(damage);
-    slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
-  }
-
-  function useRedSlimeball(targetX, targetY, damage) {
-    //for (let i = 0; i > 3; i++) {
-      let slimeEffectIndicator = document.createElement("div");
-      slimeEffectIndicator.className = "slime-effect";
-      slimeEffectIndicator.innerText = "Triple attack!";
-      slimeEffectIndicator.style.left = `${targetX + 30}px`;
-      slimeEffectIndicator.style.top = `${targetY + 55}px`;
-      document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-  
-      attack(damage);
-  
-      attack(damage);
-  
-      removeItem(selectedCards, slimeball);
-      attack(damage);
-      slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
-    //}
-  }
-
   setTimeout(() => {
     deal(5, false);
   }, 2000);
 
   selectedCards = [];
-  switchTurn();
+  setTimeout(() => {
+    switchTurn();
+  }, 4000)
 }
 
 function switchTurn() {
   if (turn == true) {
     // enemy turn (dang this is just blackjack again)
     turn == false;
-    monsterAttack();
+    if (enemyHealth > 0) {
+      monsterAttack();
+    } 
   } else if (turn == false) {
     // player turn
     turn == true;
@@ -321,50 +312,8 @@ function attack(damage) {
         healthNum.innerHTML = 0;
         healthBar.style.width = "0px";
         setTimeout(function() {
-          enterShop();
-        }, 500)
+          collectLoot(currentMonster);
+        }, 3000)
       }
     }, 200);
-}
-
-// yells at a card to rotate
-function juice_up(card) {
-  card.classList.add("juicy");
-  setTimeout(() => {
-    card.classList.remove("juicy");
-  }, 500)
-}
-
-// coolaj68 on Stack Overflow...
-
-function shuffle(array) {
-  shuffledArray = [...array];
-  let currentIndex = shuffledArray.length;
-
-  // While there remain elements to shuffle...
-  while (currentIndex != 0) {
-
-    // Pick a remaining element...
-    let randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--;
-
-    // And swap it with the current element.
-    [shuffledArray[currentIndex], shuffledArray[randomIndex]] = [
-      shuffledArray[randomIndex], shuffledArray[currentIndex]];
-  }
-
-  return shuffledArray
-}
-let arr = [2, 11, 37, 42];
-bean = shuffle(arr);
-
-function removeItem (array, item) {
-  const index = array.indexOf(item);
-  if (index > -1) { // only splice array when item is found
-    array.splice(index, 1); // 2nd parameter means remove one item only
-  }
-}
-function getRandomItem(array) {
-  const randomIndex = Math.floor(Math.random() * array.length);
-  return array[randomIndex];
 }

@@ -1,9 +1,35 @@
+// get loot from monster (didn't know where else to put it)
+function collectLoot(monster) {
+  document.getElementById("battle").style.display = "none";
+  document.getElementById("loot").style.opacity = 1;
+
+  document.getElementById("win-msg").innerHTML = "You defeated " + monster.name + "!"
+
+  for (let i = 0; i < monster.loot.length; i++ ) {
+    displayCard(monster.loot[i], "loot-slot")
+    deck.push(monster.loot[i]);
+  }
+  document.getElementById("loot-money-txt").innerHTML = "$" + monster.money;
+  money += monster.money;
+  document.getElementById("money").innerHTML = "$" + money;
+
+  xp += 1;
+  document.getElementById("XP").innerHTML = xp + " XP";
+}
+
+// initializes shop
 function enterShop() {
   // checks to make sure the shop is closed before opening it
   if (document.getElementById("shop").style.display == "none") { 
     // opens shop
     document.getElementById("battle").style.display = "none";
-    document.getElementById("shop").style.display = "block";
+    document.getElementById("loot").style.opacity = 0;
+    document.getElementById("loot").style.transition = "1s";
+    setTimeout(() => {
+      document.getElementById("loot").style.display = "none";
+      document.getElementById("shop").style.display = "block";
+      document.getElementById("loot").style.transition = "2s";
+    }, 1000)
     let shop = chooseShop()
 
     // displays shop info (nearly identical to monster info, in fact)
@@ -29,20 +55,23 @@ function enterShop() {
   }
 }
 
+// displays a card and its price
 function stockCardInShop(id, priceID, card) {
   displayCard(card, id)
   document.getElementById(priceID).style.display = "inline-block";
   document.getElementById(priceID).innerHTML = "$" + card.price;
 }
 
+// buys a card, complete with horrid animation
 function buyCardInShop(card, id) {
   if (money >= card.price) {
     money -= card.price;
-    deck.push(card)
-    document.getElementById(id).classList.add("fadeShrink-class");
+    deck.push(card);
+    newID = document.getElementById(id).childNodes[0].childNodes[0].id; // best line of code ever written
+    document.getElementById(newID).classList.add("fadeShrink-class");
     setTimeout(() => {
-      document.getElementById(id).classList.remove("fadeShrink-class");
-      document.getElementById(id).style.display = "none";
+      document.getElementById(newID).classList.remove("fadeShrink-class");
+      document.getElementById(newID).style.opacity = 0;
     }, 400)
     document.getElementById("price-"+id).style.display = "none";
   }
@@ -50,9 +79,9 @@ function buyCardInShop(card, id) {
 }
 
 
-
+// chooses valid shops and returns a random one based on xp
 function chooseShop() {
-  if (level < 2) {
+  if (xp < 2) {
     return getRandomItem([firstMarketStall])
   }
 }

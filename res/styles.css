@@ -21,7 +21,7 @@
 body {
   font-family: "Micro 5", sans-serif;
   background: linear-gradient(120deg, #313638, #3d4345);
-  /*background: linear-gradient(120deg, blue, red);*/
+  /*background: linear-gradient(120deg, #165a4c, #239063);*/
   color: white;
   user-select: none;
   overflow: hidden;

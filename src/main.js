@@ -21,7 +21,7 @@ let maxShopFoodSlots = 1;
 
 
 function start() {
-  deck.push(rustySword, rustySword, rustySword);
+  deck.push(rustySword, rustySword, rustySword, rustySword);
   fullDeck = deck;
   setTimeout(() => {
     enterBattle();

@@ -1,7 +1,11 @@
 // get loot from monster (didn't know where else to put it)
 function collectLoot(monster) {
+  // clears remaining cards
+  clearSlots(document.getElementById('playercards'));
+
   document.getElementById("battle").style.display = "none";
   document.getElementById("loot").style.opacity = 1;
+  document.getElementById("loot").style.display = "block";
 
   document.getElementById("win-msg").innerHTML = "You defeated " + monster.name + "!"
 
@@ -19,6 +23,9 @@ function collectLoot(monster) {
 
 // initializes shop
 function enterShop() {
+  // makes room for loot next round
+  clearSlots(document.getElementById('lootslots'));
+
   // checks to make sure the shop is closed before opening it
   if (document.getElementById("shop").style.display == "none") { 
     // opens shop
@@ -83,5 +90,9 @@ function buyCardInShop(card, id) {
 function chooseShop() {
   if (xp < 2) {
     return getRandomItem([firstMarketStall])
+  }
+
+  else {
+    return getRandomItem([marketStall])
   }
 }

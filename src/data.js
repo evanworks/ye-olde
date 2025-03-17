@@ -69,6 +69,24 @@ const longbow = {
   action: '',
   img: "longbow.png"
 }
+// crossbow
+// flamethrower
+// cannon
+// slingshot
+// battering ram
+// siege tower
+// squid ink
+// iron fist punch
+const headbutt = {
+  file: "headbutt",
+  name: "Headbutt",
+  type: "attack",
+  damage: 1,
+  actions: 2,
+  price: 5,
+  action: "It's something.",
+  img: "placeholder.png"
+}
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 // MAGIC //
@@ -102,7 +120,7 @@ const greenToad = {
   actions: 1,
   price: 0,
   action: 'Repeat least expensive card <span style="color:var(--magic);">twice</span> and earn its <span style="var(--money)">sell value</span>',
-  img: 'rustySword.png',
+  img: 'placeholder.png',
 }
 const bone = {
   file: "bone",
@@ -157,7 +175,7 @@ const slime = {
   img: "res/img/placeholder-portrait.png",
   health: 15,
   damage: 5,
-  money: 10,
+  money: 5,
   loot: [slimeball, juice],
 }
 

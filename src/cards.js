@@ -59,11 +59,12 @@ function useFoodCard(animatedCard, card, rect) {
     healthIndicator.innerText = `+${healthToHeal} Health`;
     healthIndicator.style.left = `${rect.left + 30}px`;
     healthIndicator.style.top = `${rect.top+70}px`;
-    animationArea.appendChild(healthIndicator);
+    document.getElementById("animation-area").appendChild(healthIndicator);
 
     healthIndicator.addEventListener("animationend", () => healthIndicator.remove());
   }, 200)
 }
+
 function useSlimeball(targetX, targetY, damage) {
     
   const slimeEffectIndicator = document.createElement("div");

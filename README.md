@@ -20,6 +20,5 @@ Very much a work in progress.
 * slimeball plays on all cards
 * deselecting cards is impossible
 * bone and frog don't work
-* enemy attacks after defeated
 * health bar may be resizing incorrectly
 * tooltip still appears after buying an item in shop

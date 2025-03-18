@@ -9,6 +9,7 @@ function collectLoot(monster) {
 
   document.getElementById("win-msg").innerHTML = "You defeated " + monster.name + "!"
 
+  // displays loot
   for (let i = 0; i < monster.loot.length; i++ ) {
     displayCard(monster.loot[i], "loot-slot")
     deck.push(monster.loot[i]);
@@ -17,14 +18,16 @@ function collectLoot(monster) {
   money += monster.money;
   document.getElementById("money").innerHTML = "$" + money;
 
+  // more xp
   xp += 1;
   document.getElementById("XP").innerHTML = xp + " XP";
+
+  // levels up monster
+  slimeLevel += 1;
 }
 
 // initializes shop
 function enterShop() {
-  // makes room for loot next round
-  clearSlots(document.getElementById('lootslots'));
 
   // checks to make sure the shop is closed before opening it
   if (document.getElementById("shop").style.display == "none") { 
@@ -37,6 +40,8 @@ function enterShop() {
       document.getElementById("shop").style.display = "block";
       document.getElementById("loot").style.transition = "2s";
     }, 1000)
+    // makes room for loot next round
+    clearSlots(document.getElementById('lootslots'));
     let shop = chooseShop()
 
     // displays shop info (nearly identical to monster info, in fact)
@@ -62,14 +67,14 @@ function enterShop() {
   }
 }
 
-// displays a card and its price
+// displays a card and its price (dont know why i added the word 'shop', where else would you be stocking cards)
 function stockCardInShop(id, priceID, card) {
   displayCard(card, id)
   document.getElementById(priceID).style.display = "inline-block";
   document.getElementById(priceID).innerHTML = "$" + card.price;
 }
 
-// buys a card, complete with horrid animation
+// buys a card, complete with horrid animation (dont know why i added the word 'shop', where else would you be buying cards)
 function buyCardInShop(card, id) {
   if (money >= card.price) {
     money -= card.price;

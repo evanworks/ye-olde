@@ -5,9 +5,12 @@
 
 :root {
   --shadow: #252928;
+  /*--shadow: rgba(0,0,0,0.274);*/
 
   --healthFull: #e83b3b;
   --healthEmpty: #7a3045;
+
+  --bone: #c7dcd0;
 
   --money: #fbb954;
 
@@ -284,7 +287,7 @@ START OF CHAPGPT
 }
 .health-indicator {
   font-size: 24px;
-  color: #f04f78;
+  color: var(--healthFull);
   font-weight: bold;
   position: absolute;
   animation: fadeShrink 1s ease-out;
@@ -315,11 +318,19 @@ START OF CHAPGPT
 /* Style for the slimeball effect indicator */
 .slime-effect {
   font-size: 18px;
-  color: #ff6d00;
+  color: var(--magic);
   font-weight: bold;
   position: absolute;
   animation: fadeShrink 2s ease-out;
 }
+.bone-effect {
+  font-size: 20px;
+  color: var(--bone);
+  font-weight: bold;
+  position: absolute;
+  animation: fadeShrink 2s ease-out;
+}
+
 
 #monster-health-bar, #player-health-bar {
   width: 93vw;

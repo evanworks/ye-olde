@@ -99,7 +99,7 @@ const slimeball = {
   damage: 0,
   actions: 0,
   price: 6,
-  action: 'Play with a single attack card to use it <span style="color:var(--magic);">twice</span>!',
+  action: 'Triggers first played attack card <span style="color:var(--magic);">twice</span>',
   img: "slimeball.png"
 }
 const redSlimeball = {
@@ -129,7 +129,7 @@ const bone = {
   damage: 0,
   actions: 1,
   price: 12,
-  action: '<span style="color:var(--healthFull);">2x</span> damage on all played metal cards.',
+  action: '<span style="padding-left:4px;padding-right:4px;background:var(--healthFull);">2x</span> damage on all played attack cards below <span style="color:var(--healthFull)">10</span> damage',
   img: "bone.png"
 }
 
@@ -169,22 +169,29 @@ const luckPotion = {
 // MONSTERS
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 
+slimeLevel = 0;
 const slime = {
+  file: "slime",
   name: "Slime",
   description: "It's like jell-o - but don't eat it!",
   img: "res/img/placeholder-portrait.png",
   health: 15,
+  scaling: 5,
   damage: 5,
   money: 5,
   loot: [slimeball, juice],
 }
 
+skeletonLevel = 0;
 const skeleton = {
+  file: "skeleton",
   name: "Skeleton",
   description: "Its bones rattle ominously, and it has spooky glowing eyes!",
   img: "res/img/placeholder-portrait.png",
   health: 25,
+  scaling: 10,
   damage: 10,
+  money: 10,
   loot: [slimeball],
 }
 

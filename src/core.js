@@ -119,7 +119,10 @@ function selectCard(card, parent) {
       actions += card.actions;
       actions -= 1;
       document.getElementById("actions-num").innerHTML = actions;
-      selectedCards.push(event.target.id);
+      let cardPlacement = event.target.parentElement.parentElement.id;
+      let cardIndex = cardPlacement.charAt(cardPlacement.length - 1);
+      selectedCards[parseInt(cardIndex) - 1] = event.target.id;
+      console.log(selectedCards)
       event.target.classList.add('selected-card');
     } else {
       document.getElementById("actions-num").style.color = "#e83b3b";
@@ -148,14 +151,10 @@ function clearSlots(parent) {
   const children = parent.children;
   for (let i = 0; i < children.length; i++) {
     let child = children[i];
-    console.log("clearing slot " + child.id)
-    console.log(child.firstChild)
     if (child.id == "loot-money") {
-      // pass
+      // pass cuz its just special like that
     } else {
       child.innerHTML = "";
     }
-    console.log("Edited parent's children:")
-    console.log(child.children)
   }
 }

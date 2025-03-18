@@ -6,38 +6,46 @@ function enterBattle() {
   // displays monster info
   document.getElementById("monster-img").src = monster.img;
   document.getElementById("monster-name").innerHTML = monster.name;
-  document.getElementById("monster-lvl").innerHTML = "Level " + 1;
+  document.getElementById("monster-lvl").innerHTML = "Level " + window[monster.file+"Level"];
   document.getElementById("monster-desc").innerHTML = monster.description;
-  document.getElementById("monster-health-num").innerHTML = monster.health;
   document.getElementById("monster-health-bar").style.width = "93vw";
 
-  enemyHealth = monster.health;
+  enemyHealth = monster.health + (monster.scaling * window[monster.file+"Level"]);
+  document.getElementById("monster-health-num").innerHTML = enemyHealth;
+
   currentMonster = monster;
 
   // resets all values
+
+  selectedCards = ["", "", "", "", "", ""];
+
   idonthaveagoodnameforthis = 0; // great job past self
 
   actions = maxActions;
-  hands = maxHands;
-
-  document.getElementById("hands-num").innerHTML = hands;
   document.getElementById("actions-num").innerHTML = actions;
-
+  hands = maxHands;
+  document.getElementById("hands-num").innerHTML = hands;
   // clears slots in shop
   clearSlots(document.getElementById('attack-row'));
   clearSlots(document.getElementById('magic-row'));
   clearSlots(document.getElementById('food-row'));
 
-  deal(5, true)
+  deal(6, true)
 }
 
 function play() {
-  if (selectedCards.length === 0) return;
+  if (selectedCards == ["", "", "", "", "", ""]) return;
 
   hands -= 1;
   document.getElementById("hands-num").innerHTML = hands;
 
   const animationArea = document.getElementById("animation-area");
+  for (i in selectedCards) {
+    if (selectedCards[i] == "") {
+      selectedCards = removeAllOccurrences(selectedCards, "")
+    }
+  }
+  console.log(selectedCards)
   const cardsToAnimate = [...selectedCards]; // Local copy of selectedCards
   const cardNames = [...cardsToAnimate]
   cardNames.forEach((card, index) => {
@@ -175,6 +183,8 @@ function attack(damage) {
 function chooseMonster() {
   if (xp < 2) {
     return getRandomItem([slime])
+  } else if (xp >= 2 && xp < 4) {
+    return getRandomItem([slime, skeleton])
   }
 
   else {

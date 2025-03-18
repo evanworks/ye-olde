@@ -11,10 +11,17 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
     damageIndicator.addEventListener("animationend", () => damageIndicator.remove());
   }, 200)
   attack(card.damage);
-  if (cardNames.includes("slimeball")) {
+  if (cardNames.includes("bone") && card.damage <= 10) {
+    boneUsed = true;
     setTimeout(function(){
       juice_up(animatedCard);
-      useSlimeball(rect.left, rect.top, card.damage);
+      useBone(rect.left, rect.top, card.damage);
+    }, 400);
+  }
+  if (cardNames.includes("slimeball")) {
+    useSlimeball(rect.left, rect.top, card.damage, cardNames, boneUsed);
+    setTimeout(function(){
+      juice_up(animatedCard);
     }, 400);
   }
   if (cardNames.includes("redSlimeball")) {
@@ -24,6 +31,7 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
     }, 400);
   }
 }
+
 function useFoodCard(animatedCard, card, rect) {
   tinyHealth = maxHealth / 100;
   healthToHeal = tinyHealth * card.health;
@@ -65,29 +73,46 @@ function useFoodCard(animatedCard, card, rect) {
   }, 200)
 }
 
-function useSlimeball(targetX, targetY, damage) {
-    
-  const slimeEffectIndicator = document.createElement("div");
-  slimeEffectIndicator.className = "slime-effect";
-  slimeEffectIndicator.innerText = "Double Attack!";
-  slimeEffectIndicator.style.left = `${targetX + 30}px`;
-  slimeEffectIndicator.style.top = `${targetY + 55}px`;
-  document.getElementById("animation-area").appendChild(slimeEffectIndicator);
+function useSlimeball(targetX, targetY, damage, cardNames, boneUsed) {
+  removeItem(cardNames, "slimeball");
+  setTimeout(() => {
+    const slimeEffectIndicator = document.createElement("div");
+    slimeEffectIndicator.className = "slime-effect";
+    slimeEffectIndicator.innerText = `${damage} damage`;
+    slimeEffectIndicator.style.left = `${targetX + 40}px`;
+    slimeEffectIndicator.style.top = `${targetY + 55}px`;
+    document.getElementById("animation-area").appendChild(slimeEffectIndicator);
+  
+    attack(damage);
+    slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
 
-  removeItem(selectedCards, slimeball);
-  attack(damage);
-  slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
+    if (boneUsed == true && damage < 8) {
+      setTimeout(useBone, 300)
+    }
+  }, 400) 
 }
 
 function useRedSlimeball(targetX, targetY, damage) {
   let slimeEffectIndicator = document.createElement("div");
   slimeEffectIndicator.className = "slime-effect";
-  slimeEffectIndicator.innerText = "Triple attack!";
-  slimeEffectIndicator.style.left = `${targetX + 30}px`;
+  slimeEffectIndicator.innerText = `${damage * 2} damage`;
+  slimeEffectIndicator.style.left = `${targetX + 40}px`;
   slimeEffectIndicator.style.top = `${targetY + 55}px`;
   document.getElementById("animation-area").appendChild(slimeEffectIndicator);
 
-  removeItem(selectedCards, slimeball);
+  attack(damage);
+  attack(damage);
+  slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
+}
+
+function useBone(targetX, targetY, damage) {
+  let slimeEffectIndicator = document.createElement("div");
+  slimeEffectIndicator.className = "bone-effect";
+  slimeEffectIndicator.innerText = `2x damage`;
+  slimeEffectIndicator.style.left = `${targetX + 40}px`;
+  slimeEffectIndicator.style.top = `${targetY + 35}px`;
+  document.getElementById("animation-area").appendChild(slimeEffectIndicator);
+
   attack(damage);
   attack(damage);
   slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());

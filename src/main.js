@@ -9,7 +9,7 @@ let hands = maxHands
 let battle = true;
 let currentMonster;
 let squad = [];
-let selectedCards = [];
+let selectedCards = ["", "", "", "", "", ""];
 let turn = true;
 let idonthaveagoodnameforthis = 0;
 let xp = 0;
@@ -21,7 +21,7 @@ let maxShopFoodSlots = 1;
 
 
 function start() {
-  deck.push(rustySword, rustySword, rustySword, rustySword);
+  deck.push(rustySword, rustySword, rustySword, longbow, bone);
   fullDeck = deck;
   setTimeout(() => {
     enterBattle();

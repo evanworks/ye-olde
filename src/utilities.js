@@ -27,13 +27,15 @@ function shuffle(array) {
   return shuffledArray
 }
 
-function removeItem (array, item) {
+function removeItem(array, item) {
   const index = array.indexOf(item);
   if (index > -1) { // only splice array when item is found
     array.splice(index, 1); // 2nd parameter means remove one item only
   }
 }
-
+function removeAllOccurrences(array, itemToRemove) {
+  return array.filter(item => item !== itemToRemove);
+}
 function getRandomItem(array) {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];

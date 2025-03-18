@@ -26,7 +26,7 @@ Very much a work in progress.
 ## Version history
 
 ### a03-18-25[ 0.0.14 ]
-**<br/>**
+**br/ + oh i'm a liar now?**
 <br/>
 layout issues
 
@@ -51,8 +51,8 @@ I had the background set as an enjoyable rainbow because the programming experie
 PART 2: made the game states work multiple times in a row. you can now play forever, if you wish.
 
 ### a03-17-25[ 0.0.9 ]
-<br/>
 **you can somewhat do another battle**
+<br/>
 PART 1: halfway through making the game states work multiple times in a row, added juiciness and coincidentally also Juice
 
 ### a03-16-25[ 0.0.8 ]

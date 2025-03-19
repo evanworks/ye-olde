@@ -151,6 +151,10 @@ function monsterAttack() {
   setTimeout(function() {
     healthBar.classList.remove("flash");
   }, 4000)
+
+  if (health <= 0) {
+    die();
+  }
 }
 
 // THESE TWO ARE SEPARATE ( i've had enough mistakes already )

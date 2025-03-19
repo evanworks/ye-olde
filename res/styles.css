@@ -591,3 +591,46 @@ START OF CHAPGPT
   font-family: "Jersey 10", sans-serif;
   transform: translateY(-47%);
 }
+
+/* ----- */
+/* DEATH */
+/* ----- */
+/* ----- */
+/* ----- */
+
+#deathScreen {
+  background: black;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: 100000;
+  font-family: "Jacquard 24";
+  font-size: 96px;
+  color: red;
+  display: none;
+  animation: death 6s ease-out;
+}
+@keyframes death {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+#game_over_btn {
+  display: inline-block;
+  margin-top: 100px;
+  font-family: "Jersey 10";
+  color: white;
+  font-size: 40px;
+  padding: 6px;
+  padding-left: 10px;
+  padding-right: 10px;
+  background: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+#game_over_btn:hover {
+  border: 1px solid white;
+}

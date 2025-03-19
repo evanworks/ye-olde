@@ -12,12 +12,18 @@
     <script src="src/battle.js"></script>
   </head>
   <body>
-
+    <div id="deathScreen">
+      <div id="center">
+        <div>Game Over</div>
+        <button id="game_over_btn" onclick="location.reload()"> RESTART </button>
+      </div>
+      <audio id="game_over_aud"><source src="res/aud/game_over.mp3"></audio>
+    </div>
 
     <div id="title" style="display: block;">
       <div id="center">
         <div id="title-text">Ye Olde</div>
-        <img id="title-playbutton" src="res/img/buttons/play.png" onclick="start()">
+        <img id="title-playbutton" src="res/img/buttons/play.png" onclick="start();document.getElementById('click_aud').play();">
       </div>
     </div>
 
@@ -119,7 +125,14 @@
         <div class="slot shop-slot" id="food-slot5"></div>
       </div>
     </div>
+
+    <audio id="click_aud"><source src="res/aud/click.mp3"></audio>
+    <audio id="title_aud"><source src="res/aud/title.mp3"></audio>
+    <audio id="money_aud"><source src="res/aud/money.mp3"></audio>
   </body>
   <script>
+    window.onload = function() {
+      document.getElementById('title_aud').play();
+    };
   </script>
 </html>

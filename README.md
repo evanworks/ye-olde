@@ -25,11 +25,15 @@ Very much a work in progress.
 
 ## Version history
 
+### a03-18-25[ 0.0.16 ]
+**death + sound**
+<br/>
+Added sound effects (the least important problem right now), and a death screen
 
 ### a03-18-25[ 0.0.15 ]
 **so that didn't work**
 <br/>
-took four hours to hack together a stupid fix to a play timing thing... but on a better note, frog works, and it doesn't break when you play more than one hand
+took four hours to hack together a stupid fix to a play timing thing... but on a better note, frog works, and it doesn't break when you play more than one hand anymore
 
 ### a03-18-25[ 0.0.14 ]
 **br/ + oh i'm a liar now?**

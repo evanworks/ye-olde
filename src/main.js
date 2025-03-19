@@ -1,4 +1,7 @@
 let deck = [];
+let selectedCards = ["-", "-", "-", "-", "-", "-"];
+let squad = []; // not sure if this is gonna be used yet
+
 let maxHealth = 50
 let health = maxHealth;
 let maxActions = 1;
@@ -8,8 +11,7 @@ let hands = maxHands;
 
 let battle = true;
 let currentMonster;
-let squad = [];
-let selectedCards = ["-", "-", "-", "-", "-", "-"];
+
 let turn = true;
 let idonthaveagoodnameforthis = 0;
 let xp = 0;

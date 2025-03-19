@@ -77,6 +77,7 @@ function stockCardInShop(id, priceID, card) {
 // buys a card, complete with horrid animation (dont know why i added the word 'shop', where else would you be buying cards)
 function buyCardInShop(card, id) {
   if (money >= card.price) {
+    document.getElementById("money_aud").play();
     money -= card.price;
     deck.push(card);
     newID = document.getElementById(id).childNodes[0].childNodes[0].id; // best line of code ever written

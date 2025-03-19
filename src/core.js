@@ -2,10 +2,13 @@ function deal(amount, first) {
   if (first) {
     shuffledDeck = shuffle(fullDeck);
   } else {
-    if (shuffledDeck != []) {
+    console.log(JSON.stringify(shuffledDeck) == "[]");
+    if (JSON.stringify(shuffledDeck) != "[]") {
       shuffledDeck = shuffle(shuffledDeck);
     } else {
-      alert("out of cards!");
+      if (noCards(document.getElementById("playercards")) == 0) {
+        setTimeout(()=>{die()}, 200);
+      }
     }
   }
   for (let i = 0; i < amount; i++) { 
@@ -82,6 +85,8 @@ function displayCard(card, parent) {
 }
 
 function selectCard(card, parent) {
+  document.getElementById("click_aud").play();
+
   if (document.getElementById("shop").style.display == "block") {
 
     // 'are you sure?'
@@ -151,9 +156,27 @@ function clearSlots(parent) {
   for (let i = 0; i < children.length; i++) {
     let child = children[i];
     if (child.id == "loot-money") {
-      // pass cuz its just special like that
+      // pass
     } else {
       child.innerHTML = "";
     }
   }
+}
+
+function noCards(parent) {
+  let amnt = 0;
+  const children = parent.children;
+  for (let i = 0; i < children.length; i++) {
+    let child = children[i];
+    if (child.children[0]) {
+      amnt += 1;
+      // pa
+    }
+  }
+  return amnt;
+}
+
+function die() {
+  document.getElementById("deathScreen").style.display = "block";
+  document.getElementById("game_over_aud").play();
 }

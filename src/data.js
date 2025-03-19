@@ -120,7 +120,7 @@ const greenToad = {
   actions: 1,
   price: 0,
   action: 'Repeat least expensive card <span style="color:var(--magic);">twice</span> and earn its <span style="var(--money)">sell value</span>',
-  img: 'placeholder.png',
+  img: 'greenToad.png',
 }
 const bone = {
   file: "bone",

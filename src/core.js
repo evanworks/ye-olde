@@ -122,7 +122,6 @@ function selectCard(card, parent) {
       let cardPlacement = event.target.parentElement.parentElement.id;
       let cardIndex = cardPlacement.charAt(cardPlacement.length - 1);
       selectedCards[parseInt(cardIndex) - 1] = event.target.id;
-      console.log(selectedCards)
       event.target.classList.add('selected-card');
     } else {
       document.getElementById("actions-num").style.color = "#e83b3b";

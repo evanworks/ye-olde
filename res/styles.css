@@ -277,14 +277,6 @@ START OF CHAPGPT
 .card-animation.show {
   opacity: 1; /* Appear smoothly */
 }
-
-.damage-indicator {
-  font-size: 24px;
-  color: #fbff86;
-  font-weight: bold;
-  position: absolute;
-  animation: fadeShrink 1s ease-out;
-}
 .health-indicator {
   font-size: 24px;
   color: var(--healthFull);
@@ -315,21 +307,49 @@ START OF CHAPGPT
   animation: fadeShrink 0.4s ease-out;
 }
 
-/* Style for the slimeball effect indicator */
+@keyframes betterFade {
+  0% {
+    transform: scale(1.1);
+  }
+  10% {
+    transform: scale(1.1);
+  }
+  90% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+.damage-indicator {
+  font-size: 24px;
+  color: #fbff86;
+  font-weight: bold;
+  position: absolute;
+  animation: betterFade 1s ease-out;
+}
 .slime-effect {
   font-size: 18px;
   color: var(--magic);
   font-weight: bold;
   position: absolute;
-  animation: fadeShrink 2s ease-out;
+  animation: betterFade 1s ease-in;
 }
 .bone-effect {
   font-size: 20px;
   color: var(--bone);
   font-weight: bold;
   position: absolute;
-  animation: fadeShrink 2s ease-out;
+  animation: betterFade 1s ease-in;
 }
+.money-effect {
+  font-size: 24px;
+  color: var(--money);
+  font-weight: bold;
+  position: absolute;
+  animation: betterFade 1s ease-in;
+}
+
 
 
 #monster-health-bar, #player-health-bar {

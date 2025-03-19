@@ -17,7 +17,7 @@ function enterBattle() {
 
   // resets all values
 
-  selectedCards = ["", "", "", "", "", ""];
+  selectedCards = ["-", "-", "-", "-", "-", "-"];
 
   idonthaveagoodnameforthis = 0; // great job past self
 
@@ -34,20 +34,20 @@ function enterBattle() {
 }
 
 function play() {
-  if (selectedCards == ["", "", "", "", "", ""]) return;
+  if (selectedCards == ["-", "-", "-", "-", "-", "-"]) return;
 
   hands -= 1;
   document.getElementById("hands-num").innerHTML = hands;
-
+  console.log(selectedCards)
   const animationArea = document.getElementById("animation-area");
   for (i in selectedCards) {
-    if (selectedCards[i] == "") {
-      selectedCards = removeAllOccurrences(selectedCards, "")
+    if (selectedCards[i] == "-") {
+      selectedCards = removeAllOccurrences(selectedCards, "-")
     }
   }
-  console.log(selectedCards)
   const cardsToAnimate = [...selectedCards]; // Local copy of selectedCards
   const cardNames = [...cardsToAnimate]
+  console.log(cardNames)
   cardNames.forEach((card, index) => {
     cardNames[index] = removeNumbers(card)
   });
@@ -84,6 +84,8 @@ function play() {
           useAttackCard(animatedCard, card, rect, cardNames)
         } else if (card.type === "food") {
           useFoodCard(animatedCard, card, rect)
+        } else {
+          setTimeout(()=>{juice_up(animatedCard);}, 200)
         }
         setTimeout(() => {
           animatedCard.style.opacity = 0;
@@ -99,7 +101,7 @@ function play() {
     deal(5, false);
   }, 2000);
 
-  selectedCards = [];
+  selectedCards = ["-", "-", "-", "-", "-", "-"]
   setTimeout(() => {
     switchTurn();
   }, 4000)

@@ -25,6 +25,12 @@ Very much a work in progress.
 
 ## Version history
 
+
+### a03-18-25[ 0.0.15 ]
+**so that didn't work**
+<br/>
+took four hours to hack together a stupid fix to a play timing thing... but on a better note, frog works, and it doesn't break when you play more than one hand
+
 ### a03-18-25[ 0.0.14 ]
 **br/ + oh i'm a liar now?**
 <br/>
@@ -33,7 +39,7 @@ layout issues
 ### a03-18-25[ 0.0.13 ]
 **now thats enough for one morning**
 <br/>
-fixed slimeball, red slimeball, cards not playing in the right order, bone
+fixed slimeball, red slimeball, cards not playing in the right order, created bone
 
 ### a03-17-25[ 0.0.12 ]
 **versions lol**

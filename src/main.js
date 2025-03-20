@@ -31,5 +31,6 @@ function start() {
     enterBattle();
     document.getElementById("title").style.display = "none";
     document.getElementById("battle").style.display = "block";
-  }, 500)
+    document.getElementById("player-details").style.display = "block";
+  }, 300)
 }

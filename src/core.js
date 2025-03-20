@@ -6,7 +6,7 @@ function deal(amount, first) {
     if (JSON.stringify(shuffledDeck) != "[]") {
       shuffledDeck = shuffle(shuffledDeck);
     } else {
-      if (noCards(document.getElementById("playercards")) == 0) {
+      if (noCards(document.getElementById("playercards")) == 0 && battle == true) {
         setTimeout(()=>{die()}, 200);
       }
     }

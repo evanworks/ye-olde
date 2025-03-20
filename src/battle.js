@@ -1,4 +1,6 @@
 function enterBattle() {
+  battle = true;
+
   monster = chooseMonster()
   document.getElementById("shop").style.display = "none";
   document.getElementById("battle").style.display = "block";
@@ -177,8 +179,10 @@ function attack(damage) {
         healthNum.innerHTML = enemyHealth;
         healthBar.style.width = newWidth + "px";
       } else {
+        // win
         healthNum.innerHTML = 0;
         healthBar.style.width = "0px";
+        battle = false;
         setTimeout(function() {
           collectLoot(currentMonster);
         }, 3000)

@@ -1,5 +1,6 @@
 function useAttackCard(animatedCard, card, rect, cardNames) {
   setTimeout(function(){
+    //document.getElementById("attack_aud").play();
     juice_up(animatedCard)
     const damageIndicator = document.createElement("div");
     damageIndicator.className = "damage-indicator";

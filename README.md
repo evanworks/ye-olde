@@ -26,6 +26,11 @@ Very much a work in progress.
 ## Version history
 
 ### a03-18-25[ 0.0.16 ]
+**i am smart trust me**
+<br/>
+Fixed the death screen so that it allows you to actually play the game
+
+### a03-18-25[ 0.0.16 ]
 **death + sound**
 <br/>
 Added sound effects (the least important problem right now), and a death screen

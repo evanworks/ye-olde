@@ -74,6 +74,39 @@ function stockCardInShop(id, priceID, card) {
   document.getElementById(priceID).innerHTML = "$" + card.price;
 }
 
+// is called from clicking a card while in shop, moved to preserve attention
+function selectShopCard(card, parent) {
+  // 'are you sure?'
+  let parentelmnt = event.target.parentElement;
+  setTimeout(()=>{
+    parentelmnt.parentElement.previousElementSibling.innerHTML = "BUY";
+    parentelmnt.parentElement.previousElementSibling.style.color = "white";
+    parentelmnt.parentElement.previousElementSibling.style.cursor = "pointer";
+  }, 150)
+  parentelmnt.parentElement.previousElementSibling.classList.add("goesDownAndBackUp");
+
+  // completes purchase
+  parentelmnt.parentElement.previousElementSibling.addEventListener("click", function() {
+    parentelmnt.parentElement.previousElementSibling.style.color = "#fbb954";
+    buyCardInShop(card, parent);
+  });
+
+  // resets purchase or whatever
+  event.target.addEventListener("click", function() {
+    event.preventDefault()
+    let parentelmnt = event.target.parentElement;
+    parentelmnt.parentElement.previousElementSibling.innerHTML = "$" + card.price;
+    parentelmnt.parentElement.previousElementSibling.style.color = "#fbb954";
+    parentelmnt.parentElement.previousElementSibling.style.background = "#252928";
+    parentelmnt.parentElement.previousElementSibling.style.cursor = "default";
+    
+    // future-proof totally
+    event.target.addEventListener("click", function() {
+      selectCard(card)
+    })
+  });
+}
+
 // buys a card, complete with horrid animation (dont know why i added the word 'shop', where else would you be buying cards)
 function buyCardInShop(card, id) {
   if (money >= card.price) {

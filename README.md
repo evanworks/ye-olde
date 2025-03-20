@@ -17,20 +17,28 @@ Very much a work in progress.
 
 ### Known bugs:
 
-* deselecting cards is impossible
-* frog don't work
 * health bar may be resizing incorrectly
 * tooltip still appears after buying an item in shop
 
 
 ## Version history
 
-### a03-18-25[ 0.0.16 ]
+### a03-20-25[ 0.0.18 ]
+**we might be ready / tons of bugs**
+<br/>
+Bugfix update + deselecting:
+* Finally added deselecting (it looks a little buggy but I'm not a master programmer so I can't fix it)
+* Corrected some minor naming issues in the previous updates' descriptions
+* Fixed money number not being gold-coloured after buying its card in shop
+* Fixed actions not resetting between hands
+I know there's still a lot of bugs, but it seems like all that's left is 0.1.0! We might be ready.
+
+### a03-19-25[ 0.0.17 ]
 **i am smart trust me**
 <br/>
 Fixed the death screen so that it allows you to actually play the game
 
-### a03-18-25[ 0.0.16 ]
+### a03-19-25[ 0.0.16 ]
 **death + sound**
 <br/>
 Added sound effects (the least important problem right now), and a death screen

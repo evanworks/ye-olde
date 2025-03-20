@@ -17,7 +17,7 @@ function enterBattle() {
 
   currentMonster = monster;
 
-  // resets all values
+  // resets all valuesf
 
   selectedCards = ["-", "-", "-", "-", "-", "-"];
 
@@ -36,10 +36,12 @@ function enterBattle() {
 }
 
 function play() {
-  if (selectedCards == ["-", "-", "-", "-", "-", "-"]) return;
-
+  if (JSON.stringify(selectedCards) == JSON.stringify(["-", "-", "-", "-", "-", "-"])) return;
+  
+  actions = maxActions;
   hands -= 1;
   document.getElementById("hands-num").innerHTML = hands;
+  document.getElementById("actions-num").innerHTML = hands;
   console.log(selectedCards)
   const animationArea = document.getElementById("animation-area");
   for (i in selectedCards) {
@@ -112,13 +114,13 @@ function play() {
 function switchTurn() {
   if (turn == true) {
     // enemy turn (dang this is just blackjack again)
-    turn == false;
+    turn = false;
     if (enemyHealth > 0) {
       monsterAttack();
     } 
   } else if (turn == false) {
     // player turn
-    turn == true;
+    turn = true;
   } else {
     alert("Invalid turn sequence.")
     alert("Beginning escape process...")

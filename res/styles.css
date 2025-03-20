@@ -382,6 +382,14 @@ START OF CHAPGPT
   animation: shake 0.4s infinite;
 }
 
+@keyframes pulse {
+  0% { background: #fff }
+  50% { background: rgba(1,1,1,0)}
+}
+.pulse {
+  animation: pulse 0.6s infinite;
+}
+
 @keyframes juice_up {
   0% { transform: translate(0px,-200px) scale(1) rotate(0deg); filter: brightness(1); }
   15% { transform: translate(0px,-200px) scale(1.15) rotate(-3deg); filter: brightness(1.3); }

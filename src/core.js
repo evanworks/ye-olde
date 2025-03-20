@@ -62,7 +62,7 @@ function displayCard(card, parent) {
 
   // displays extra actions in yellow
   if (card.actions != 0) {
-    if (card.actions = 1) {
+    if (card.actions == 1) {
       g = "action"
     } else {
       g = "actions"
@@ -79,63 +79,71 @@ function displayCard(card, parent) {
 
   // selects cards
 
+  img.cardHasBeenSelected = false;
+
   img.addEventListener("click", function() {
-    selectCard(card, parent)
+    selectCard(card, parent, img, img.cardHasBeenSelected)
   }); 
 }
 
-function selectCard(card, parent) {
+function selectCard(card, parent, img) {
   document.getElementById("click_aud").play();
 
   if (document.getElementById("shop").style.display == "block") {
-
-    // 'are you sure?'
-    let parentelmnt = event.target.parentElement;
-    setTimeout(()=>{
-      parentelmnt.parentElement.previousElementSibling.innerHTML = "BUY";
-      parentelmnt.parentElement.previousElementSibling.style.color = "white";
-      parentelmnt.parentElement.previousElementSibling.style.cursor = "pointer";
-    }, 150)
-    parentelmnt.parentElement.previousElementSibling.classList.add("goesDownAndBackUp");
-
-    // completes purchase
-    parentelmnt.parentElement.previousElementSibling.addEventListener("click", function() {
-      buyCardInShop(card, parent);
-    });
-
-    // resets purchase or whatever
-    event.target.addEventListener("click", function() {
-      event.preventDefault()
-      let parentelmnt = event.target.parentElement;
-      parentelmnt.parentElement.previousElementSibling.innerHTML = "$" + card.price;
-      parentelmnt.parentElement.previousElementSibling.style.color = "#fbb954";
-      parentelmnt.parentElement.previousElementSibling.style.background = "#252928";
-      parentelmnt.parentElement.previousElementSibling.style.cursor = "default";
-      
-      // future-proof totally
-      event.target.addEventListener("click", function() {
-        selectCard(card)
-      })
-    });
+    selectShopCard(card, parent);
   } else {
-    // decreases actions
-    if (actions > 0 || card.actions >= 1) {
-      select();
-      actions += card.actions;
-      actions -= 1;
-      document.getElementById("actions-num").innerHTML = actions;
-      let cardPlacement = event.target.parentElement.parentElement.id;
-      let cardIndex = cardPlacement.charAt(cardPlacement.length - 1);
-      selectedCards[parseInt(cardIndex) - 1] = event.target.id;
-      event.target.classList.add('selected-card');
-    } else {
-      document.getElementById("actions-num").style.color = "#e83b3b";
-      document.getElementById("actions-num").classList.add("shake");
-      setTimeout(() => {
-        document.getElementById("actions-num").style.color = "white";
-        document.getElementById("actions-num").classList.remove("shake");
-      }, 800)
+    if (!img.cardHasBeenSelected) {
+      // selecting cards in battle
+      if (actions > 0 || card.actions >= 1) {
+        img.cardHasBeenSelected = true;
+        select();
+        actions += card.actions;
+        actions -= 1;
+        document.getElementById("actions-num").innerHTML = actions;
+
+        // adds to selectedCards array
+        let cardPlacement = event.target.parentElement.parentElement.id;
+        let cardIndex = cardPlacement.charAt(cardPlacement.length - 1);
+        selectedCards[parseInt(cardIndex) - 1] = event.target.id;
+
+        event.target.classList.add('selected-card');
+
+        // deselection
+        img.addEventListener("click", function() {
+          img.removeEventListener("click", arguments.callee); // i can't believe this is a thing
+          deselectCard(card,parent,img);
+          img.addEventListener("click", function() {
+            event.preventDefault();
+            selectCard(card, parent, img);
+          });
+        });
+      } else {
+        document.getElementById("actions").classList.add("pulse");
+        setTimeout(() => {
+          document.getElementById("actions").classList.remove("pulse");
+        }, 800)
+      }
     }
+  }
+}
+function deselectCard(card,parent,img) {
+  actions -= card.actions;
+  actions += 1;
+  document.getElementById("actions-num").innerHTML = actions;
+
+  // anim
+  deselect();
+
+  // removes from selectedCards array
+  let cardPlacement = event.target.parentElement.parentElement.id;
+  let cardIndex = cardPlacement.charAt(cardPlacement.length - 1);
+  selectedCards[parseInt(cardIndex) - 1] = "-";
+
+  event.target.classList.remove('selected-card');
+
+  document.getElementById("click_aud").play();
+  if (img.cardHasBeenSelected) {
+    img.cardHasBeenSelected = false;
   }
 }
 
@@ -148,6 +156,13 @@ function select() {
   elementH = element.parentElement;
   element.parentElement.style.position = "relative";
   element.parentElement.style.top = "-30px";
+  /*elementH.parentElement.style.background = "transparent";*/
+}
+function deselect() {
+  element = event.target;
+  elementH = element.parentElement;
+  element.parentElement.style.position = "initial";
+  element.parentElement.style.top = "0px";
   /*elementH.parentElement.style.background = "transparent";*/
 }
 

@@ -186,6 +186,8 @@ b {
   transition: transform 2 ease;
 }
 
+/* p layer  */
+
 #player-health-num {
   margin-left: 20px;
   font-size: 48px;
@@ -211,6 +213,25 @@ b {
   bottom: 50px;
   border-radius: 10px;
 }
+#bag-icon {
+  position: absolute;
+  bottom: 54px;
+  left: 210px;
+  z-index: 100;
+  height: 42px;
+  width: 42px;
+  cursor: pointer;
+}
+#bag-icon:hover {
+  filter:brightness(1.1);
+  transform: scale(1.1);
+}
+#bag-icon:active {
+  filter:brightness(0.9);
+  transform: scale(1);
+}
+
+
 #playButton {
   cursor: pointer;
   position: absolute;
@@ -480,24 +501,24 @@ START OF CHAPGPT
 }
 #attack-row {
   margin-top: 24px;
-  width: calc(100vw - 240px);
+  width: calc(100vw - 250px);
   float: right;
   height: 30vh;
-  margin-left: 19px;
+  margin-left: 29px;
 }
 #magic-row {
   margin-top: 8px;
-  width: calc(100vw - 240px);
+  width: calc(100vw - 250px);
   float: right;
   height: 30vh;
-  margin-left: 19px;
+  margin-left: 29px;
 }
 #food-row {
   margin-top: 8px;
-  width: calc(100vw - 240px);
+  width: calc(100vw - 250px);
   float: right;
   height: 30vh;
-  margin-left: 19px;
+  margin-left: 29px;
 }
 .shop-slot .tooltip:active {
   animation: none;
@@ -641,4 +662,47 @@ START OF CHAPGPT
 }
 #game_over_btn:hover {
   border: 1px solid white;
+}
+
+/* ----- */
+/* LOOT */
+/* ----- */
+/* ----- */
+/* ----- */
+
+#inventory {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  background: rgba(25, 25, 25, 0.9);
+
+  z-index: 1000000000000000000000;
+}
+#modal {
+  width: 75vw;
+  height: 75vh;
+  background: #313638;
+  border-radius: 15px;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  overflow: scroll;
+}
+#inv-cards {
+  margin-top: 10px;
+  text-align: center;
+}
+#x {
+  width: 18px;
+  opacity: 0.7;
+  position: absolute;
+  z-index: 1000000000000000000001;
+  cursor: pointer;
+
+  image-rendering: pixelated;
 }

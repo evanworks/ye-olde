@@ -10,12 +10,13 @@
     <script src="src/data.js"></script>
     <script src="src/shop.js"></script>
     <script src="src/battle.js"></script>
+    <script src="src/misc.js"></script>
   </head>
   <body>
     <div id="deathScreen">
       <div id="center">
         <div>Game Over</div>
-        <button id="game_over_btn" onclick="location.reload()"> RESTART </button>
+        <button id="game_over_btn" onclick="location.reload();document.getElementById('click_aud').play();"> RESTART </button>
       </div>
       <audio id="game_over_aud"><source src="res/aud/game_over.mp3"></audio>
     </div>
@@ -27,6 +28,13 @@
       </div>
     </div>
 
+    <div id="inventory" style="display: none;">
+      <div id="modal">
+        <img id="x" src="res/img/icons/x.png" onclick="closeInventory()">
+        <div id="inv-cards">
+        </div>
+      </div>
+    </div>
 
     <div id="battle" style="display: none;">
       <div id="top">
@@ -56,19 +64,22 @@
         </div>
         <div id="actions"><img style="width:24px;margin:0px;image-rendering:pixelated;"src="res/img/icons/sword.png"> <span style="margin-left: 3px;" id="actions-num">1</span></div>
         <div id="plays"><img style="width:24px;margin:0px;image-rendering:pixelated;"src="res/img/icons/hand.png"> <span style="margin-left: 3px;" id="hands-num">2</span></div>
-        <div id="playButton" onclick="play()"><img id="playbuttonimg" src="res/img/buttons/play.png"></div>
+        <div id="playButton" onclick="play();document.getElementById('click_aud').play();"><img id="playbuttonimg" src="res/img/buttons/play.png"></div>
       </div>
     </div>
     
-    <div id="player-details" style="display: none;">
-      <span id="money">$0</span>
-      <span id="XP">0 XP</span>
-    </div>
-    <div id="player-health">
-      <div style="background: #2e222f; width: 93vw; display: inline-block;">
-        <div id="player-health-bar"></div>
+    <div id="player" style="display: none;">
+      <img src="res/img/icons/bag.png" id="bag-icon" onclick="setTimeout(openInventory, 100)">
+      <div id="player-details" >
+        <span id="money">$0</span>
+        <span id="XP">0 XP</span>
       </div>
-      <span id="player-health-num">50</span></div>
+      <div id="player-health">
+        <div style="background: #2e222f; width: 93vw; display: inline-block;">
+          <div id="player-health-bar"></div>
+        </div>
+        <span id="player-health-num">50</span></div>
+      </div>
     </div>
 
     <div id="loot" style="opacity: 0;">
@@ -78,7 +89,7 @@
         <div class="slot" id="loot-slot2"></div>
         <div class="slot" style="text-align: center;" id="loot-money"><div style="margin-top: 45%; animation: idle 4s infinite;" id="loot-money-txt">$NaN</div></div>
       </div>
-      <div id="collectButton" style="text-align: center;" onclick="enterShop()"><img id="collectbuttonimg" src="res/img/buttons/collect.png"></div>
+      <div id="collectButton" style="text-align: center;" onclick="enterShop();document.getElementById('click_aud').play();"><img id="collectbuttonimg" src="res/img/buttons/collect.png"></div>
     </div>
 
     <div id="shop" style="display: none;">
@@ -86,7 +97,7 @@
         <div id="shop-name"></div>
         <div id="shop-desc"></div>
       </div>
-      <div id="leaveButton" onclick="enterBattle()"><img id="leavebuttonimg" src="res/img/buttons/leave.png"></div>
+      <div id="leaveButton" onclick="enterBattle();document.getElementById('click_aud').play();"><img id="leavebuttonimg" src="res/img/buttons/leave.png"></div>
 
       <div id="attack-row">
         <div class="price" id="price-attack-slot1">$0</div>

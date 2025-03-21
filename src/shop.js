@@ -1,31 +1,3 @@
-// get loot from monster (didn't know where else to put it)
-function collectLoot(monster) {
-  // clears remaining cards
-  clearSlots(document.getElementById('playercards'));
-
-  document.getElementById("battle").style.display = "none";
-  document.getElementById("loot").style.opacity = 1;
-  document.getElementById("loot").style.display = "block";
-
-  document.getElementById("win-msg").innerHTML = "You defeated " + monster.name + "!"
-
-  // displays loot
-  for (let i = 0; i < monster.loot.length; i++ ) {
-    displayCard(monster.loot[i], "loot-slot")
-    deck.push(monster.loot[i]);
-  }
-  document.getElementById("loot-money-txt").innerHTML = "$" + monster.money;
-  money += monster.money;
-  document.getElementById("money").innerHTML = "$" + money;
-
-  // more xp
-  xp += 1;
-  document.getElementById("XP").innerHTML = xp + " XP";
-
-  // levels up monster
-  slimeLevel += 1;
-}
-
 // initializes shop
 function enterShop() {
 
@@ -39,9 +11,10 @@ function enterShop() {
       document.getElementById("loot").style.display = "none";
       document.getElementById("shop").style.display = "block";
       document.getElementById("loot").style.transition = "2s";
+      // makes room for loot next round
+      clearSlots(document.getElementById('lootslots'));
     }, 1000)
-    // makes room for loot next round
-    clearSlots(document.getElementById('lootslots'));
+
     let shop = chooseShop()
 
     // displays shop info (nearly identical to monster info, in fact)
@@ -120,6 +93,12 @@ function buyCardInShop(card, id) {
       document.getElementById(newID).style.opacity = 0;
     }, 400)
     document.getElementById("price-"+id).style.display = "none";
+
+    if (card == bag) {
+      maxShopAttackSlots += 1;
+      maxShopMagicSlots += 1;
+      maxShopFoodSlots += 1;
+    }
   }
   document.getElementById("money").innerHTML = "$" + money;
 }
@@ -129,6 +108,10 @@ function buyCardInShop(card, id) {
 function chooseShop() {
   if (xp < 2) {
     return getRandomItem([firstMarketStall])
+  } else if (xp >= 2 && xp < 4) {
+    return getRandomItem([marketStall])
+  } else if (xp >= 4 && xp < 8) {
+    return getRandomItem([marketStall, tavern, blacksmith])
   }
 
   else {

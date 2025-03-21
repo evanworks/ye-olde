@@ -2,30 +2,43 @@
 
 A dungeon crawler meets card game. *Build your deck and upgrade your weapons to stay alive in **ye olde**...*
 
-Very much a work in progress.
+<br/>
 
-### Things added:
+**play now!**
 
-* sword cards, magic cards
-* enemy
-* shop
-
-### Things to add:
-
-* more stuff - more cards, enemies, and shops
-* balance
-
-### Known bugs:
-
-* health bar may be resizing incorrectly
-* tooltip still appears after buying an item in shop
+<a href="https://evanworks.github.io/ye-olde">Web Version (currently the only version but whatever)</a>
 
 
 ## Version history
 
+### a03-20-25[ 0.1.0 ]
+Ye Olde 0.1.0: The Ample Update! **So far you can...**
+* Fight potentially lethal monsters!
+* Collect loot and treasure! 
+* Upgrade your weapons in safe, friendly-looking shops!
+
+**Changelog:**
+* Added inventory screen
+* Added 3 new cards:
+  * Tea: Heals 40% of total Health
+  * Potato: Heals 100% of total Health
+  * Bag: +1 of each card slot available in Shops
+  * Eyeball: Mimics enemy's attack
+* Added new enemies and shops
+* Green Toad resprite + price fix
+* Fixed "card is undefined" bug + Market Stall not having a food card
+
+**What's next?**
+I have a long spreadsheet of potential new cards, enemies, and shops! Further updates will focus on expanding content, allowing for longer play.
+
+Also, please don't report any bugs. I am aware of most of them.
+
+**Have fun!**
+
 ### a03-20-25[ 0.0.18 ]
 **we might be ready / tons of bugs**
 <br/>
+
 Bugfix update + deselecting:
 * Finally added deselecting (it looks a little buggy but I'm not a master programmer so I can't fix it)
 * Corrected some minor naming issues in the previous updates' descriptions

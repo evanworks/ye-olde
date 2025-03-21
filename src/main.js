@@ -25,12 +25,12 @@ let maxShopFoodSlots = 1;
 
 
 function start() {
-  deck.push(rustySword, rustySword, rustySword);
+  deck.push(eyeball, eyeball, sword);
   fullDeck = deck;
   setTimeout(() => {
     enterBattle();
     document.getElementById("title").style.display = "none";
     document.getElementById("battle").style.display = "block";
-    document.getElementById("player-details").style.display = "block";
+    document.getElementById("player").style.display = "block";
   }, 300)
 }

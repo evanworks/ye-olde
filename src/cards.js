@@ -4,14 +4,24 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
     juice_up(animatedCard)
     const damageIndicator = document.createElement("div");
     damageIndicator.className = "damage-indicator";
-    damageIndicator.innerText = `+${card.damage} damage`;
+    
+    if (card == eyeball) {
+      damageIndicator.innerText = `+${currentMonster.damage} damage`;
+    } else {
+      damageIndicator.innerText = `+${card.damage} damage`;
+    }
     damageIndicator.style.left = `${rect.left + 30}px`;
     damageIndicator.style.top = `${rect.top+70}px`;
     document.getElementById("animation-area").appendChild(damageIndicator);
 
     damageIndicator.addEventListener("animationend", () => damageIndicator.remove());
   }, 200)
-  attack(card.damage);
+
+  if (card == eyeball) {
+    attack(currentMonster.damage);
+  } else {
+    attack(card.damage);
+  }
   if (cardNames.includes("bone") && card.damage <= 10) {
     boneUsed = true;
     setTimeout(function(){

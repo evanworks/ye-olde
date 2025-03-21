@@ -42,30 +42,23 @@ function play() {
   hands -= 1;
   document.getElementById("hands-num").innerHTML = hands;
   document.getElementById("actions-num").innerHTML = hands;
-  console.log(selectedCards)
+
+  // turns array with empty slots ("-") into array with just the card names
   const animationArea = document.getElementById("animation-area");
   for (i in selectedCards) {
     if (selectedCards[i] == "-") {
       selectedCards = removeAllOccurrences(selectedCards, "-")
     }
   }
-  const cardsToAnimate = [...selectedCards]; // Local copy of selectedCards
+  const cardsToAnimate = [...selectedCards];
   const cardNames = [...cardsToAnimate]
-  console.log(cardNames)
+
+  // e.g. rustySword7 -> rustySword
   cardNames.forEach((card, index) => {
     cardNames[index] = removeNumbers(card)
   });
-  document.getElementById("actions-num").innerHTML = actions;
-
-  const cardCount = cardsToAnimate.length;
-  const centerX = window.innerWidth / 2;
-  const centerY = window.innerHeight / 2;
-  const spacing = 150; // Distance between cards in the blank space
 
   cardsToAnimate.forEach((card, index) => {
-    const offsetX = (index - Math.floor(cardCount / 2)) * spacing;
-    const targetX = centerX + offsetX - 62.5;
-    const targetY = centerY - 62.5 - 100;
     let cardName = removeNumbers(card)
     const cardElement = document.getElementById(card);
     const rect = cardElement.getBoundingClientRect();
@@ -77,13 +70,16 @@ function play() {
     animatedCard.style.top = `${rect.top + 140 + 150}px`;
     animationArea.appendChild(animatedCard);
 
+    animatedCard.style.transition = "0.1s";
+
+    // settimeout necessary for some reason
     setTimeout(() => {
+      // moves card upward for scoring
       animatedCard.style.transform = `translate(0px,-200px)`
-      //animatedCard.style.transform = `translate(${targetX - rect.left}px, ${targetY - rect.top}px)`;
       animatedCard.classList.add("show");
 
       setTimeout(() => {
-        card = eval(cardName);
+        card = eval(cardName); // e.g. str "rustySword" -> var rustySword
         if (card.type === "attack") {
           useAttackCard(animatedCard, card, rect, cardNames)
         } else if (card.type === "food") {
@@ -91,15 +87,18 @@ function play() {
         } else {
           setTimeout(()=>{juice_up(animatedCard);}, 200)
         }
+
+        // it's supposed to do a fade but it doesn't really work
         setTimeout(() => {
           animatedCard.style.opacity = 0;
           animatedCard.addEventListener("transitionend", () => animatedCard.remove());
         }, 1000);
       }, index * 200);
-    }, 0);
 
-    discardCard(card);
-  });
+      // bye bye
+      discardCard(card);
+    });
+    }, 0)
 
   setTimeout(() => {
     deal(5, false);
@@ -113,7 +112,7 @@ function play() {
 
 function switchTurn() {
   if (turn == true) {
-    // enemy turn (dang this is just blackjack again)
+    // enemy turn (this is just blackjack again)
     turn = false;
     if (enemyHealth > 0) {
       monsterAttack();
@@ -135,6 +134,7 @@ function monsterAttack() {
   let monster = currentMonster;
 
   damage = monster.damage;
+
 
   let percent = (damage * 100) / health;
   let newWidth = healthBar.offsetWidth - (healthBar.offsetWidth / 100) * percent;
@@ -174,32 +174,37 @@ function attack(damage) {
   enemyHealth -= damage;
 
   
-    // Update health number and animate bar to shrink gosh chatgpt
-    setTimeout(function() {
-      
-      if (enemyHealth > 0) {
-        healthNum.innerHTML = enemyHealth;
-        healthBar.style.width = newWidth + "px";
-      } else {
-        // win
-        healthNum.innerHTML = 0;
-        healthBar.style.width = "0px";
-        battle = false;
-        setTimeout(function() {
-          collectLoot(currentMonster);
-        }, 3000)
-      }
-    }, 200);
+  // Update health number and animate bar to shrink gosh chatgpt
+  setTimeout(function() {
+    
+    if (enemyHealth > 0) {
+      healthNum.innerHTML = enemyHealth;
+      healthBar.style.width = newWidth + "px";
+    } else {
+      // win
+      healthNum.innerHTML = 0;
+      healthBar.style.width = "0px";
+      battle = false;
+      setTimeout(function() {
+        collectLoot(currentMonster);
+      }, 3000)
+    }
+  }, 200);
 }
+
 
 function chooseMonster() {
   if (xp < 2) {
     return getRandomItem([slime])
   } else if (xp >= 2 && xp < 4) {
     return getRandomItem([slime, skeleton])
+  } else if (xp >= 4 && xp < 6) {
+    return getRandomItem([slime, skeleton, spider])
+  } else if (xp >= 6 && xp < 8) {
+    return getRandomItem([skeleton, spider])
   }
 
   else {
-    return getRandomItem([slime])
-  }
+    return getRandomItem([spider]) // APIder?
+  } // fallback (hardest enemy)
 }

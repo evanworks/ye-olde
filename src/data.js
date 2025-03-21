@@ -118,7 +118,7 @@ const greenToad = {
   type: "magic",
   damage: 0,
   actions: 1,
-  price: 0,
+  price: 6,
   action: 'Repeat least expensive card <span style="color:var(--magic);">twice</span> and earn its <span style="var(--money)">sell value</span>',
   img: 'greenToad.png',
 }
@@ -128,9 +128,29 @@ const bone = {
   type: "magic",
   damage: 0,
   actions: 1,
-  price: 12,
+  price: 8,
   action: '<span style="padding-left:4px;padding-right:4px;background:var(--healthFull);">2x</span> damage on all played attack cards below <span style="color:var(--healthFull)">10</span> damage',
   img: "bone.png"
+}
+const eyeball = {
+  file: "eyeball",
+  name: "Eyeball",
+  type: "attack", // is actually magic
+  damage: "???", // damage changes
+  actions: 0,
+  price: 15,
+  action: 'Mimics enemy\'s attack',
+  img: "eyeball.png"
+}
+const bag = {
+  file: "bag",
+  name: "Bag",
+  type: "magic",
+  damage: 0,
+  actions: 0,
+  price: 12,
+  action: '<span style="color:var(--magic);">+1</span> of each card slot avaiable in <span style="color:var(--money);">Shop</span>',
+  img: "bag.png"
 }
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
@@ -145,8 +165,30 @@ const juice = {
   actions: 1,
   health: 10, // how much health it heals (in percentage)
   price: 3,
-  action: 'Heals <span style="color:var(--healthFull);">10%</span> of total Health',
+  action: '<span style="color: grey">Fresh and energizing.</span> Heals <span style="color:var(--healthFull);">10%</span> of total Health',
   img: "juice.png"
+}
+const tea = {
+  file: "tea",
+  name: "Tea",
+  type: "food",
+  damage: 0,
+  actions: 0,
+  health: 40,
+  price: 3,
+  action: '<span style="color: grey">Warms the heart, strengthens the soul.</span> Heals <span style="color:var(--healthFull);">40%</span> of total Health',
+  img: "tea.png"
+}
+const potato = {
+  file: "potato",
+  name: "Potato",
+  type: "food",
+  damage: 0,
+  actions: 0,
+  health: 100,
+  price: 3,
+  action: '<span style="color: grey">Down to earth.</span> Heals <span style="color:var(--healthFull);">100%</span> of total Health',
+  img: "potato.png"
 }
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
@@ -192,14 +234,27 @@ const skeleton = {
   scaling: 10,
   damage: 10,
   money: 10,
-  loot: [slimeball],
+  loot: [bone, potato],
+}
+
+spiderLevel = 0;
+const spider = {
+  file: "spider",
+  name: "Spider",
+  description: "It's almost as tall as you, with 9 red eyes and a vague smile on its face.",
+  img: "res/img/placeholder-portrait.png",
+  health: 30,
+  scaling: 10,
+  damage: 15,
+  money: 15,
+  loot: [tea, eyeball],
 }
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 // SHOPS
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 
-// works the same as marketStall but has less good loot
+// works the same as marketStall but has less good loot so you can actually buy stuff early
 const firstMarketStall = {
   name: "Market Stall",
   description: "A bright but lonely stall. You wonder how it got here - you're in a dungeon, after all.",
@@ -207,11 +262,24 @@ const firstMarketStall = {
   lootMagic: [slimeball, slimeball, bone], // slight weight on slimeball
   lootFood: [juice]
 }
-
 const marketStall = {
   name: "Market Stall",
   description: "A bright but lonely stall. You wonder how it got here - you're in a dungeon, after all.",
   lootAttack: [rustySword, sword, longbow],
   lootMagic: [slimeball, bone, greenToad],
-  lootFood: []
+  lootFood: [juice, tea]
+}
+const tavern = {
+  name: "Tavern",
+  description: "A lively yet strangely quiet tavern. The air smells musty and tired.",
+  lootAttack: [claymore, sword, longbow, mace, mace], // maces are popular here due to the strange number of orcs
+  lootMagic: [greenToad, bag],
+  lootFood: [juice, tea, potato]
+}
+const blacksmith = {
+  name: "Blacksmith",
+  description: "The air is thick with black dust, and powerful tools gleam on the walls.",
+  lootAttack: [claymore, sword, longbow, mace, scimitar],
+  lootMagic: [bone, bag],
+  lootFood: [potato]
 }

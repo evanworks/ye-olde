@@ -2,7 +2,6 @@ function deal(amount, first) {
   if (first) {
     shuffledDeck = shuffle(fullDeck);
   } else {
-    console.log(JSON.stringify(shuffledDeck) == "[]");
     if (JSON.stringify(shuffledDeck) != "[]") {
       shuffledDeck = shuffle(shuffledDeck);
     } else {
@@ -25,6 +24,7 @@ function deal(amount, first) {
 function displayCard(card, parent) {
   // img/tooltip prep
   const necessaryDiv = document.createElement("div");
+  console.log(card);
   necessaryDiv.className = "tooltip";
   const img = document.createElement("img");
   img.src = "res/img/"+card.img;
@@ -34,7 +34,7 @@ function displayCard(card, parent) {
   necessaryDiv.appendChild(img);
   sample = 0;
 
-  for (let i = 0; i < 6; i++) {
+  for (let i = 0; i < 10000; i++) {
     sample += 1;
     if (document.getElementById(parent + sample).innerHTML == null || document.getElementById(parent + sample).innerHTML == "") {
       parent += sample;
@@ -57,7 +57,7 @@ function displayCard(card, parent) {
 
   // displays damage
   if (card.damage != 0) {
-    tooltip.innerHTML += "<i>"+card.damage+" damage</i><br/>";
+    tooltip.innerHTML += "<i style='color: var(--healthFull)'>"+card.damage+" damage</i><br/>";
   }
 
   // displays extra actions in yellow
@@ -81,9 +81,11 @@ function displayCard(card, parent) {
 
   img.cardHasBeenSelected = false;
 
-  img.addEventListener("click", function() {
-    selectCard(card, parent, img, img.cardHasBeenSelected)
-  }); 
+  if (element.parentElement.id !== "inv-cards") {
+    img.addEventListener("click", function() {
+      selectCard(card, parent, img, img.cardHasBeenSelected)
+    }); 
+  }
 }
 
 function selectCard(card, parent, img) {

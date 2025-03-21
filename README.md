@@ -11,7 +11,10 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
-### a03-20-25[ 0.1.0 ]
+### a03-21-25[ 0.1.1 ]
+Fixed starting with two eyeballs
+
+### a03-21-25[ 0.1.0 ]
 Ye Olde 0.1.0: The Ample Update! **So far you can...**
 * Fight potentially lethal monsters!
 * Collect loot and treasure! 

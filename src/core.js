@@ -24,7 +24,6 @@ function deal(amount, first) {
 function displayCard(card, parent) {
   // img/tooltip prep
   const necessaryDiv = document.createElement("div");
-  console.log(card);
   necessaryDiv.className = "tooltip";
   const img = document.createElement("img");
   img.src = "res/img/"+card.img;

@@ -13,6 +13,7 @@ function enterBattle() {
   document.getElementById("monster-health-bar").style.width = "93vw";
 
   enemyHealth = monster.health + (monster.scaling * window[monster.file+"Level"]);
+  console.log(monster.health + " + (" + monster.scaling + " x " +  window[monster.file+"Level"] + ") = " + enemyHealth)
   document.getElementById("monster-health-num").innerHTML = enemyHealth;
 
   currentMonster = monster;
@@ -87,8 +88,6 @@ function play() {
         } else {
           setTimeout(()=>{juice_up(animatedCard);}, 200)
         }
-
-        // it's supposed to do a fade but it doesn't really work
         setTimeout(() => {
           animatedCard.style.opacity = 0;
           animatedCard.addEventListener("transitionend", () => animatedCard.remove());
@@ -133,7 +132,7 @@ function monsterAttack() {
   
   let monster = currentMonster;
 
-  damage = monster.damage;
+  damage = monster.damage + monster.scaling * window[monster.file+"Level"];
 
 
   let percent = (damage * 100) / health;
@@ -202,9 +201,13 @@ function chooseMonster() {
     return getRandomItem([slime, skeleton, spider])
   } else if (xp >= 6 && xp < 8) {
     return getRandomItem([skeleton, spider])
+  } else if (xp >= 8 && xp < 10) {
+    return getRandomItem([skeleton, spider, minispiders])
   }
-
   else {
-    return getRandomItem([spider]) // APIder?
-  } // fallback (hardest enemy)
+    return getRandomItem([minispiders]) // fallback (toughest enemy)
+  } 
 }
+
+
+// Idea based on spelling mistake: APIder?

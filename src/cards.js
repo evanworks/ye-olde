@@ -64,7 +64,7 @@ function useFoodCard(animatedCard, card, rect) {
 
   let percent = 0
 
-  if (health + healthToHeal > maxHealth) {
+  if (health + healthToHeal > maxHealth && card.overflow == false) {
     health = maxHealth
   } else {
     percent = (healthToHeal * 100) / health;

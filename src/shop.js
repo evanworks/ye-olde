@@ -53,7 +53,7 @@ function selectShopCard(card, parent) {
   let parentelmnt = event.target.parentElement;
   setTimeout(()=>{
     parentelmnt.parentElement.previousElementSibling.innerHTML = "BUY";
-    parentelmnt.parentElement.previousElementSibling.style.color = "white";
+    //parentelmnt.parentElement.previousElementSibling.style.color = "white";
     parentelmnt.parentElement.previousElementSibling.style.cursor = "pointer";
   }, 150)
   parentelmnt.parentElement.previousElementSibling.classList.add("goesDownAndBackUp");
@@ -80,7 +80,7 @@ function selectShopCard(card, parent) {
   });
 }
 
-// buys a card, complete with horrid animation (dont know why i added the word 'shop', where else would you be buying cards)
+// buys a card, complete with horrid animation (dont know why i added the word 'shop', where else would you be buying cards?)
 function buyCardInShop(card, id) {
   if (money >= card.price) {
     document.getElementById("money_aud").play();
@@ -112,9 +112,11 @@ function chooseShop() {
     return getRandomItem([marketStall])
   } else if (xp >= 4 && xp < 8) {
     return getRandomItem([marketStall, tavern, blacksmith])
+  } else if (xp >= 4 && xp < 16) {
+    return getRandomItem([marketStall, tavern, blacksmith, farmersmarket])
   }
 
   else {
-    return getRandomItem([marketStall])
+    return getRandomItem([marketStall, tavern, blacksmith, farmersmarket]) // all of them
   }
 }

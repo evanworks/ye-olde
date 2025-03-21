@@ -164,6 +164,7 @@ const juice = {
   damage: 0,
   actions: 1,
   health: 10, // how much health it heals (in percentage)
+  overflow: false, // whether it can overflow health bar
   price: 3,
   action: '<span style="color: grey">Fresh and energizing.</span> Heals <span style="color:var(--healthFull);">10%</span> of total Health',
   img: "juice.png"
@@ -175,6 +176,7 @@ const tea = {
   damage: 0,
   actions: 0,
   health: 40,
+  overflow: false,
   price: 3,
   action: '<span style="color: grey">Warms the heart, strengthens the soul.</span> Heals <span style="color:var(--healthFull);">40%</span> of total Health',
   img: "tea.png"
@@ -186,8 +188,21 @@ const potato = {
   damage: 0,
   actions: 0,
   health: 100,
+  overflow: false,
   price: 3,
   action: '<span style="color: grey">Down to earth.</span> Heals <span style="color:var(--healthFull);">100%</span> of total Health',
+  img: "potato.png"
+}
+const carrot = {
+  file: "carrot",
+  name: "Carrot",
+  type: "food",
+  damage: 0,
+  actions: 0,
+  health: 30,
+  overflow: true,
+  price: 6,
+  action: '<span style="color: grey">Bright and juicy.</span> Heals <span style="color:var(--healthFull);">50%</span> of total Health <span style="color:var(--special);">(can overflow)</span>',
   img: "potato.png"
 }
 
@@ -249,6 +264,18 @@ const spider = {
   money: 15,
   loot: [tea, eyeball],
 }
+minispidersLevel = 0;
+const minispiders = {
+  file: "minispiders",
+  name: "Mini-Spiders",
+  description: "There are so many!!!!!",
+  img: "res/img/placeholder-portrait.png",
+  health: 50,
+  scaling: 15,
+  damage: 20,
+  money: 20,
+  loot: [eyeball, eyeball],
+}
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 // SHOPS
@@ -270,16 +297,23 @@ const marketStall = {
   lootFood: [juice, tea]
 }
 const tavern = {
-  name: "Tavern",
+  name: "Old Tavern",
   description: "A lively yet strangely quiet tavern. The air smells musty and tired.",
   lootAttack: [claymore, sword, longbow, mace, mace], // maces are popular here due to the strange number of orcs
   lootMagic: [greenToad, bag],
   lootFood: [juice, tea, potato]
 }
 const blacksmith = {
-  name: "Blacksmith",
-  description: "The air is thick with black dust, and powerful tools gleam on the walls.",
+  name: "Black smith", // naming
+  description: "The air is thick with soot and powerful tools gleam on the walls.",
   lootAttack: [claymore, sword, longbow, mace, scimitar],
   lootMagic: [bone, bag],
   lootFood: [potato]
+}
+const farmersmarket = {
+  name: "Farmer's Market",
+  description: "The air is thick with black dust, and powerful tools gleam on the walls.",
+  lootAttack: [rustySword],
+  lootMagic: [bag, slimeball, bone],
+  lootFood: [potato, carrot, juice, tea]
 }

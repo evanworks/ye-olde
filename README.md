@@ -4,12 +4,20 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 <br/>
 
-**play now!**
-
-<a href="https://evanworks.github.io/ye-olde">Web Version (currently the only version but whatever)</a>
+<b>play now!</b> <a href="https://evanworks.github.io/ye-olde">Web Version (currently the only version but whatever)</a>
 
 
 ## Version history
+
+### a03-21-25[ 0.1.2 ]
+bugfixes and brief farming
+* Made monsters other than Slime able to level up
+* attempted to make price not be white when not completing a purchase and leaving the shop but gave up
+* fixed strange-looking shop names
+* made monster damage level up as well
+
+* added Mini-spiders
+* added Farmer's Market
 
 ### a03-21-25[ 0.1.1 ]
 Fixed starting with two eyeballs

@@ -22,7 +22,7 @@ function collectLoot(monster) {
   document.getElementById("XP").innerHTML = xp + " XP";
 
   // levels up monster
-  slimeLevel += 1;
+  window[monster.file+"Level"] += 1;
 }
 
 

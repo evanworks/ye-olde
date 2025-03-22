@@ -1,6 +1,8 @@
 function enterBattle() {
   battle = true;
 
+  document.getElementById("playButton").style.pointerEvents = "auto";
+
   monster = chooseMonster()
   document.getElementById("shop").style.display = "none";
   document.getElementById("battle").style.display = "block";
@@ -33,10 +35,14 @@ function enterBattle() {
   clearSlots(document.getElementById('magic-row'));
   clearSlots(document.getElementById('food-row'));
 
-  deal(6, true)
+  turn = true;
+
+  deal(6, true);
 }
 
 function play() {
+  document.getElementById("playButton").style.pointerEvents = "none";
+
   if (JSON.stringify(selectedCards) == JSON.stringify(["-", "-", "-", "-", "-", "-"])) return;
   
   actions = maxActions;
@@ -100,33 +106,18 @@ function play() {
     }, 0)
 
   setTimeout(() => {
-    deal(5, false);
+    deal(6, false);
   }, 2000);
 
   selectedCards = ["-", "-", "-", "-", "-", "-"]
   setTimeout(() => {
-    switchTurn();
-  }, 4000)
-}
-
-function switchTurn() {
-  if (turn == true) {
-    // enemy turn (this is just blackjack again)
-    turn = false;
-    if (enemyHealth > 0) {
-      monsterAttack();
-    } 
-  } else if (turn == false) {
-    // player turn
-    turn = true;
-  } else {
-    alert("Invalid turn sequence.")
-    alert("Beginning escape process...")
-    alert("Just kidding haha")
-  }
+    console.log(turn)
+    if (turn == true) { monsterAttack() };
+  }, 3000)
 }
 
 function monsterAttack() {
+  console.log("in monster attack")
   const healthBar = document.getElementById("player-health-bar");
   const healthNum = document.getElementById("player-health-num");
   
@@ -142,6 +133,7 @@ function monsterAttack() {
 
   setTimeout(function(){
     healthBar.classList.add("flash");
+    document.getElementById("playButton").style.pointerEvents = "auto";
   }, 900)
 
   
@@ -172,6 +164,8 @@ function attack(damage) {
 
   enemyHealth -= damage;
 
+  if (enemyHealth <= 0) {turn = false;}
+
   
   // Update health number and animate bar to shrink gosh chatgpt
   setTimeout(function() {
@@ -181,12 +175,12 @@ function attack(damage) {
       healthBar.style.width = newWidth + "px";
     } else {
       // win
-      healthNum.innerHTML = 0;
       healthBar.style.width = "0px";
       battle = false;
+      document.getElementById("win_aud").play();
       setTimeout(function() {
         collectLoot(currentMonster);
-      }, 3000)
+      }, 2000)
     }
   }, 200);
 }

@@ -1,4 +1,6 @@
 function collectLoot(monster) {
+
+  
   // clears remaining cards
   clearSlots(document.getElementById('playercards'));
 
@@ -8,11 +10,16 @@ function collectLoot(monster) {
 
   document.getElementById("win-msg").innerHTML = "You defeated " + monster.name + "!"
 
+  let loot;
   // displays loot
-  for (let i = 0; i < monster.loot.length; i++ ) {
-    displayCard(monster.loot[i], "loot-slot")
-    deck.push(monster.loot[i]);
+  if (xp == 0) {
+    // prevents softlock
+    loot = slimeball
+  } else {
+    loot = getRandomItem(monster.loot)
   }
+  displayCard(loot, "loot-slot")
+  deck.push(loot);
   document.getElementById("loot-money-txt").innerHTML = "$" + monster.money;
   money += monster.money;
   document.getElementById("money").innerHTML = "$" + money;

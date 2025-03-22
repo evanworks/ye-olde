@@ -86,7 +86,6 @@
       <div id="win-msg"></div>
       <div id="lootslots">
         <div class="slot" id="loot-slot1"></div>
-        <div class="slot" id="loot-slot2"></div>
         <div class="slot" style="text-align: center;" id="loot-money"><div style="margin-top: 45%; animation: idle 4s infinite;" id="loot-money-txt">$NaN</div></div>
       </div>
       <div id="collectButton" style="text-align: center;" onclick="enterShop();document.getElementById('click_aud').play();"><img id="collectbuttonimg" src="res/img/buttons/collect.png"></div>
@@ -141,6 +140,24 @@
     <audio id="title_aud"><source src="res/aud/title.mp3"></audio>
     <audio id="money_aud"><source src="res/aud/money.mp3"></audio>
     <audio id="attack_aud"><source src="res/aud/attack.mp3"></audio>
+    <audio id="win_aud"><source src="res/aud/win.mp3"></audio>
+
+
+    <div id="secluded-area" style="z-index: -10000000000000000000000000;">
+      <img src="res/img/buttons/play-hover.png" style="width: 1px; height: 1px;">
+      <img src="res/img/buttons/play-active.png" style="width: 1px; height: 1px;">
+      <img src="res/img/buttons/collect-hover.png" style="width: 1px; height: 1px;">
+      <img src="res/img/buttons/collect-active.png" style="width: 1px; height: 1px;">
+      <img src="res/img/buttons/leave-hover.png" style="width: 1px; height: 1px;">
+      <img src="res/img/buttons/leave-active.png" style="width: 1px; height: 1px;">
+    </div>
+
   </body>
-  <script></script>
+  <script>
+    window.onload = function() {
+      setTimeout(() => {
+        document.getElementById("secluded-area").style.display = "none";
+      }, 600);
+    }
+  </script>
 </html>

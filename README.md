@@ -4,10 +4,23 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 <br/>
 
-<b>play now!</b> <a href="https://evanworks.github.io/ye-olde">Web Version (currently the only version but whatever)</a>
+<b>Play now!</b> <a href="https://evanworks.github.io/ye-olde">Web Version (currently the only version but whatever)</a>
 
 
 ## Version history
+
+### a03-22-25[ 0.1.3 ]
+daily update # something
+* add: Carrot (that was last update, but I forgot about it)
+* add: Tomato
+* add: Win SFX
+* ⚖️: changed price of most things
+* qol: monsters give you less stuff
+* qol: buttons can't be pressed while enemy is attacking
+* qol: decreased wait time for enemy attack
+* fix: glitchy button animations
+* fix: Farmer's Market description described a blacksmith
+* fix: some wacky healthbar anomalies
 
 ### a03-21-25[ 0.1.2 ]
 bugfixes and brief farming

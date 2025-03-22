@@ -196,3 +196,7 @@ function die() {
   document.getElementById("deathScreen").style.display = "block";
   document.getElementById("game_over_aud").play();
 }
+
+setInterval(() => {
+  document.getElementById("actions-num").innerHTML = actions;
+}, 100)

@@ -70,19 +70,32 @@ function useFoodCard(animatedCard, card, rect) {
     percent = (healthToHeal * 100) / health;
     health += healthToHeal;
   }
-  
-  // new healthbar width *obviously* (my comments are incredibly good)
+  let unit = "px"
   let newWidth = document.getElementById("player-health-bar").offsetWidth - (document.getElementById("player-health-bar").offsetWidth / 100) * -percent;
+  if (card.health >= 100) {
+    newWidth = "93";
+    unit = "vw";
+  }
 
-  document.getElementById("player-health-bar").classList.add("flash");
+  if (health + healthToHeal > maxHealth) {
+    console.log("overflow begin")
+    document.getElementById("player-health-bar").classList.add("gold-flash");
+  } else {
+    document.getElementById("player-health-bar").classList.add("flash");
+  }
 
   setTimeout(function() {
     document.getElementById("player-health-num").innerHTML = health;
-    document.getElementById("player-health-bar").style.width = newWidth + "px";
+    document.getElementById("player-health-bar").style.width = newWidth + unit;
   }, 500);
 
   setTimeout(function() {
-    document.getElementById("player-health-bar").classList.remove("flash");
+    if (healthOverflow) {
+      console.log("overflow end")
+      document.getElementById("player-health-bar").classList.remove("gold-flash");
+    } else {
+      document.getElementById("player-health-bar").classList.remove("flash");
+    }
   }, 3100)
   
   // visual
@@ -135,7 +148,7 @@ function useFrog(rect, targetX, targetY, card, cardNames, animatedCard) {
       document.getElementById("animation-area").appendChild(moneyEffectIndicator);
       moneyEffectIndicator.addEventListener("animationend", () => moneyEffectIndicator.remove());
 
-      money += card.price
+      money += Math.floor(card.price / 2);
       document.getElementById("money").innerHTML = "$" + money;
     }, 400)
   }, 400) 

@@ -1,31 +1,32 @@
 let deck = [];
 let selectedCards = ["-", "-", "-", "-", "-", "-"];
-let squad = []; // not sure if this is gonna be used yet
+let squad = []; // not sure yet if this is gonna be used at all
+let turn = true;
+let idonthaveagoodnameforthis = 0;
+let animationList = [];
 
-let maxHealth = 50
+let maxHealth = 50;
 let health = maxHealth;
+let healthOverflow = true;
+
 let maxActions = 1;
-let maxHands = 2;
 let actions = maxActions;
+let maxHands = 2;
 let hands = maxHands;
 
 let battle = true;
 let currentMonster;
 
-let turn = true;
-let idonthaveagoodnameforthis = 0;
 let xp = 0;
-
-let animationList = [];
-
 let money = 0;
 let maxShopAttackSlots = 3;
 let maxShopMagicSlots = 2;
 let maxShopFoodSlots = 1;
 
+let debug = false;
 
 function start() {
-  deck.push(rustySword, rustySword, rustySword);
+  if(!debug) {deck.push(rustySword, rustySword, rustySword);} else { deck.push(longbow,longbow,longbow,longbow,longbow,longbow,longbow,longbow,longbow,longbow,longbow,longbow,longbow,longbow,longbow) }
   fullDeck = deck;
   setTimeout(() => {
     enterBattle();

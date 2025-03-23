@@ -9,6 +9,20 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### a03-23-25[ 0.1.4 ]
+If you look really closely at any of the art in this game, you're gonna find as many mistakes as you would bacteria on a petri dish. - *Evan Lee, 2025*
+* Put prices back to normal (it didn't work as I expected and generally made things not fun)
+* Removed negative monster health because it was misleading
+* nerfed frog
+* Made health overflow considerably cooler-looking
+* told mobile players to go away
+* qol: X button is now sticky (doesn't respond to scroll);
+* FIXED: some animations not repeating
+* FIXED: carrot sprite being potato
+* FIXED: both carrot and tomato giving incorrect health amounts
+* FIXED: playing really large and powerful hands kills you
+* FIXED: Inventory sound effect
+
 ### a03-22-25[ 0.1.3 ]
 daily update # something
 * add: Carrot (that was last update, but I forgot about it)
@@ -20,7 +34,6 @@ daily update # something
 * qol: decreased wait time for enemy attack
 * fix: glitchy button animations
 * fix: Farmer's Market description described a blacksmith
-* fix: some wacky healthbar anomalies
 
 ### a03-21-25[ 0.1.2 ]
 bugfixes and brief farming

@@ -6,6 +6,7 @@ function deal(amount, first) {
       shuffledDeck = shuffle(shuffledDeck);
     } else {
       if (noCards(document.getElementById("playercards")) == 0 && battle == true) {
+        console.log("death by no cards")
         setTimeout(()=>{die()}, 200);
       }
     }
@@ -199,4 +200,16 @@ function die() {
 
 setInterval(() => {
   document.getElementById("actions-num").innerHTML = actions;
+  document.getElementById("hands-num").innerHTML = actions;
+  if (health > maxHealth) {
+    healthOverflow = true;
+    document.getElementById("player-health-num").style.color = "var(--healthFullGold)";
+    document.getElementById("player-health-bar").style.background = "var(--healthEmptyGold)";
+    //document.getElementById("player-health-hug").style.background = "var(--healthEmptyGold)";
+  } else {
+    healthOverflow = false;
+    document.getElementById("player-health-num").style.color = "var(--healthFull)";
+    document.getElementById("player-health-bar").style.background = "var(--healthEmpty)";
+    //document.getElementById("player-health-hug").style.background = "var(--healthEmpty)";
+  }
 }, 100)

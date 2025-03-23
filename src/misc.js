@@ -1,12 +1,12 @@
 function collectLoot(monster) {
-
-  
   // clears remaining cards
   clearSlots(document.getElementById('playercards'));
 
   document.getElementById("battle").style.display = "none";
-  document.getElementById("loot").style.opacity = 1;
   document.getElementById("loot").style.display = "block";
+  setTimeout(() => {
+    document.getElementById("loot").style.opacity = 1
+  }, 400)
 
   document.getElementById("win-msg").innerHTML = "You defeated " + monster.name + "!"
 

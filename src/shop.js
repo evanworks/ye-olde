@@ -8,8 +8,8 @@ function enterShop() {
     document.getElementById("loot").style.opacity = 0;
     document.getElementById("loot").style.transition = "1s";
     setTimeout(() => {
-      document.getElementById("loot").style.display = "none";
       document.getElementById("shop").style.display = "block";
+      document.getElementById("loot").style.display = "none";
       document.getElementById("loot").style.transition = "2s";
       // makes room for loot next round
       clearSlots(document.getElementById('lootslots'));

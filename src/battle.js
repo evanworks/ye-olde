@@ -1,13 +1,29 @@
 function enterBattle() {
-  battle = true;
+  clearSlots(document.getElementById('attack-row'));
+  clearSlots(document.getElementById('magic-row'));
+  clearSlots(document.getElementById('food-row'));
 
   document.getElementById("playButton").style.pointerEvents = "auto";
-
-  monster = chooseMonster()
   document.getElementById("shop").style.display = "none";
   document.getElementById("battle").style.display = "block";
 
-  // displays monster info
+  battle = true; // these two may do nothing
+  turn = true; 
+  monster = chooseMonster()
+  displayMonsterInfo(monster);
+  currentMonster = monster;
+
+  // resets all values
+  selectedCards = ["-", "-", "-", "-", "-", "-"];
+  idonthaveagoodnameforthis = 0; // great job past self
+  actions = maxActions;
+  document.getElementById("actions-num").innerHTML = actions;
+  hands = maxHands;
+  document.getElementById("hands-num").innerHTML = hands;
+
+  deal(6, true);
+}
+function displayMonsterInfo(monster) {
   document.getElementById("monster-img").src = monster.img;
   document.getElementById("monster-name").innerHTML = monster.name;
   document.getElementById("monster-lvl").innerHTML = "Level " + window[monster.file+"Level"];
@@ -15,36 +31,17 @@ function enterBattle() {
   document.getElementById("monster-health-bar").style.width = "93vw";
 
   enemyHealth = monster.health + (monster.scaling * window[monster.file+"Level"]);
-  console.log(monster.health + " + (" + monster.scaling + " x " +  window[monster.file+"Level"] + ") = " + enemyHealth)
+  enemyDamage = monster.damage + (monster.scaling * window[monster.file+"Level"]);
   document.getElementById("monster-health-num").innerHTML = enemyHealth;
-
-  currentMonster = monster;
-
-  // resets all valuesf
-
-  selectedCards = ["-", "-", "-", "-", "-", "-"];
-
-  idonthaveagoodnameforthis = 0; // great job past self
-
-  actions = maxActions;
-  document.getElementById("actions-num").innerHTML = actions;
-  hands = maxHands;
-  document.getElementById("hands-num").innerHTML = hands;
-  // clears slots in shop
-  clearSlots(document.getElementById('attack-row'));
-  clearSlots(document.getElementById('magic-row'));
-  clearSlots(document.getElementById('food-row'));
-
-  turn = true;
-
-  deal(6, true);
+  document.getElementById("monster-health-stat").innerHTML = enemyHealth + " HP";
+  document.getElementById("monster-atk").innerHTML = enemyDamage + " ATK";
 }
 
 function play() {
-  document.getElementById("playButton").style.pointerEvents = "none";
 
   if (JSON.stringify(selectedCards) == JSON.stringify(["-", "-", "-", "-", "-", "-"])) return;
-  
+
+  document.getElementById("playButton").style.pointerEvents = "none";
   actions = maxActions;
   hands -= 1;
   document.getElementById("hands-num").innerHTML = hands;
@@ -107,7 +104,7 @@ function play() {
 
   setTimeout(() => {
     deal(6, false);
-  }, 2000);
+  }, 2000 + selectedCards.length * 200);
 
   selectedCards = ["-", "-", "-", "-", "-", "-"]
   setTimeout(() => {
@@ -174,6 +171,7 @@ function attack(damage) {
       healthNum.innerHTML = enemyHealth;
       healthBar.style.width = newWidth + "px";
     } else {
+      healthNum.innerHTML = 0;
       // win
       healthBar.style.width = "0px";
       battle = false;

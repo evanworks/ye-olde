@@ -30,7 +30,7 @@ const claymore = {
   type: "attack",
   damage: 9,
   actions: 0,
-  price: 11,
+  price: 9,
   action: '',
   img: "claymore.png"
 }
@@ -42,7 +42,7 @@ const sword = {
   type: "attack",
   damage: 8,
   actions: 1,
-  price: 6,
+  price: 9,
   action: '',
   img: "sword.png"
 }
@@ -52,7 +52,7 @@ const scimitar = {
   type: "attack",
   damage: 11,
   actions: 1,
-  price: 20,
+  price: 10,
   action: '',
   img: "scimitar.png"
 }
@@ -65,7 +65,7 @@ const longbow = {
   type: "attack",
   damage: 18,
   actions: 1,
-  price: 30,
+  price: 15,
   action: '',
   img: "longbow.png"
 }
@@ -98,7 +98,7 @@ const slimeball = {
   type: "magic",
   damage: 0,
   actions: 0,
-  price: 8,
+  price: 6,
   action: 'Triggers first played attack card <span style="color:var(--magic);">twice</span>',
   img: "slimeball.png"
 }
@@ -108,7 +108,7 @@ const redSlimeball = {
   type: "magic",
   damage: 0,
   actions: 1,
-  price: 50,
+  price: 20,
   action: 'Play every other card three times',
   img: "redSlimeball.png"
 }
@@ -118,8 +118,8 @@ const greenToad = {
   type: "magic",
   damage: 0,
   actions: 1,
-  price: 18,
-  action: 'Repeat least expensive card <span style="color:var(--magic);">twice</span> and earn its <span style="var(--money)">sell value</span>',
+  price: 6,
+  action: 'Repeat least expensive <span style="color: var(--attack)">Attack</span> card <span style="color:var(--magic);">twice</span> and earn half its <span style="var(--money)">sell value</span>',
   img: 'greenToad.png',
 }
 const bone = {
@@ -128,7 +128,7 @@ const bone = {
   type: "magic",
   damage: 0,
   actions: 1,
-  price: 16,
+  price: 8,
   action: '<span style="padding-left:4px;padding-right:4px;background:var(--healthFull);">2x</span> damage on all played attack cards below <span style="color:var(--healthFull)">10</span> damage',
   img: "bone.png"
 }
@@ -138,7 +138,7 @@ const eyeball = {
   type: "attack", // is actually magic
   damage: "???", // damage changes
   actions: 0,
-  price: 34,
+  price: 15,
   action: 'Mimics enemy\'s attack',
   img: "eyeball.png"
 }
@@ -148,7 +148,7 @@ const bag = {
   type: "magic",
   damage: 0,
   actions: 0,
-  price: 28,
+  price: 12,
   action: '<span style="color:var(--magic);">+1</span> of each card slot avaiable in <span style="color:var(--money);">Shop</span>',
   img: "bag.png"
 }
@@ -165,8 +165,8 @@ const juice = {
   actions: 1,
   health: 10, // how much health it heals (in percentage)
   overflow: false, // whether it can overflow health bar
-  price: 6,
-  action: '<span style="color: grey">Fresh and energizing.</span> Heals <span style="color:var(--healthFull);">10%</span> of total Health',
+  price: 3,
+  action: '<span style="color: grey">Fresh and energizing.</span><br/> Heals <span style="color:var(--healthFull);">10%</span> of total Health',
   img: "juice.png"
 }
 const tea = {
@@ -177,8 +177,8 @@ const tea = {
   actions: 0,
   health: 40,
   overflow: false,
-  price: 9,
-  action: '<span style="color: grey">Warms the heart, strengthens the soul.</span> Heals <span style="color:var(--healthFull);">40%</span> of total Health',
+  price: 12,
+  action: '<span style="color: grey">Warms the heart, strengthens the soul.</span><br/> Heals <span style="color:var(--healthFull);">40%</span> of total Health',
   img: "tea.png"
 }
 const potato = {
@@ -189,8 +189,8 @@ const potato = {
   actions: 0,
   health: 100,
   overflow: false,
-  price: 15,
-  action: '<span style="color: grey">Down to earth.</span> Heals <span style="color:var(--healthFull);">100%</span> of total Health',
+  price: 30,
+  action: '<span style="color: grey">Down to earth.</span><br/> Heals <span style="color:var(--healthFull);">100%</span> of total Health',
   img: "potato.png"
 }
 const carrot = {
@@ -201,9 +201,9 @@ const carrot = {
   actions: 0,
   health: 30,
   overflow: true,
-  price: 23,
-  action: '<span style="color: grey">Bright and juicy.</span> Heals <span style="color:var(--healthFull);">50%</span> of total Health <span style="color:var(--special);">(can overflow)</span>',
-  img: "potato.png"
+  price: 17,
+  action: '<span style="color: grey">Bright and juicy.</span><br/> Heals <span style="color:var(--healthFull);">30%</span> of total Health <span style="color:var(--special);">(can overflow)</span>',
+  img: "carrot.png"
 }
 const tomato = {
   file: "tomato",
@@ -211,10 +211,10 @@ const tomato = {
   type: "food",
   damage: 0,
   actions: 0,
-  health: 30,
+  health: 60,
   overflow: true,
-  price: 33,
-  action: '<span style="color: grey">Smooth and velvety.</span> Heals <span style="color:var(--healthFull);">60%</span> of total Health <span style="color:var(--special);">(can overflow)</span>',
+  price: 23,
+  action: '<span style="color: grey">Smooth and velvety.</span><br/> Heals <span style="color:var(--healthFull);">60%</span> of total Health <span style="color:var(--special);">(can overflow)</span>',
   img: "tomato.png"
 }
 

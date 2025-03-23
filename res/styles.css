@@ -10,6 +10,9 @@
   --healthFull: #e83b3b;
   --healthEmpty: #7a3045;
 
+  --healthFullGold: #f9c22b;
+  --healthEmptyGold: #fb6b1d;
+
   --bone: #c7dcd0;
 
   --money: #fbb954;
@@ -18,6 +21,7 @@
   --magic: #a884f3;
   --food: #8fd3ff;
   --special: #fbff86;
+
 }
 
 
@@ -392,6 +396,14 @@ START OF CHAPGPT
 .flash {
   animation: flash 3s infinite;
 }
+@keyframes gold-flash {
+  0% {background: var(--healthEmptyGold);}
+  50% { background: var(--healthFullGold);}
+}
+
+.gold-flash {
+  animation: gold-flash 3s infinite;
+}
 
 @keyframes shake {
   0% { transform: translate(5px, 0px); }
@@ -700,9 +712,50 @@ START OF CHAPGPT
 #x {
   width: 18px;
   opacity: 0.7;
-  position: absolute;
+  position: sticky;
+  top: 10px;
   z-index: 1000000000000000000001;
   cursor: pointer;
 
   image-rendering: pixelated;
+}
+
+#mobile {
+  display: none;
+  text-align: center;
+  transform: translateY(30vh);
+  font-family: 'Jersey 10', sans-serif;
+  font-size: 20px;
+  background: rgba(0,0,0,0.2);
+  padding: 10px 10px
+}
+@media only screen and (max-width: 1000px) {
+  #not-mobile {
+    display: none;
+  }
+  #mobile {
+    display: block;
+  }
+}
+@media only screen and (max-height: 600px) {
+  #not-mobile {
+    display: none;
+  }
+  #mobile {
+    display: block;
+  }
+}
+
+button {
+  font-family: 'Jersey 10', sans-serif;
+  font-size: 20px;
+  padding: 0px;
+  background: none;
+  color: var(--magic);
+  border: none;
+  cursor: pointer;
+  transition: 1s;
+}
+button:hover {
+  color: var(--attack);
 }

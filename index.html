@@ -13,145 +13,150 @@
     <script src="src/misc.js"></script>
   </head>
   <body>
-    <div id="deathScreen">
-      <div id="center">
-        <div>Game Over</div>
-        <button id="game_over_btn" onclick="location.reload();document.getElementById('click_aud').play();"> RESTART </button>
-      </div>
-      <audio id="game_over_aud"><source src="res/aud/game_over.mp3"></audio>
+    <div id="mobile">
+      This game does not currently support mobile or tiny-screen play. If you'd like to risk the cramped space, press <button onclick="document.getElementById('mobile').style.display = 'none';document.getElementById('not-mobile').style.display = 'block';">here</button>
     </div>
-
-    <div id="title" style="display: block;">
-      <div id="center">
-        <div id="title-text">Ye Olde</div>
-        <img id="title-playbutton" src="res/img/buttons/play.png" onclick="start();document.getElementById('click_aud').play();">
+    <div id="not-mobile">
+      <div id="deathScreen">
+        <div id="center">
+          <div>Game Over</div>
+          <button id="game_over_btn" onclick="location.reload();document.getElementById('click_aud').play();"> RESTART </button>
+        </div>
+        <audio id="game_over_aud"><source src="res/aud/game_over.mp3"></audio>
       </div>
-    </div>
 
-    <div id="inventory" style="display: none;">
-      <div id="modal">
-        <img id="x" src="res/img/icons/x.png" onclick="closeInventory()">
-        <div id="inv-cards">
+      <div id="title" style="display: block;">
+        <div id="center">
+          <div id="title-text">Ye Olde</div>
+          <img id="title-playbutton" src="res/img/buttons/play.png" onclick="start();document.getElementById('click_aud').play();">
         </div>
       </div>
-    </div>
 
-    <div id="battle" style="display: none;">
-      <div id="top">
-        <div id="monster-health">
-          <div style="background: #2e222f; width: 93vw; display: inline-block;">
-            <div id="monster-health-bar"></div>
+      <div id="inventory" style="display: none;">
+        <div id="modal">
+          <img id="x" src="res/img/icons/x.png" onclick="closeInventory()">
+          <div id="inv-cards">
           </div>
-          <span id="monster-health-num"></span>
         </div>
-        <div id="monster-details">
-          <img id="monster-img" style="display: none;">
-          <b><div id="monster-name"></div></b>
-          <div style="margin-left: 10px; color: lightgreen;" id="monster-lvl"></div><br/>
-          <div id="monster-desc"></div>
+      </div>
+
+      <div id="battle" style="display: none;">
+        <div id="top">
+          <div id="monster-health">
+            <div style="background: #2e222f; width: 93vw; display: inline-block;">
+              <div id="monster-health-bar"></div>
+            </div>
+            <span id="monster-health-num"></span>
+          </div>
+          <div id="monster-details">
+            <img id="monster-img" style="display: none;">
+            <b><div id="monster-name"></div></b>
+            <div style="margin-left: 10px; color: lightgreen;" id="monster-lvl"></div><br/>
+            <div id="monster-desc"></div>
+            <div id="monster-stats" style="margin-left: 10px; margin-top: 4px;font-family: 'Jersey 10'; font-size: 25px;"><span id="monster-atk">ATK: 6</span><span style="margin-left: 60px;"id="monster-health-stat">50 HP</span></div>
+          </div>
+          <div id="animation-area"></div>
         </div>
-        <div id="animation-area"></div>
-      </div>
 
-      <div id="bottom">
-        <div id="playercards" style="margin-left: 180px;">
-          <div class="slot" id="slot1"></div>
-          <div class="slot" id="slot2"></div>
-          <div class="slot" id="slot3"></div>
-          <div class="slot" id="slot4"></div>
-          <div class="slot" id="slot5"></div>
-          <div class="slot" id="slot6"></div>
+        <div id="bottom">
+          <div id="playercards" style="margin-left: 180px;">
+            <div class="slot" id="slot1"></div>
+            <div class="slot" id="slot2"></div>
+            <div class="slot" id="slot3"></div>
+            <div class="slot" id="slot4"></div>
+            <div class="slot" id="slot5"></div>
+            <div class="slot" id="slot6"></div>
+          </div>
+          <div id="actions"><img style="width:24px;margin:0px;image-rendering:pixelated;"src="res/img/icons/sword.png"> <span style="margin-left: 3px;" id="actions-num">1</span></div>
+          <div id="plays"><img style="width:24px;margin:0px;image-rendering:pixelated;"src="res/img/icons/hand.png"> <span style="margin-left: 3px;" id="hands-num">2</span></div>
+          <div id="playButton" onclick="play();document.getElementById('click_aud').play();"><img id="playbuttonimg" src="res/img/buttons/play.png"></div>
         </div>
-        <div id="actions"><img style="width:24px;margin:0px;image-rendering:pixelated;"src="res/img/icons/sword.png"> <span style="margin-left: 3px;" id="actions-num">1</span></div>
-        <div id="plays"><img style="width:24px;margin:0px;image-rendering:pixelated;"src="res/img/icons/hand.png"> <span style="margin-left: 3px;" id="hands-num">2</span></div>
-        <div id="playButton" onclick="play();document.getElementById('click_aud').play();"><img id="playbuttonimg" src="res/img/buttons/play.png"></div>
       </div>
-    </div>
-    
-    <div id="player" style="display: none;">
-      <img src="res/img/icons/bag.png" id="bag-icon" onclick="setTimeout(openInventory, 100)">
-      <div id="player-details" >
-        <span id="money">$0</span>
-        <span id="XP">0 XP</span>
-      </div>
-      <div id="player-health">
-        <div style="background: #2e222f; width: 93vw; display: inline-block;">
-          <div id="player-health-bar"></div>
+      
+      <div id="player" style="display: none;">
+        <img src="res/img/icons/bag.png" id="bag-icon" onclick="document.getElementById('click_aud').play();setTimeout(openInventory, 100)">
+        <div id="player-details" >
+          <span id="money">$0</span>
+          <span id="XP">0 XP</span>
         </div>
-        <span id="player-health-num">50</span></div>
+        <div id="player-health">
+          <div id="player-health-hug" style="background: #2e222f; width: 93vw; display: inline-block;">
+            <div id="player-health-bar"></div>
+          </div>
+          <span id="player-health-num">50</span>
+        </div>
+      </div>
+
+      <div id="loot" style="opacity: 0;">
+        <div id="win-msg"></div>
+        <div id="lootslots">
+          <div class="slot" id="loot-slot1"></div>
+          <div class="slot" style="text-align: center;" id="loot-money"><div style="margin-top: 45%; animation: idle 4s infinite;" id="loot-money-txt">$NaN</div></div>
+        </div>
+        <div id="collectButton" style="text-align: center;" onclick="enterShop();document.getElementById('click_aud').play();"><img id="collectbuttonimg" src="res/img/buttons/collect.png"></div>
+      </div>
+
+      <div id="shop" style="display: none;">
+        <div id="shop-details">
+          <div id="shop-name"></div>
+          <div id="shop-desc"></div>
+        </div>
+        <div id="leaveButton" onclick="enterBattle();document.getElementById('click_aud').play();"><img id="leavebuttonimg" src="res/img/buttons/leave.png"></div>
+
+        <div id="attack-row">
+          <div class="price" id="price-attack-slot1">$0</div>
+          <div class="slot shop-slot" id="attack-slot1"></div>
+          <div class="price" id="price-attack-slot2">$0</div>
+          <div class="slot shop-slot" id="attack-slot2"></div>
+          <div class="price" id="price-attack-slot3">$0</div>
+          <div class="slot shop-slot" id="attack-slot3"></div>
+          <div class="price" id="price-attack-slot4">$0</div>
+          <div class="slot shop-slot" id="attack-slot4"></div>
+          <div class="price" id="price-attack-slot5">$0</div>
+          <div class="slot shop-slot" id="attack-slot5"></div>
+        </div>
+        <div id="magic-row">
+          <div class="price" id="price-magic-slot1">$0</div>
+          <div class="slot shop-slot" id="magic-slot1"></div>
+          <div class="price" id="price-magic-slot2">$0</div>
+          <div class="slot shop-slot" id="magic-slot2"></div>
+          <div class="price" id="price-magic-slot3">$0</div>
+          <div class="slot shop-slot" id="magic-slot3"></div>
+          <div class="price" id="price-magic-slot4">$0</div>
+          <div class="slot shop-slot" id="magic-slot4"></div>
+          <div class="price" id="price-magic-slot5">$0</div>
+          <div class="slot shop-slot" id="magic-slot5"></div>
+        </div>
+        <div id="food-row">
+          <div class="price" id="price-food-slot1">$0</div>
+          <div class="slot shop-slot" id="food-slot1"></div>
+          <div class="price" id="price-food-slot2">$0</div>
+          <div class="slot shop-slot" id="food-slot2"></div>
+          <div class="price" id="price-food-slot3">$0</div>
+          <div class="slot shop-slot" id="food-slot3"></div>
+          <div class="price" id="price-food-slot4">$0</div>
+          <div class="slot shop-slot" id="food-slot4"></div>
+          <div class="price" id="price-food-slot5">$0</div>
+          <div class="slot shop-slot" id="food-slot5"></div>
+        </div>
+      </div>
+
+      <audio id="click_aud"><source src="res/aud/click.mp3"></audio>
+      <audio id="title_aud"><source src="res/aud/title.mp3"></audio>
+      <audio id="money_aud"><source src="res/aud/money.mp3"></audio>
+      <audio id="attack_aud"><source src="res/aud/attack.mp3"></audio>
+      <audio id="win_aud"><source src="res/aud/win.mp3"></audio>
+
+
+      <div id="secluded-area" style="z-index: -10000000000000000000000000;">
+        <img src="res/img/buttons/play-hover.png" style="width: 1px; height: 1px;">
+        <img src="res/img/buttons/play-active.png" style="width: 1px; height: 1px;">
+        <img src="res/img/buttons/collect-hover.png" style="width: 1px; height: 1px;">
+        <img src="res/img/buttons/collect-active.png" style="width: 1px; height: 1px;">
+        <img src="res/img/buttons/leave-hover.png" style="width: 1px; height: 1px;">
+        <img src="res/img/buttons/leave-active.png" style="width: 1px; height: 1px;">
       </div>
     </div>
-
-    <div id="loot" style="opacity: 0;">
-      <div id="win-msg"></div>
-      <div id="lootslots">
-        <div class="slot" id="loot-slot1"></div>
-        <div class="slot" style="text-align: center;" id="loot-money"><div style="margin-top: 45%; animation: idle 4s infinite;" id="loot-money-txt">$NaN</div></div>
-      </div>
-      <div id="collectButton" style="text-align: center;" onclick="enterShop();document.getElementById('click_aud').play();"><img id="collectbuttonimg" src="res/img/buttons/collect.png"></div>
-    </div>
-
-    <div id="shop" style="display: none;">
-      <div id="shop-details">
-        <div id="shop-name"></div>
-        <div id="shop-desc"></div>
-      </div>
-      <div id="leaveButton" onclick="enterBattle();document.getElementById('click_aud').play();"><img id="leavebuttonimg" src="res/img/buttons/leave.png"></div>
-
-      <div id="attack-row">
-        <div class="price" id="price-attack-slot1">$0</div>
-        <div class="slot shop-slot" id="attack-slot1"></div>
-        <div class="price" id="price-attack-slot2">$0</div>
-        <div class="slot shop-slot" id="attack-slot2"></div>
-        <div class="price" id="price-attack-slot3">$0</div>
-        <div class="slot shop-slot" id="attack-slot3"></div>
-        <div class="price" id="price-attack-slot4">$0</div>
-        <div class="slot shop-slot" id="attack-slot4"></div>
-        <div class="price" id="price-attack-slot5">$0</div>
-        <div class="slot shop-slot" id="attack-slot5"></div>
-      </div>
-      <div id="magic-row">
-        <div class="price" id="price-magic-slot1">$0</div>
-        <div class="slot shop-slot" id="magic-slot1"></div>
-        <div class="price" id="price-magic-slot2">$0</div>
-        <div class="slot shop-slot" id="magic-slot2"></div>
-        <div class="price" id="price-magic-slot3">$0</div>
-        <div class="slot shop-slot" id="magic-slot3"></div>
-        <div class="price" id="price-magic-slot4">$0</div>
-        <div class="slot shop-slot" id="magic-slot4"></div>
-        <div class="price" id="price-magic-slot5">$0</div>
-        <div class="slot shop-slot" id="magic-slot5"></div>
-      </div>
-      <div id="food-row">
-        <div class="price" id="price-food-slot1">$0</div>
-        <div class="slot shop-slot" id="food-slot1"></div>
-        <div class="price" id="price-food-slot2">$0</div>
-        <div class="slot shop-slot" id="food-slot2"></div>
-        <div class="price" id="price-food-slot3">$0</div>
-        <div class="slot shop-slot" id="food-slot3"></div>
-        <div class="price" id="price-food-slot4">$0</div>
-        <div class="slot shop-slot" id="food-slot4"></div>
-        <div class="price" id="price-food-slot5">$0</div>
-        <div class="slot shop-slot" id="food-slot5"></div>
-      </div>
-    </div>
-
-    <audio id="click_aud"><source src="res/aud/click.mp3"></audio>
-    <audio id="title_aud"><source src="res/aud/title.mp3"></audio>
-    <audio id="money_aud"><source src="res/aud/money.mp3"></audio>
-    <audio id="attack_aud"><source src="res/aud/attack.mp3"></audio>
-    <audio id="win_aud"><source src="res/aud/win.mp3"></audio>
-
-
-    <div id="secluded-area" style="z-index: -10000000000000000000000000;">
-      <img src="res/img/buttons/play-hover.png" style="width: 1px; height: 1px;">
-      <img src="res/img/buttons/play-active.png" style="width: 1px; height: 1px;">
-      <img src="res/img/buttons/collect-hover.png" style="width: 1px; height: 1px;">
-      <img src="res/img/buttons/collect-active.png" style="width: 1px; height: 1px;">
-      <img src="res/img/buttons/leave-hover.png" style="width: 1px; height: 1px;">
-      <img src="res/img/buttons/leave-active.png" style="width: 1px; height: 1px;">
-    </div>
-
   </body>
   <script>
     window.onload = function() {

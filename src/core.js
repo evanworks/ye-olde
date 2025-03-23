@@ -187,7 +187,6 @@ function noCards(parent) {
     let child = children[i];
     if (child.children[0]) {
       amnt += 1;
-      // pa
     }
   }
   return amnt;
@@ -199,6 +198,8 @@ function die() {
 }
 
 setInterval(() => {
+  console.log(health)
+  console.log(maxHealth)
   document.getElementById("actions-num").innerHTML = actions;
   document.getElementById("hands-num").innerHTML = actions;
   if (health > maxHealth) {

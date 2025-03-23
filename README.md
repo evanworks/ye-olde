@@ -9,14 +9,18 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### a03-23-25[ 0.1.5 ]
+Fixed healthbar because it was annoying
+
 ### a03-23-25[ 0.1.4 ]
 If you look really closely at any of the art in this game, you're gonna find as many mistakes as you would bacteria on a petri dish. - *Evan Lee, 2025*
 * Put prices back to normal (it didn't work as I expected and generally made things not fun)
 * Removed negative monster health because it was misleading
 * nerfed frog
+* added monster stats
 * Made health overflow considerably cooler-looking
 * told mobile players to go away
-* qol: X button is now sticky (doesn't respond to scroll);
+* qol: X button in inventory is now sticky (doesn't respond to scroll);
 * FIXED: some animations not repeating
 * FIXED: carrot sprite being potato
 * FIXED: both carrot and tomato giving incorrect health amounts

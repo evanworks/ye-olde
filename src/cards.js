@@ -64,7 +64,7 @@ function useFoodCard(animatedCard, card, rect) {
 
   let percent = 0
 
-  if (health + healthToHeal > maxHealth && card.overflow == false) {
+  if (health + healthToHeal > maxHealth && card.overflow == false && healthOverflow == false) {
     health = maxHealth
   } else {
     percent = (healthToHeal * 100) / health;
@@ -76,9 +76,9 @@ function useFoodCard(animatedCard, card, rect) {
     newWidth = "93";
     unit = "vw";
   }
-
-  if (health + healthToHeal > maxHealth) {
-    console.log("overflow begin")
+  let overflowing = false;
+  if (healthOverflow) {
+    overflowing = true;
     document.getElementById("player-health-bar").classList.add("gold-flash");
   } else {
     document.getElementById("player-health-bar").classList.add("flash");
@@ -90,7 +90,7 @@ function useFoodCard(animatedCard, card, rect) {
   }, 500);
 
   setTimeout(function() {
-    if (healthOverflow) {
+    if (overflowing) {
       console.log("overflow end")
       document.getElementById("player-health-bar").classList.remove("gold-flash");
     } else {

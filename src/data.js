@@ -18,9 +18,9 @@ const mace = {
   file: "mace",
   name: "Mace",
   type: "attack",
-  damage: 10,
+  damage: 25,
   actions: 0,
-  price: 8,
+  price: 19,
   action: '',
   img: "mace.png"
 }
@@ -28,9 +28,9 @@ const claymore = {
   file: "claymore",
   name: "Claymore",
   type: "attack",
-  damage: 9,
+  damage: 19,
   actions: 0,
-  price: 9,
+  price: 13,
   action: '',
   img: "claymore.png"
 }
@@ -52,7 +52,7 @@ const scimitar = {
   type: "attack",
   damage: 11,
   actions: 1,
-  price: 10,
+  price: 12,
   action: '',
   img: "scimitar.png"
 }
@@ -89,7 +89,7 @@ const headbutt = {
 }
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
-// MAGIC //
+// =MAGIC //
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 
 const slimeball = {
@@ -132,6 +132,16 @@ const bone = {
   action: '<span style="padding-left:4px;padding-right:4px;background:var(--healthFull);">2x</span> damage on all played attack cards below <span style="color:var(--healthFull)">10</span> damage',
   img: "bone.png"
 }
+const skull = {
+  file: "skull",
+  name: "Skull",
+  type: "magic",
+  damage: 0,
+  actions: 1,
+  price: 22,
+  action: '<span style="padding-left:4px;padding-right:4px;background:var(--healthFull);">3x</span> damage on all played attack cards below <span style="color:var(--healthFull)">20</span> damage',
+  img: "skull.png"
+}
 const eyeball = {
   file: "eyeball",
   name: "Eyeball",
@@ -142,6 +152,21 @@ const eyeball = {
   action: 'Mimics enemy\'s attack',
   img: "eyeball.png"
 }
+
+let forgePower = 0;
+const forge = {
+  file: "forge",
+  name: "Forge",
+  type: "magic",
+  damage: 0,
+  actions: 0,
+  price: 18,
+  action: 'Played attack cards will add to the forge\'s <span style="color:var(--magic);">power</span> and get <span style="color:var(--melt);">melted</span>. Then turns into an attack card with the same <span style="color:var(--healthFull)">damage</span> as the Forge\'s <span style="color:var(--magic)">power</span>',
+  loc_var: 'forgePower',
+  loc_name: 'power',
+  img: 'forge.png'
+}
+
 const bag = {
   file: "bag",
   name: "Bag",
@@ -152,7 +177,46 @@ const bag = {
   action: '<span style="color:var(--magic);">+1</span> of each card slot avaiable in <span style="color:var(--money);">Shop</span>',
   img: "bag.png"
 }
-
+const bigBag = {
+  file: "bigBag",
+  name: "Big Bag",
+  type: "magic",
+  damage: 0,
+  actions: 0,
+  price: 0,
+  action: '<span style="color:var(--magic);">Max</span> <span style="color:var(--special);">All</span> slots available in <span style="color:var(--money);">Shop</span> <span style="color:grey;">(Destroys all other bags)</span>',
+  img: "bigBag.png"
+}
+const greenBag = {
+  file: "greenBag",
+  name: "Green Bag",
+  type: "magic",
+  damage: 0,
+  actions: 0,
+  price: 16,
+  action: '<span style="color:var(--magic);">Max</span> <span style="color:var(--food);">Food</span> slots available in <span style="color:var(--money);">Shop</span>',
+  img: "greenBag.png"
+}
+const violetBag = {
+  file: "violetBag",
+  name: "Violet Bag",
+  type: "magic",
+  damage: 0,
+  actions: 0,
+  price: 16,
+  action: '<span style="color:var(--magic);">Max</span> <span style="color:var(--magic);">Magic</span> slots available in <span style="color:var(--money);">Shop</span>',
+  img: "violetBag.png"
+}
+const crimsonBag = {
+  file: "crimsonBag",
+  name: "Crimson Bag",
+  type: "magic",
+  damage: 0,
+  actions: 0,
+  price: 16,
+  action: '<span style="color:var(--magic);">Max</span> <span style="color:var(--attack);">Attack</span> slots available in <span style="color:var(--money);">Shop</span>',
+  img: "crimsonBag.png"
+}
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 // FOOD
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
@@ -217,6 +281,20 @@ const tomato = {
   action: '<span style="color: grey">Smooth and velvety.</span><br/> Heals <span style="color:var(--healthFull);">60%</span> of total Health <span style="color:var(--special);">(can overflow)</span>',
   img: "tomato.png"
 }
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
+// =MINERALS
+// @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
+let flintDamage = 1;
+let flint = {
+  file: "flint",
+  name: "Flint",
+  type: "attack",
+  damage: flintDamage,
+  actions: 1,
+  price: 5,
+  action: 'Gains <span style="color:var(--healthFull);">1 Damage</span> when played',
+  img: "flint.png"
+}
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 // SPECIAL
@@ -263,7 +341,6 @@ const skeleton = {
   money: 10,
   loot: [bone, potato],
 }
-
 spiderLevel = 0;
 const spider = {
   file: "spider",
@@ -288,9 +365,21 @@ const minispiders = {
   money: 20,
   loot: [eyeball, eyeball],
 }
+golemLevel = 0;
+const golem = {
+  file: "golem",
+  name: "Golem",
+  description: "Big and strong. Its face is stony.",
+  img: "res/img/placeholder-portrait.png",
+  health: 100,
+  scaling: 20,
+  damage: 5,
+  money: 20,
+  loot: [flint],
+}
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
-// SHOPS
+// =SHOPS
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 
 // works the same as marketStall but has less good loot so you can actually buy stuff early
@@ -326,6 +415,21 @@ const farmersmarket = {
   name: "Farmer's Market",
   description: "It's a lively, friendly space, mostly full of 25-year-old couples selling various vegetables.",
   lootAttack: [rustySword],
-  lootMagic: [bag, slimeball, bone],
-  lootFood: [potato, carrot, juice, tea]
+  lootMagic: [greenBag, slimeball, bone],
+  lootFood: [potato, tomato, carrot, tea]
 }
+const bagStore = {
+  name: "Bag Store",
+  description: "'All we sell is bags. Nothing else. Just bags.'",
+  lootAttack: [bag, crimsonBag, crimsonBag, crimsonBag],
+  lootMagic: [bag, violetBag, violetBag, violetBag],
+  lootFood: [bag, greenBag, greenBag, greenBag]
+}
+const apothecary = {
+  name: "Apothecary",
+  description: "A dark and gloomy magic shop. Scary things gleam on the walls.",
+  lootAttack: [eyeball, longbow],
+  lootMagic: [eyeball, redSlimeball, skull],
+  lootFood: [carrot, tomato, potato]
+}
+/*Chimæra, and Basilisk!*/

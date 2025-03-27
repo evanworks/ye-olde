@@ -6,7 +6,6 @@ function deal(amount, first) {
       shuffledDeck = shuffle(shuffledDeck);
     } else {
       if (noCards(document.getElementById("playercards")) == 0 && battle == true) {
-        console.log("death by no cards")
         setTimeout(()=>{die()}, 200);
       }
     }
@@ -33,13 +32,20 @@ function displayCard(card, parent) {
   idonthaveagoodnameforthis += 1;
   necessaryDiv.appendChild(img);
   sample = 0;
+  isNull = false;
 
   for (let i = 0; i < 10000; i++) {
     sample += 1;
-    if (document.getElementById(parent + sample).innerHTML == null || document.getElementById(parent + sample).innerHTML == "") {
-      parent += sample;
-      
+    if (document.getElementById(parent + sample) === null) {
+      isNull = true;
+      console.log("Yeah so parent+sample is null. Here's the parent: " + parent + " and the sample: " + sample);
       break;
+    } else {
+      if (document.getElementById(parent + sample).innerHTML == "") {
+        parent += sample;
+        
+        break;
+      }
     }
   }
   const element = document.getElementById(parent);
@@ -53,7 +59,7 @@ function displayCard(card, parent) {
   tooltip.classList.add("above");
   
   // displays name in bold
-  tooltip.innerHTML = "<b>"+card.name+"</b><br/>";
+  tooltip.innerHTML = `<span style="font-family: 'Jersey 10';">${card.name}</span><br/>`;
 
   // displays damage
   if (card.damage != 0) {
@@ -73,6 +79,15 @@ function displayCard(card, parent) {
   // displays card effect which i dumbly called actions
   if (card.action != "") {
     tooltip.innerHTML += card.action;
+    if (card.action.length > 200) {
+      tooltip.style.width = "240px";
+      tooltip.style.right = "-36%";
+    }
+  }
+
+  // displays any local (updating) variables
+  if (typeof card.loc_var !== 'undefined') {
+    tooltip.innerHTML += `<br/><span style='color: grey;'>Currently ${window[card.loc_var]} ${card.loc_name}</span>`
   }
 
   necessaryDiv.appendChild(tooltip);
@@ -198,8 +213,7 @@ function die() {
 }
 
 setInterval(() => {
-  console.log(health)
-  console.log(maxHealth)
+  document.getElementById("money").innerHTML = "$" + money;
   document.getElementById("actions-num").innerHTML = actions;
   document.getElementById("hands-num").innerHTML = actions;
   if (health > maxHealth) {

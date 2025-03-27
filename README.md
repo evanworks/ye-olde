@@ -1,4 +1,4 @@
-# ye-olde
+# Ye Olde
 
 A dungeon crawler meets card game. *Build your deck and upgrade your weapons to stay alive in **ye olde**...*
 
@@ -8,6 +8,32 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 
 ## Version history
+
+### a0.2.0
+Ye Olde 0.2.0: The Farming Update! (Which is actually mostly devoid of farming).
+**Here's what's new:** 
+* A whole bundle of bags!
+* New, extra-powerful attack and magic(?) cards:
+  * The Forge: Fuel your forge by feeding it unwanted attack cards
+  * The Bag: Three new bags for each shop slot
+  * Red Slimeball: New, extra-powerful slimeball variant
+  * Flint: 1 Damage, gains 1 damage when played
+
+* New monster: Golem
+* The bag shop, and more fun shop locations!
+* Secrets! OooOOOooOOo!
+
+And all the bugfixes:
+* several balance changes to attack cards
+* enemy damage scales less
+* updates to font
+* fixed eyeball not taking into account monster level
+* fixed frog saying wrong price
+* fixed bone attacking thrice
+* fixed having too many bags just killing everything
+* fixed loot slot code throwing over 10,000 of the exact same error
+* who knows what else
+Released this a little earlier than I wanted due to the lack of updates. Unrelated, but the Balatro inspiration seems to be slipping in...
 
 ### a03-23-25[ 0.1.5 ]
 Fixed healthbar because it was annoying

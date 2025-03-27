@@ -21,10 +21,19 @@ function enterShop() {
     document.getElementById("shop-name").innerHTML = shop.name;
     document.getElementById("shop-desc").innerHTML = shop.description
 
+    // checks if you have all the bags
+    hasAllBags = false;
+    if (deck.includes(greenBag) && deck.includes(violetBag) && deck.includes(crimsonBag)) {
+      hasAllBags = true;
+    }
     // STOCKS SHOP
     for (let i = 1; i < maxShopAttackSlots + 1; i++) {
       let slotID = "price-attack-slot"+i;
       let card = getRandomItem(shop.lootAttack);
+      // big bag
+      if (i == 1 && shop == bagStore && hasAllBags) {
+        card = bigBag; 
+      }
       stockCardInShop("attack-slot", slotID, card);
     }
     for (let i = 1; i < maxShopMagicSlots + 1; i++) {
@@ -94,15 +103,36 @@ function buyCardInShop(card, id) {
     }, 400)
     document.getElementById("price-"+id).style.display = "none";
 
+    // buying card stuff
     if (card == bag) {
-      maxShopAttackSlots += 1;
-      maxShopMagicSlots += 1;
-      maxShopFoodSlots += 1;
+      if (maxShopAttackSlots < 5) {
+        maxShopAttackSlots += 1;
+      }
+      if (maxShopMagicSlots < 5) {
+        maxShopMagicSlots += 1;
+      }
+      if (maxShopFoodSlots < 5) {
+        maxShopFoodSlots += 1;
+      }
+    } else if (card == greenBag) {
+      maxShopFoodSlots = 5;
+    } else if (card == crimsonBag) {
+      maxShopAttackSlots = 5;
+    } else if (card == violetBag) {
+      maxShopMagicSlots = 5;
+    } else if(card == bigBag) {
+      maxShopAttackSlots = 5;
+      maxShopMagicSlots = 5;
+      maxShopFoodSlots = 5;
+      deck = deck.filter(item => item !== bag);
+      deck = deck.filter(item => item !== greenBag);
+      deck = deck.filter(item => item !== crimsonBag);
+      deck = deck.filter(item => item !== violetBag);
+      fullDeck = deck;
     }
   }
   document.getElementById("money").innerHTML = "$" + money;
 }
-
 
 // chooses valid shops and returns a random one based on xp
 function chooseShop() {
@@ -112,11 +142,13 @@ function chooseShop() {
     return getRandomItem([marketStall])
   } else if (xp >= 4 && xp < 8) {
     return getRandomItem([marketStall, tavern, blacksmith])
-  } else if (xp >= 4 && xp < 16) {
+  } else if (xp >= 4 && xp < 14) {
     return getRandomItem([marketStall, tavern, blacksmith, farmersmarket])
-  }
+  } else if (xp >= 14 && xp < 20) {
+    return getRandomItem([marketStall, tavern, blacksmith, farmersmarket, bagStore, apothecary])
+  } 
 
   else {
-    return getRandomItem([marketStall, tavern, blacksmith, farmersmarket]) // all of them
+    return getRandomItem([marketStall, tavern, blacksmith, farmersmarket, bagStore, apothecary]) // all of them
   }
 }

@@ -23,10 +23,10 @@ let maxShopAttackSlots = 3;
 let maxShopMagicSlots = 2;
 let maxShopFoodSlots = 1;
 
-let debug = false;
+let debug = true;
 
 function start() {
-  if(!debug) {deck.push(rustySword, rustySword, rustySword);} else { deck.push(juice, carrot) }
+  if(!debug) {deck.push(rustySword, rustySword, rustySword);} else { deck.push(flint, flint, flint, flint, flint, flint) }
   fullDeck = deck;
   setTimeout(() => {
     enterBattle();

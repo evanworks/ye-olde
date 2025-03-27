@@ -1,4 +1,5 @@
 function collectLoot(monster) {
+  fullDeck = deck;
   // clears remaining cards
   clearSlots(document.getElementById('playercards'));
 

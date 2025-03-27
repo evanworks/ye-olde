@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+10&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jacquard+12&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Jacquard+24&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap');
 
 :root {
   --shadow: #252928;
@@ -14,6 +15,7 @@
   --healthEmptyGold: #fb6b1d;
 
   --bone: #c7dcd0;
+  --melt: #f04f78;
 
   --money: #fbb954;
 
@@ -21,7 +23,6 @@
   --magic: #a884f3;
   --food: #8fd3ff;
   --special: #fbff86;
-
 }
 
 
@@ -33,11 +34,17 @@ body {
   user-select: none;
   overflow: hidden;
   background-size: 200% 200%;
-  animation: waveBackground 20s infinite alternate ease-in-out;
+  /*animation: waveBackground 20s infinite alternate ease-in-out;*/
+  /*filter: saturate(120%) hue-rotate(10deg);*/
 }
 @keyframes waveBackground {
   0% { background-position: 0% 50%; }
   100% { background-position: 100% 50%; }
+}
+
+@keyframes glitch {
+  0% { filter: hue-rotate(-3deg); }
+  100% { filter: hue-rotate(3deg); }
 }
 
 /* ----- */
@@ -50,6 +57,7 @@ img {
   width: 125px;
   margin: 10px;
   align-items: center;
+  animation: glitch 1s infinite alternate;
 }
 .slot {
   margin: 5px;

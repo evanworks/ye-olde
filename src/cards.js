@@ -1,12 +1,17 @@
 function useAttackCard(animatedCard, card, rect, cardNames) {
   setTimeout(function(){
+    if (card == flint) {
+
+      flintDamage += 1;
+      card.damage = flintDamage;
+    }
     //document.getElementById("attack_aud").play();
     juice_up(animatedCard)
     const damageIndicator = document.createElement("div");
     damageIndicator.className = "damage-indicator";
     
     if (card == eyeball) {
-      damageIndicator.innerText = `+${currentMonster.damage} damage`;
+      damageIndicator.innerText = `+${monster.damage + (monster.scaling * window[monster.file+"Level"])} damage`;
     } else {
       damageIndicator.innerText = `+${card.damage} damage`;
     }
@@ -16,9 +21,8 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
 
     damageIndicator.addEventListener("animationend", () => damageIndicator.remove());
   }, 200)
-
   if (card == eyeball) {
-    attack(currentMonster.damage);
+    attack(monster.damage + (monster.scaling * window[monster.file+"Level"]));
   } else {
     attack(card.damage);
   }
@@ -27,6 +31,13 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
     setTimeout(function(){
       juice_up(animatedCard);
       useBone(rect.left, rect.top, card.damage);
+    }, 400);
+  }
+  if (cardNames.includes("skull") && card.damage <= 20) {
+    skullUsed = true;
+    setTimeout(function(){
+      juice_up(animatedCard);
+      useSkull(rect.left, rect.top, card.damage);
     }, 400);
   }
   if (cardNames.includes("slimeball")) {
@@ -91,7 +102,6 @@ function useFoodCard(animatedCard, card, rect) {
 
   setTimeout(function() {
     if (overflowing) {
-      console.log("overflow end")
       document.getElementById("player-health-bar").classList.remove("gold-flash");
     } else {
       document.getElementById("player-health-bar").classList.remove("flash");
@@ -142,7 +152,7 @@ function useFrog(rect, targetX, targetY, card, cardNames, animatedCard) {
     setTimeout(() => {
       const moneyEffectIndicator = document.createElement("div");
       moneyEffectIndicator.className = "money-effect";
-      moneyEffectIndicator.innerText = "$" + card.price;
+      moneyEffectIndicator.innerText = "$" + Math.floor(card.price / 2);
       moneyEffectIndicator.style.left = `${targetX + 60}px`;
       moneyEffectIndicator.style.top = `${targetY + 35}px`;
       document.getElementById("animation-area").appendChild(moneyEffectIndicator);
@@ -177,7 +187,54 @@ function useBone(targetX, targetY, damage) {
   document.getElementById("animation-area").appendChild(slimeEffectIndicator);
 
   attack(damage);
+  slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
+  return "animationComplete";
+}
+function useSkull(targetX, targetY, damage) {
+  let slimeEffectIndicator = document.createElement("div");
+  slimeEffectIndicator.className = "bone-effect";
+  slimeEffectIndicator.innerText = `3x damage`;
+  slimeEffectIndicator.style.left = `${targetX + 40}px`;
+  slimeEffectIndicator.style.top = `${targetY + 35}px`;
+  document.getElementById("animation-area").appendChild(slimeEffectIndicator);
+
+  attack(damage);
   attack(damage);
   slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
   return "animationComplete";
+}
+
+n = 0;
+const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+function useForge(targetX, targetY, cardNames) {
+  n += 1;
+  for (card in cardNames) {
+    card = eval(cardNames[card]);
+    if (card != forge && card.type == "attack") {
+      forgePower += card.damage;
+      deck = deck.filter(item => item !== card);
+    }  
+  }
+  let slimeEffectIndicator = document.createElement("div");
+  slimeEffectIndicator.className = "slime-effect";
+  slimeEffectIndicator.innerText = `+${forgePower} power`;
+  slimeEffectIndicator.style.left = `${targetX + 40}px`;
+  slimeEffectIndicator.style.top = `${targetY + 75}px`;
+  setTimeout(()=>{document.getElementById("animation-area").appendChild(slimeEffectIndicator);}, 300)
+  slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
+
+  let index = fullDeck.indexOf(forge);
+  deck.splice(index, 1);
+  let a = forgePower;
+  window["forgeSword"+alphabet[n]] = {
+    file: "forgeSword"+alphabet[n],
+    name: "Sword (Forged)",
+    type: "attack",
+    damage: a,
+    actions: 0,
+    price: 18,
+    action: '',
+    img: 'forgeSword.png'
+  }
+  deck.push(window["forgeSword"+alphabet[n]]);
 }

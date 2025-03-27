@@ -31,7 +31,7 @@ function displayMonsterInfo(monster) {
   document.getElementById("monster-health-bar").style.width = "93vw";
 
   enemyHealth = monster.health + (monster.scaling * window[monster.file+"Level"]);
-  enemyDamage = monster.damage + (monster.scaling * window[monster.file+"Level"]);
+  enemyDamage = monster.damage + (Math.floor(monster.scaling/2) * window[monster.file+"Level"]);
   document.getElementById("monster-health-num").innerHTML = enemyHealth;
   document.getElementById("monster-health-stat").innerHTML = enemyHealth + " HP";
   document.getElementById("monster-atk").innerHTML = enemyDamage + " ATK";
@@ -59,7 +59,7 @@ function play() {
 
   // e.g. rustySword7 -> rustySword
   cardNames.forEach((card, index) => {
-    cardNames[index] = removeNumbers(card)
+    cardNames[index] = removeNumbers(card);
   });
 
   cardsToAnimate.forEach((card, index) => {
@@ -68,7 +68,8 @@ function play() {
     const rect = cardElement.getBoundingClientRect();
 
     const animatedCard = document.createElement("img");
-    animatedCard.src = "res/img/" + cardName + ".png";
+    fakeCard = eval(cardName);
+    animatedCard.src = "res/img/" + fakeCard.img;
     animatedCard.className = "card-animation";
     animatedCard.style.left = `${rect.left}px`;
     animatedCard.style.top = `${rect.top + 140 + 150}px`;
@@ -79,7 +80,7 @@ function play() {
     // settimeout necessary for some reason
     setTimeout(() => {
       // moves card upward for scoring
-      animatedCard.style.transform = `translate(0px,-200px)`
+      animatedCard.style.transform = `translate(0px,-200px)`;
       animatedCard.classList.add("show");
 
       setTimeout(() => {
@@ -89,7 +90,10 @@ function play() {
         } else if (card.type === "food") {
           useFoodCard(animatedCard, card, rect)
         } else {
-          setTimeout(()=>{juice_up(animatedCard);}, 200)
+          setTimeout(()=>{juice_up(animatedCard);}, 200);
+          if (card == forge) {
+            useForge(rect.left, rect.top, cardNames);
+          }
         }
         setTimeout(() => {
           animatedCard.style.opacity = 0;
@@ -108,19 +112,17 @@ function play() {
 
   selectedCards = ["-", "-", "-", "-", "-", "-"]
   setTimeout(() => {
-    console.log(turn)
     if (turn == true) { monsterAttack() };
   }, 3000)
 }
 
 function monsterAttack() {
-  console.log("in monster attack")
   const healthBar = document.getElementById("player-health-bar");
   const healthNum = document.getElementById("player-health-num");
   
   let monster = currentMonster;
 
-  damage = monster.damage + monster.scaling * window[monster.file+"Level"];
+  damage = monster.damage + Math.floor(monster.scaling / 2) * window[monster.file+"Level"];
 
 
   let percent = (damage * 100) / health;
@@ -152,6 +154,7 @@ function monsterAttack() {
 // THESE TWO ARE SEPARATE ( i've had enough mistakes already )
 
 function attack(damage) {
+  console.log("damage:"+damage)
   // healthbar
   const healthBar = document.getElementById("monster-health-bar");
   const healthNum = document.getElementById("monster-health-num");
@@ -195,9 +198,11 @@ function chooseMonster() {
     return getRandomItem([skeleton, spider])
   } else if (xp >= 8 && xp < 10) {
     return getRandomItem([skeleton, spider, minispiders])
+  } else if (xp >= 10 && xp < 12) {
+    return getRandomItem([spider, minispiders, golem])
   }
   else {
-    return getRandomItem([minispiders]) // fallback (toughest enemy)
+    return getRandomItem([golem]) // fallback (toughest enemy)
   } 
 }
 

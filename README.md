@@ -9,6 +9,9 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### a0.2.1
+Made the forge actually possible to obtain
+
 ### a0.2.0
 Ye Olde 0.2.0: The Farming Update! (Which is actually mostly devoid of farming).
 **Here's what's new:** 

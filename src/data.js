@@ -408,15 +408,15 @@ const blacksmith = {
   name: "Black smith", // naming
   description: "The air is thick with soot and powerful tools gleam on the walls.",
   lootAttack: [claymore, sword, longbow, mace, scimitar],
-  lootMagic: [bone, bag],
+  lootMagic: [bone, forge],
   lootFood: [potato]
 }
 const farmersmarket = {
   name: "Farmer's Market",
   description: "It's a lively, friendly space, mostly full of 25-year-old couples selling various vegetables.",
-  lootAttack: [rustySword],
+  lootAttack: [rustySword, flint],
   lootMagic: [greenBag, slimeball, bone],
-  lootFood: [potato, tomato, carrot, tea]
+  lootFood: [potato, tomato, carrot]
 }
 const bagStore = {
   name: "Bag Store",
@@ -430,6 +430,6 @@ const apothecary = {
   description: "A dark and gloomy magic shop. Scary things gleam on the walls.",
   lootAttack: [eyeball, longbow],
   lootMagic: [eyeball, redSlimeball, skull],
-  lootFood: [carrot, tomato, potato]
+  lootFood: [carrot, tomato]
 }
 /*Chimæra, and Basilisk!*/

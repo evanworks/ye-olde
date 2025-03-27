@@ -9,6 +9,9 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### a0.2.2
+Fixed starting with a billion flints
+
 ### a0.2.1
 Made the forge actually possible to obtain
 

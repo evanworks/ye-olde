@@ -5,6 +5,11 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
       flintDamage += 1;
       card.damage = flintDamage;
     }
+    if (card == gem) {
+
+      gemDamage += 2;
+      card.damage = gemDamage;
+    }
     //document.getElementById("attack_aud").play();
     juice_up(animatedCard)
     const damageIndicator = document.createElement("div");
@@ -22,7 +27,8 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
     damageIndicator.addEventListener("animationend", () => damageIndicator.remove());
   }, 200)
   if (card == eyeball) {
-    attack(monster.damage + (monster.scaling * window[monster.file+"Level"]));
+    attack(monster.damage + Math.floor(monster.scaling / 2) * window[monster.file+"Level"]);
+    
   } else {
     attack(card.damage);
   }

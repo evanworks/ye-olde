@@ -200,9 +200,11 @@ function chooseMonster() {
     return getRandomItem([skeleton, spider, minispiders])
   } else if (xp >= 10 && xp < 12) {
     return getRandomItem([spider, minispiders, golem])
+  } else if (xp >= 12 && xp < 16) {
+    return getRandomItem([minispiders, golem, dragon])
   }
   else {
-    return getRandomItem([golem]) // fallback (toughest enemy)
+    return getRandomItem([golem, minispiders, dragon]) // fallback (toughest enemy)
   } 
 }
 

@@ -161,7 +161,7 @@ const forge = {
   damage: 0,
   actions: 0,
   price: 18,
-  action: 'Played attack cards will add to the forge\'s <span style="color:var(--magic);">power</span> and get <span style="color:var(--melt);">melted</span>. Then turns into an attack card with the same <span style="color:var(--healthFull)">damage</span> as the Forge\'s <span style="color:var(--magic)">power</span>',
+  action: 'All played attack cards will meld into a single one with the combined power of all of them. Destroys after use.',
   loc_var: 'forgePower',
   loc_name: 'power',
   img: 'forge.png'
@@ -295,9 +295,20 @@ let flint = {
   action: 'Gains <span style="color:var(--healthFull);">1 Damage</span> when played',
   img: "flint.png"
 }
+let gemDamage = 2;
+let gem = {
+  file: "gem",
+  name: "Gem",
+  type: "attack",
+  damage: gemDamage,
+  actions: 1,
+  price: 10,
+  action: 'Gains <span style="color:var(--healthFull);">2 Damage</span> when played',
+  img: "gem.png"
+}
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
-// SPECIAL
+// =SPECIAL
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
 
 const luckPotion = {
@@ -372,10 +383,22 @@ const golem = {
   description: "Big and strong. Its face is stony.",
   img: "res/img/placeholder-portrait.png",
   health: 100,
-  scaling: 20,
+  scaling: 15,
   damage: 5,
   money: 20,
-  loot: [flint],
+  loot: [flint, flint, gem],
+}
+dragonLevel = 0;
+const dragon = {
+  file: "dragon",
+  name: "Dragon",
+  description: "Scaly as well as scary, as well as scarry and scabby, hates scenery, you know what I mean.",
+  img: "res/img/placeholder-portrait.png",
+  health: 30,
+  scaling: 5,
+  damage: 30,
+  money: 20,
+  loot: [tomato, gem, eyeball, skull],
 }
 
 // @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ //
@@ -409,7 +432,7 @@ const blacksmith = {
   description: "The air is thick with soot and powerful tools gleam on the walls.",
   lootAttack: [claymore, sword, longbow, mace, scimitar],
   lootMagic: [bone, forge],
-  lootFood: [potato]
+  lootFood: [potato, potato, carrot]
 }
 const farmersmarket = {
   name: "Farmer's Market",
@@ -428,7 +451,7 @@ const bagStore = {
 const apothecary = {
   name: "Apothecary",
   description: "A dark and gloomy magic shop. Scary things gleam on the walls.",
-  lootAttack: [eyeball, longbow],
+  lootAttack: [eyeball, longbow, gem],
   lootMagic: [eyeball, redSlimeball, skull],
   lootFood: [carrot, tomato]
 }

@@ -13,6 +13,7 @@
     <script src="src/misc.js"></script>
   </head>
   <body>
+    <div class="overlay"></div>
     <div id="mobile">
       This game does not currently support mobile or tiny-screen play. If you'd like to risk a cramped space, press <button onclick="document.getElementById('mobile').style.display = 'none';document.getElementById('not-mobile').style.display = 'block';">here</button>
     </div>
@@ -26,6 +27,7 @@
       </div>
 
       <div id="title" style="display: block;">
+        <div id="version">a0.2.3</div>
         <div id="center">
           <div id="title-text">Ye Olde</div>
           <img id="title-playbutton" src="res/img/buttons/play.png" onclick="start();document.getElementById('click_aud').play();">

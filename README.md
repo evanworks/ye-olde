@@ -9,6 +9,14 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### a0.2.3
+Some rushed fixes and content, sorry for the downtime
+* Made git ignore that DS Store
+* Fixed eyeball being incredibly unnecessarily overpowered
+* postprocessing
+* added Gem: 2 Damage, gains 2 Damage when played
+* added dragon
+
 ### a0.2.2
 Fixed starting with a billion flints
 

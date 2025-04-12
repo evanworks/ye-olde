@@ -9,6 +9,9 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### a0.2.4
+The Bone Patch
+
 ### a0.2.3
 Some rushed fixes and content, sorry for the downtime
 * Made git ignore that DS Store

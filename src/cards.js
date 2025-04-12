@@ -32,11 +32,12 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
   } else {
     attack(card.damage);
   }
-  if (cardNames.includes("bone") && card.damage <= 10) {
+  let ifithasbone = howMany(cardNames,"bone");
+  if (ifithasbone > 0 && card.damage <= 10) {
     boneUsed = true;
     setTimeout(function(){
       juice_up(animatedCard);
-      useBone(rect.left, rect.top, card.damage);
+      for(let i = 0; i < ifithasbone;i++) { useBone(rect.left, rect.top, card.damage); }
     }, 400);
   }
   if (cardNames.includes("skull") && card.damage <= 20) {

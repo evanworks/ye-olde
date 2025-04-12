@@ -44,3 +44,10 @@ function getRandomItem(array) {
 function removeNumbers(str) {
   return str.replace(/[0-9]/g, ''); // oh i love this stuff
 }
+function howMany(array,value){
+  var n = 0;
+  for(i = 0; i < array.length; i++){
+      if(array[i] == value){n++}
+  }
+  return n;
+}

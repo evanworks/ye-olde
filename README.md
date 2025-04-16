@@ -2,21 +2,45 @@
 
 A dungeon crawler meets card game. *Build your deck and upgrade your weapons to stay alive in **ye olde**...*
 
-<br/>
-
 <b>Play now!</b> <a href="https://evanworks.github.io/ye-olde">Web Version (currently the only version but whatever)</a>
 
 
 ## Version history
 
+### a0.3.0
+Ye Olde 0.3.0: The Tiny Man Update!
+
+**Here's what's new:**
+* New cards to add variety,
+  * Gem (added this in last patch but whatever)
+  * Pizza - op tomato
+  * Rusty Bow - variant of rusty sword
+  * Crossbow - better bow
+  * Potions
+  * Scrolls, permanently adding max health
+  * Shield
+  * Talon
+* 30+ New bosses and shops, but no one reads their descriptions so just trust me that they're in there
+* Each monster has its own background!
+
+We're planning on releasing 0.4.0 sometime in the next month (late April, early May)
+
+**More fixes:**
+* Fixed eyeball looking like it was incredibly unnecessarily overpowered
+* Fixed red slimeball, then fixed it again for good measure
+* Fixed healthbar (it was fun while it lasted)
+* Fixed 6-sword glitch
+* Fixed lots of bags thing
+* Balanced prices
+
 ### a0.2.4
-The Bone Patch
+The Bone Patch (literally all I did was fix the bone. that's it. i forgot what was wrong with it even lol)
 
 ### a0.2.3
 Some rushed fixes and content, sorry for the downtime
 * Made git ignore that DS Store
 * Fixed eyeball being incredibly unnecessarily overpowered
-* postprocessing
+* "postprocessing"
 * added Gem: 2 Damage, gains 2 Damage when played
 * added dragon
 
@@ -219,3 +243,8 @@ init
 **select**
 <br/>
 Welcome Thorn
+
+
+## Buglist
+
+* Forge might be broken

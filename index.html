@@ -12,10 +12,23 @@
     <script src="src/battle.js"></script>
     <script src="src/misc.js"></script>
   </head>
-  <body>
+  <body class="waveBackground">
     <div class="overlay"></div>
+    <div id="debug">
+      <p>Debug Mode <span style="color:lawngreen">active</span></p>
+      <p>------------------</p>
+      <p>Current monster bar width: <span id="debug-amwidth"></span></p>
+      <p style="margin-bottom: 5px;">Current monster health: <span id="debug-truemwidth"></span></p>
+      <p>Current player bar width: <span id="debug-apwidth"></span></p>
+      <p style="margin-bottom: 5px;">Current player health: <span id="debug-truepwidth"></span></p>
+      <button class="debug_btn" onclick="healFully()">Heal fully</button><button class="debug_btn" onclick="fifthSuicide()">Take 10 dmg</button>
+      <br/>
+      <button class="debug_btn" onclick="collectLoot(currentMonster)">Defeat Munester</button>
+      <br/>
+      <button class="debug_btn" onclick="money += 10">$10</button>
+    </div>
     <div id="mobile">
-      This game does not currently support mobile or tiny-screen play. If you'd like to risk a cramped space, press <button onclick="document.getElementById('mobile').style.display = 'none';document.getElementById('not-mobile').style.display = 'block';">here</button>
+      This game does not currently support mobile or tiny-screen play. If you'd like to risk a cramped space, press <button class="unsafe_btn" onclick="document.getElementById('mobile').style.display = 'none';document.getElementById('not-mobile').style.display = 'block';">here</button>
     </div>
     <div id="not-mobile">
       <div id="deathScreen">
@@ -27,7 +40,7 @@
       </div>
 
       <div id="title" style="display: block;">
-        <div id="version">a0.2.4 (The Bone Update)</div>
+        <div id="version">a0.3.0</div>
         <div id="center">
           <div id="title-text">Ye Olde</div>
           <img id="title-playbutton" src="res/img/buttons/play.png" onclick="start();document.getElementById('click_aud').play();">

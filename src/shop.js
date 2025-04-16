@@ -49,7 +49,7 @@ function enterShop() {
   }
 }
 
-// displays a card and its price (dont know why i added the word 'shop', where else would you be stocking cards)
+// displays a card and its price (dont know why i added the word 'shop', where else would you be stocking cards?)
 function stockCardInShop(id, priceID, card) {
   displayCard(card, id)
   document.getElementById(priceID).style.display = "inline-block";
@@ -129,26 +129,25 @@ function buyCardInShop(card, id) {
       deck = deck.filter(item => item !== crimsonBag);
       deck = deck.filter(item => item !== violetBag);
       fullDeck = deck;
+    } else if (card == scrollI || card == scrollII || card == scrollIII || card == scrollIV) {
+      const healthBar = document.getElementById("player-health-bar");
+      maxHealth += 5;
+      checkBars();
+      setTimeout(() => {
+        health = maxHealth;
+        document.getElementById("player-health-num").innerHTML = health;
+        setTimeout(function() { healthBar.classList.add("betterflash");    }, 900);
+        setTimeout(function() { checkBars();                               }, 1400);
+        setTimeout(function() { document.getElementById("player-health-num").innerHTML = health;
+                                healthBar.classList.remove("betterflash"); }, 4000);
+      }, 1000)
+    } else if (card == poison) {
+      removeItem(deck, card);
+      setTimeout(()=>{usePoison();}, 400);
+    } else if (card == palePotion) {
+      removeItem(deck, card);
+      setTimeout(()=>{usePalePotion();}, 400)
     }
   }
   document.getElementById("money").innerHTML = "$" + money;
-}
-
-// chooses valid shops and returns a random one based on xp
-function chooseShop() {
-  if (xp < 2) {
-    return getRandomItem([firstMarketStall])
-  } else if (xp >= 2 && xp < 4) {
-    return getRandomItem([marketStall])
-  } else if (xp >= 4 && xp < 8) {
-    return getRandomItem([marketStall, tavern, blacksmith])
-  } else if (xp >= 4 && xp < 14) {
-    return getRandomItem([marketStall, tavern, blacksmith, farmersmarket])
-  } else if (xp >= 14 && xp < 20) {
-    return getRandomItem([marketStall, tavern, blacksmith, farmersmarket, bagStore, apothecary])
-  } 
-
-  else {
-    return getRandomItem([marketStall, tavern, blacksmith, farmersmarket, bagStore, apothecary]) // all of them
-  }
 }

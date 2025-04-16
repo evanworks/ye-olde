@@ -16,9 +16,11 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
     damageIndicator.className = "damage-indicator";
     
     if (card == eyeball) {
-      damageIndicator.innerText = `+${monster.damage + (monster.scaling * window[monster.file+"Level"])} damage`;
+      damageIndicator.innerText = `+${monster.damage + Math.floor(monster.scaling / 2) * window[monster.file+"Level"]} damage`;
     } else {
-      damageIndicator.innerText = `+${card.damage} damage`;
+      if (paleBuffedCards.includes(card)) damageIndicator.innerText = `+${card.damage+5} damage`;
+      else damageIndicator.innerText = `+${card.damage} damage`;
+      
     }
     damageIndicator.style.left = `${rect.left + 30}px`;
     damageIndicator.style.top = `${rect.top+70}px`;
@@ -30,7 +32,8 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
     attack(monster.damage + Math.floor(monster.scaling / 2) * window[monster.file+"Level"]);
     
   } else {
-    attack(card.damage);
+    if (paleBuffedCards.includes(card)) attack(card.damage + 5);
+    else attack(card.damage);
   }
   let ifithasbone = howMany(cardNames,"bone");
   if (ifithasbone > 0 && card.damage <= 10) {
@@ -53,10 +56,16 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
       juice_up(animatedCard);
     }, 400);
   }
-  if (cardNames.includes("redSlimeball")) {
+  if (cardNames.includes("talon")) {
+    useTalon(rect, rect.left, rect.top, card, cardNames, animatedCard);
     setTimeout(function(){
       juice_up(animatedCard);
-      useRedSlimeball(rect.left, rect.top, card.damage);
+    }, 400);
+  }
+  if (cardNames.includes("redSlimeball")) {
+    useRedSlimeball(rect.left, rect.top, card.damage);
+    setTimeout(function(){
+      juice_up(animatedCard);
     }, 400);
   }
   if (cardNames.includes("greenToad")) {
@@ -172,17 +181,19 @@ function useFrog(rect, targetX, targetY, card, cardNames, animatedCard) {
 }
 
 function useRedSlimeball(targetX, targetY, damage) {
-  let slimeEffectIndicator = document.createElement("div");
-  slimeEffectIndicator.className = "slime-effect";
-  slimeEffectIndicator.innerText = `${damage * 2} damage`;
-  slimeEffectIndicator.style.left = `${targetX + 40}px`;
-  slimeEffectIndicator.style.top = `${targetY + 55}px`;
-  document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-
-  attack(damage);
-  attack(damage);
-  slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
-  return "animationComplete";
+  removeItem(cardNames, "redSlimeball");
+  setTimeout(() => {
+    const slimeEffectIndicator = document.createElement("div");
+    slimeEffectIndicator.className = "slime-effect";
+    slimeEffectIndicator.innerText = `Again! Again!`;
+    slimeEffectIndicator.style.left = `${targetX + 50}px`;
+    slimeEffectIndicator.style.top = `${targetY + 55}px`;
+    document.getElementById("animation-area").appendChild(slimeEffectIndicator);
+  
+    useAttackCard(animatedCard, card, rect, cardNames);
+    useAttackCard(animatedCard, card, rect, cardNames);
+    slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
+  }, 400) 
 }
 
 function useBone(targetX, targetY, damage) {
@@ -209,6 +220,28 @@ function useSkull(targetX, targetY, damage) {
   attack(damage);
   slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
   return "animationComplete";
+}
+
+function useTalon(rect, targetX, targetY, card, cardNames, animatedCard) {
+  setTimeout(() => {
+    const slimeEffectIndicator = document.createElement("div");
+    slimeEffectIndicator.className = "slime-effect";
+    slimeEffectIndicator.innerText = `Destroyed!`;
+    slimeEffectIndicator.style.left = `${targetX + 50}px`;
+    slimeEffectIndicator.style.top = `${targetY + 55}px`;
+    document.getElementById("animation-area").appendChild(slimeEffectIndicator);
+    
+    slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
+
+    for (card in cardNames) {
+      card = eval(cardNames[card]);
+      if (card != forge && card.type == "attack") {
+        deck = deck.filter(item => item !== card);
+      }  
+    }
+
+    attack(card.damage);
+  }, 400) 
 }
 
 n = 0;
@@ -241,7 +274,13 @@ function useForge(targetX, targetY, cardNames) {
     actions: 0,
     price: 18,
     action: '',
-    img: 'forgeSword.png'
+    img: 'magic/forgeSword.png'
   }
   deck.push(window["forgeSword"+alphabet[n]]);
+}
+function usePoison() {
+  openInventory(true, poison);
+}
+function usePalePotion() {
+  openInventory(true, palePotion)
 }

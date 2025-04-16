@@ -30,12 +30,16 @@ body {
   font-family: "Micro 5", sans-serif;
   background: linear-gradient(120deg, #313638, #3d4345);
   /*background: linear-gradient(120deg, #165a4c, #239063);*/
+  /*background: linear-gradient(120deg, #313638, #374e4a);*/
   color: white;
   user-select: none;
   overflow: hidden;
   background-size: 200% 200%;
-  /*animation: waveBackground 20s infinite alternate ease-in-out;*/
   /*filter: saturate(120%) hue-rotate(10deg);*/
+  transition: 10s;
+}
+.waveBackground {
+  animation: waveBackground 20s infinite alternate ease-in-out;
 }
 @keyframes waveBackground {
   0% { background-position: 0% 50%; }
@@ -425,6 +429,14 @@ START OF CHAPGPT
 .flash {
   animation: flash 3s infinite;
 }
+@keyframes betterflash {
+  0% {background: var(--healthEmpty); height: 25px;}
+  50% { background: var(--healthFull); height: 30px;}
+}
+
+.betterflash {
+  animation: betterflash 3s infinite;
+}
 @keyframes gold-flash {
   0% {background: var(--healthEmptyGold);}
   50% { background: var(--healthFullGold);}
@@ -742,6 +754,13 @@ START OF CHAPGPT
 
   overflow: scroll;
 }
+
+/* ----- */
+/* INVENTORY */
+/* ----- */
+/* ----- */
+/* ----- */
+
 #inv-cards {
   margin-top: 10px;
   text-align: center;
@@ -756,6 +775,27 @@ START OF CHAPGPT
 
   image-rendering: pixelated;
 }
+.destroyText {
+  font-family: "Jersey 10";
+  font-size: 32px;
+  color: var(--healthFull);
+  margin-bottom: 10px;
+}
+.victim:hover {
+  background: #831c5d;
+  animation: flash 1s infinite;
+}
+.victim .tooltip:active {
+  filter: brightness(1000%);
+  transition: 1s;
+  animation: none;
+  top: 0px;
+}
+/* ----- */
+/* MOBILE */
+/* ----- */
+/* ----- */
+/* ----- */
 
 #mobile {
   display: none;
@@ -782,8 +822,7 @@ START OF CHAPGPT
     display: block;
   }
 }
-
-button {
+.unsafe_btn {
   font-family: 'Jersey 10', sans-serif;
   font-size: 20px;
   padding: 0px;
@@ -793,6 +832,40 @@ button {
   cursor: pointer;
   transition: 1s;
 }
-button:hover {
+.unsafe_btn:hover {
   color: var(--attack);
+}
+
+/* ----- */
+/* DEBUG */
+/* ----- */
+/* ----- */
+/* ----- */
+
+#debug {
+  display: none;
+  position: fixed;
+  font-family: monospace;
+  z-index: 100000000000;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid white;
+  padding: 5px;
+  top: 5px;
+  left: 5px;
+}
+p {
+  padding: 0px;
+  margin: 0px;
+}
+.debug_btn {
+  font-family: monospace;
+  border: 1px solid white;
+  color: white;
+  background: none;
+  cursor: pointer;
+  margin: 1px;
+}
+.debug_btn:hover {
+  color:black;
+  background: white;
 }

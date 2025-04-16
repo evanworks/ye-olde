@@ -65,6 +65,9 @@ function displayCard(card, parent) {
   if (card.damage != 0) {
     tooltip.innerHTML += "<i style='color: var(--healthFull)'>"+card.damage+" damage</i><br/>";
   }
+  if (paleBuffedCards.includes(card)) {
+    tooltip.innerHTML += "<i style='color: var(--bone)'>+5 damage</i><br/>";
+  }
 
   // displays extra actions in yellow
   if (card.actions != 0) {

@@ -11,6 +11,10 @@ function enterBattle() {
   turn = true; 
   monster = chooseMonster()
   displayMonsterInfo(monster);
+  let gradient = "linear-gradient(120deg, "+monster.bg[0]+", "+monster.bg[1]+")"
+  document.body.style.backgroundImage = gradient;
+  document.body.classList.remove("waveBackground");
+  document.body.classList.add("waveBackground");
   currentMonster = monster;
 
   // resets all values
@@ -23,6 +27,7 @@ function enterBattle() {
 
   deal(6, true);
 }
+
 function displayMonsterInfo(monster) {
   document.getElementById("monster-img").src = monster.img;
   document.getElementById("monster-name").innerHTML = monster.name;
@@ -144,11 +149,14 @@ function monsterAttack() {
 
   setTimeout(function() {
     healthBar.classList.remove("flash");
+    checkBars();
   }, 4000)
 
   if (health <= 0) {
     die();
   }
+
+  
 }
 
 // THESE TWO ARE SEPARATE ( i've had enough mistakes already )
@@ -185,28 +193,5 @@ function attack(damage) {
     }
   }, 200);
 }
-
-
-function chooseMonster() {
-  if (xp < 2) {
-    return getRandomItem([slime])
-  } else if (xp >= 2 && xp < 4) {
-    return getRandomItem([slime, skeleton])
-  } else if (xp >= 4 && xp < 6) {
-    return getRandomItem([slime, skeleton, spider])
-  } else if (xp >= 6 && xp < 8) {
-    return getRandomItem([skeleton, spider])
-  } else if (xp >= 8 && xp < 10) {
-    return getRandomItem([skeleton, spider, minispiders])
-  } else if (xp >= 10 && xp < 12) {
-    return getRandomItem([spider, minispiders, golem])
-  } else if (xp >= 12 && xp < 16) {
-    return getRandomItem([minispiders, golem, dragon])
-  }
-  else {
-    return getRandomItem([golem, minispiders, dragon]) // fallback (toughest enemy)
-  } 
-}
-
 
 // Idea based on spelling mistake: APIder?

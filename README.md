@@ -7,6 +7,9 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### a0.3.2
+Version name fix goddamit
+
 ### a0.3.1
 Quick image hotfix
 

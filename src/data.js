@@ -151,7 +151,7 @@ let flint = {
   actions: 1,
   price: 5,
   action: 'Gains <span style="color:var(--healthFull);">1 Damage</span> when played',
-  img: "flint.png"
+  img: "minerals/flint.png"
 }
 let gemDamage = 2;
 let gem = {
@@ -162,7 +162,7 @@ let gem = {
   actions: 1,
   price: 10,
   action: 'Gains <span style="color:var(--healthFull);">2 Damage</span> when played',
-  img: "gem.png"
+  img: "minerals/gem.png"
 }
 
 //......................................................................................

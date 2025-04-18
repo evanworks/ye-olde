@@ -7,6 +7,9 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### a0.3.4
+Fixed bomb being in first shop
+
 ### a0.3.3
 More bugs than my basement.
 * I think I fixed forge not consuming itself

@@ -745,7 +745,7 @@ const firstMarketStall = {
   description: "A bright but lonely stall. You wonder how it got here - you're in a dungeon, after all.",
   lootAttack: [rustySword, rustyBow, sword],
   lootMagic: [slimeball, slimeball, bone], // slight weight on slimeball
-  lootFood: /*[juice]*/[bomb]
+  lootFood: [juice]
 }
 const marketStall = {
   name: "Market Stall",

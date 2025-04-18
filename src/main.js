@@ -88,7 +88,7 @@ let maxShopAttackSlots = 3;
 let maxShopMagicSlots = 2;
 let maxShopFoodSlots = 1;
 
-let bedug = false;
+let debug = false;
 let a;
 let b;
 
@@ -110,5 +110,5 @@ function start() {
   b = window.getComputedStyle(document.getElementById("monster-health-bar"))
   b = b.getPropertyValue("width");
 
-  if (debug) { document.getElementById("debug").style.display = "block"; }
+  //if (debug) { document.getElementById("debug").style.display = "block"; }
 }

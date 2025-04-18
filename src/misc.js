@@ -107,12 +107,12 @@ function closeInventory() {
 }
 
 // debug
-document.addEventListener("keydown", e => {
+/*document.addEventListener("keydown", e => {
   if (e.key === "[" && debug) {
     if (document.getElementById("debug").style.display == "none") document.getElementById("debug").style.display = "block";
     else document.getElementById("debug").style.display = "none";
   }
-});
+});*/
 
 setInterval(() => {
   // healthbar debug

@@ -110,7 +110,7 @@ function selectCard(card, parent, img) {
   document.getElementById("click_aud").play();
 
   if (document.getElementById("shop").style.display == "block") {
-    selectShopCard(card, parent);
+    selectShopCard(card, parent, img);
   } else {
     if (!img.cardHasBeenSelected) {
       // selecting cards in battle

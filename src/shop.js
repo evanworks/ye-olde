@@ -57,36 +57,42 @@ function stockCardInShop(id, priceID, card) {
 }
 
 // is called from clicking a card while in shop, moved to preserve attention
-function selectShopCard(card, parent) {
-  // 'are you sure?'
-  let parentelmnt = event.target.parentElement;
-  setTimeout(()=>{
-    parentelmnt.parentElement.previousElementSibling.innerHTML = "BUY";
-    //parentelmnt.parentElement.previousElementSibling.style.color = "white";
-    parentelmnt.parentElement.previousElementSibling.style.cursor = "pointer";
-  }, 150)
-  parentelmnt.parentElement.previousElementSibling.classList.add("goesDownAndBackUp");
-
-  // completes purchase
-  parentelmnt.parentElement.previousElementSibling.addEventListener("click", function() {
-    parentelmnt.parentElement.previousElementSibling.style.color = "#fbb954";
-    buyCardInShop(card, parent);
-  });
-
-  // resets purchase or whatever
-  event.target.addEventListener("click", function() {
-    event.preventDefault()
+function selectShopCard(card, parent, img) {
+  if (!img.cardHasBeenSelected) {
+    // selecting cards in battle
     let parentelmnt = event.target.parentElement;
-    parentelmnt.parentElement.previousElementSibling.innerHTML = "$" + card.price;
-    parentelmnt.parentElement.previousElementSibling.style.color = "#fbb954";
-    parentelmnt.parentElement.previousElementSibling.style.background = "#252928";
-    parentelmnt.parentElement.previousElementSibling.style.cursor = "default";
-    
-    // future-proof totally
-    event.target.addEventListener("click", function() {
-      selectCard(card)
-    })
-  });
+    setTimeout(()=>{
+      parentelmnt.parentElement.previousElementSibling.innerHTML = "BUY";
+      //parentelmnt.parentElement.previousElementSibling.style.color = "white";
+      parentelmnt.parentElement.previousElementSibling.style.cursor = "pointer";
+    }, 150)
+    parentelmnt.parentElement.previousElementSibling.classList.add("goesDownAndBackUp");
+  
+    // completes purchase
+    parentelmnt.parentElement.previousElementSibling.addEventListener("click", function() {
+      parentelmnt.parentElement.previousElementSibling.style.color = "#fbb954";
+      buyCardInShop(card, parent);
+    });
+
+    // deselection
+    /*img.addEventListener("click", function() {
+      img.removeEventListener("click", arguments.callee); // i can't believe this is a thing
+      img.addEventListener("click", function() {
+        console.log("unclicked on shop card")
+        event.preventDefault();
+        let parentelmnt = event.target.parentElement;
+        parentelmnt.parentElement.previousElementSibling.innerHTML = "$" + card.price;
+        parentelmnt.parentElement.previousElementSibling.style.color = "#fbb954";
+        parentelmnt.parentElement.previousElementSibling.style.background = "#252928";
+        parentelmnt.parentElement.previousElementSibling.style.cursor = "default";
+        
+        // future-proof totally
+        event.target.addEventListener("click", function() {
+          selectCard(card, parent, img);
+        })
+      });
+    });*/
+  }
 }
 
 // buys a card, complete with horrid animation (dont know why i added the word 'shop', where else would you be buying cards?)

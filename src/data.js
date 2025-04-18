@@ -72,9 +72,9 @@ const scimitar = {
   file: "scimitar",
   name: "Scimitar",
   type: "attack",
-  damage: 11,
+  damage: 15,
   actions: 1,
-  price: 12,
+  price: 15,
   action: '',
   img: "attack/scimitar.png"
 }
@@ -87,7 +87,7 @@ const rustyBow = {
   type: "attack",
   damage: 12,
   actions: 1,
-  price: 8,
+  price: 12,
   action: '',
   img: "attack/rustyBow.png"
 }
@@ -95,9 +95,9 @@ const longbow = {
   file: "longbow",
   name: "Longbow",
   type: "attack",
-  damage: 18,
+  damage: 16,
   actions: 1,
-  price: 15,
+  price: 16,
   action: '',
   img: "attack/longbow.png"
 }
@@ -109,16 +109,6 @@ const longbow = {
 // siege tower
 // squid ink
 // iron fist punch
-const headbutt = {
-  file: "headbutt",
-  name: "Headbutt",
-  type: "attack",
-  damage: 1,
-  actions: 2,
-  price: 5,
-  action: "It's something.",
-  img: "placeholder.png"
-}
 const shield = {
   file: "shield",
   name: "Shield",

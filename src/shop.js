@@ -147,6 +147,17 @@ function buyCardInShop(card, id) {
     } else if (card == palePotion) {
       removeItem(deck, card);
       setTimeout(()=>{usePalePotion();}, 400)
+    } else if (card == bomb) {
+      removeItem(deck, card);
+      for (let i = 0; i < 5; i++) {
+        if (deck.length > 0) {
+          setTimeout(()=>{
+            openInventory();
+            let index = Math.floor(Math.random() * deck.length)
+            deck.splice(index, 1);
+          }, 200)
+        }
+      }
     }
   }
   document.getElementById("money").innerHTML = "$" + money;

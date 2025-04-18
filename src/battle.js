@@ -20,6 +20,7 @@ function enterBattle() {
   // resets all values
   selectedCards = ["-", "-", "-", "-", "-", "-"];
   idonthaveagoodnameforthis = 0; // great job past self
+  collectedLoot = false;
   actions = maxActions;
   document.getElementById("actions-num").innerHTML = actions;
   hands = maxHands;
@@ -92,13 +93,16 @@ function play() {
         card = eval(cardName); // e.g. str "rustySword" -> var rustySword
         if (card.type === "attack") {
           useAttackCard(animatedCard, card, rect, cardNames)
+          
         } else if (card.type === "food") {
           useFoodCard(animatedCard, card, rect)
+          if (paleBuffedCards.includes(card)) attack(5);
         } else {
           setTimeout(()=>{juice_up(animatedCard);}, 200);
           if (card == forge) {
             useForge(rect.left, rect.top, cardNames);
           }
+          if (paleBuffedCards.includes(card)) attack(5);
         }
         setTimeout(() => {
           animatedCard.style.opacity = 0;
@@ -177,7 +181,6 @@ function attack(damage) {
   
   // Update health number and animate bar to shrink gosh chatgpt
   setTimeout(function() {
-    
     if (enemyHealth > 0) {
       healthNum.innerHTML = enemyHealth;
       healthBar.style.width = newWidth + "px";
@@ -188,7 +191,10 @@ function attack(damage) {
       battle = false;
       document.getElementById("win_aud").play();
       setTimeout(function() {
-        collectLoot(currentMonster);
+        if (!collectedLoot) {
+          collectedLoot = true;
+          collectLoot(currentMonster);
+        }
       }, 2000)
     }
   }, 200);

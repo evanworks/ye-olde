@@ -1,4 +1,5 @@
 function useAttackCard(animatedCard, card, rect, cardNames) {
+  console.log("using attack card")
   setTimeout(function(){
     if (card == flint) {
 
@@ -86,56 +87,59 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
 }
 
 function useFoodCard(animatedCard, card, rect) {
-  tinyHealth = maxHealth / 100;
-  healthToHeal = tinyHealth * card.health;
-
-  let percent = 0
-
-  if (health + healthToHeal > maxHealth && card.overflow == false && healthOverflow == false) {
-    health = maxHealth
-  } else {
-    percent = (healthToHeal * 100) / health;
-    health += healthToHeal;
-  }
-  let unit = "px"
-  let newWidth = document.getElementById("player-health-bar").offsetWidth - (document.getElementById("player-health-bar").offsetWidth / 100) * -percent;
-  if (card.health >= 100) {
-    newWidth = "93";
-    unit = "vw";
-  }
-  let overflowing = false;
-  if (healthOverflow) {
-    overflowing = true;
-    document.getElementById("player-health-bar").classList.add("gold-flash");
-  } else {
-    document.getElementById("player-health-bar").classList.add("flash");
-  }
-
-  setTimeout(function() {
-    document.getElementById("player-health-num").innerHTML = health;
-    document.getElementById("player-health-bar").style.width = newWidth + unit;
-  }, 500);
-
-  setTimeout(function() {
-    if (overflowing) {
-      document.getElementById("player-health-bar").classList.remove("gold-flash");
-    } else {
-      document.getElementById("player-health-bar").classList.remove("flash");
-    }
-  }, 3100)
+  if (health >= maxHealth && card.overflow == false) { } else {
+    tinyHealth = maxHealth / 100;
+    healthToHeal = tinyHealth * card.health;
   
-  // visual
-  setTimeout(function() {
-    juice_up(animatedCard)
-    const healthIndicator = document.createElement("div");
-    healthIndicator.className = "health-indicator";
-    healthIndicator.innerText = `+${healthToHeal} Health`;
-    healthIndicator.style.left = `${rect.left + 30}px`;
-    healthIndicator.style.top = `${rect.top+70}px`;
-    document.getElementById("animation-area").appendChild(healthIndicator);
-
-    healthIndicator.addEventListener("animationend", () => healthIndicator.remove());
-  }, 200)
+    let percent = 0
+  
+    if (health + healthToHeal > maxHealth && card.overflow == false && healthOverflow == false) {
+      health = maxHealth
+    } else {
+      percent = (healthToHeal * 100) / health;
+      health += healthToHeal;
+    }
+    let unit = "px"
+    let newWidth = document.getElementById("player-health-bar").offsetWidth - (document.getElementById("player-health-bar").offsetWidth / 100) * -percent;
+    if (card.health >= 100) {
+      newWidth = "93";
+      unit = "vw";
+    }
+    let overflowing = false;
+    if (healthOverflow) {
+      overflowing = true;
+      document.getElementById("player-health-bar").classList.add("gold-flash");
+    } else {
+      document.getElementById("player-health-bar").classList.add("flash");
+    }
+  
+    setTimeout(function() {
+      document.getElementById("player-health-num").innerHTML = health;
+      document.getElementById("player-health-bar").style.width = newWidth + unit;
+      checkBars();
+    }, 500);
+  
+    setTimeout(function() {
+      if (overflowing) {
+        document.getElementById("player-health-bar").classList.remove("gold-flash");
+      } else {
+        document.getElementById("player-health-bar").classList.remove("flash");
+      }
+    }, 3100)
+    
+    // visual
+    setTimeout(function() {
+      juice_up(animatedCard)
+      const healthIndicator = document.createElement("div");
+      healthIndicator.className = "health-indicator";
+      healthIndicator.innerText = `+${healthToHeal} Health`;
+      healthIndicator.style.left = `${rect.left + 30}px`;
+      healthIndicator.style.top = `${rect.top+70}px`;
+      document.getElementById("animation-area").appendChild(healthIndicator);
+  
+      healthIndicator.addEventListener("animationend", () => healthIndicator.remove());
+    }, 200)
+  }
 }
 
 function useSlimeball(rect, targetX, targetY, card, cardNames, animatedCard) {
@@ -263,8 +267,7 @@ function useForge(targetX, targetY, cardNames) {
   setTimeout(()=>{document.getElementById("animation-area").appendChild(slimeEffectIndicator);}, 300)
   slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
 
-  let index = fullDeck.indexOf(forge);
-  deck.splice(index, 1);
+  removeItem(deck, forge)
   let a = forgePower;
   window["forgeSword"+alphabet[n]] = {
     file: "forgeSword"+alphabet[n],

@@ -68,6 +68,7 @@ let squad = []; // not sure yet if this is gonna be used at all // it's not
 let turn = true;
 let idonthaveagoodnameforthis = 0;
 let animationList = [];
+let collectedLoot = false;
 
 let maxHealth = 50;
 let health = maxHealth;
@@ -87,7 +88,7 @@ let maxShopAttackSlots = 3;
 let maxShopMagicSlots = 2;
 let maxShopFoodSlots = 1;
 
-let debug = false;
+let debug = true;
 let a;
 let b;
 

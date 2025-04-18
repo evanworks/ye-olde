@@ -36,16 +36,16 @@ function displayCard(card, parent) {
 
   for (let i = 0; i < 10000; i++) {
     sample += 1;
-    if (document.getElementById(parent + sample) === null) {
+    const el = document.getElementById(parent + sample);
+
+    if (!el) {
       isNull = true;
       console.log("Yeah so parent+sample is null. Here's the parent: " + parent + " and the sample: " + sample);
       break;
-    } else {
-      if (document.getElementById(parent + sample).innerHTML == "") {
-        parent += sample;
-        
-        break;
-      }
+    } else if (el.innerHTML == "") {
+      parent += sample;
+      
+      break;
     }
   }
   const element = document.getElementById(parent);

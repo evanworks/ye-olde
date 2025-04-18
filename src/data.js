@@ -284,6 +284,18 @@ const talon = {
   img: 'magic/talon.png'
 }
 
+const bomb = {
+  file: "bomb",
+  name: "Bomb",
+  type: "magic",
+  damage: 0,
+  actions: 0,
+  price: 14,
+  action: '<span style="color:var(--healthFull);">Destroy</span> 5 random cards in inventory <br/><span style="color:var(--healthFull);">consumable</span>',
+  img: "magic/bomb.png"
+}
+
+
 const poison = {
   file: "poison",
   name: "Poison",
@@ -681,7 +693,7 @@ function chooseMonster() {
   } else if (xp >= 8 && xp < 10) {
     return getRandomItem([skeleton, spider, minispiders])
   } else if (xp >= 10 && xp < 12) {
-    return getRandomItem([spider, minispiders, golem])
+    return getRandomItem([minispiders, golem])
   } else if (xp >= 12 && xp < 16) {
     return getRandomItem([minispiders, golem, dragon])
   } else if (xp >= 16 && xp < 18) {
@@ -733,13 +745,13 @@ const firstMarketStall = {
   description: "A bright but lonely stall. You wonder how it got here - you're in a dungeon, after all.",
   lootAttack: [rustySword, rustyBow, sword],
   lootMagic: [slimeball, slimeball, bone], // slight weight on slimeball
-  lootFood: [juice]
+  lootFood: /*[juice]*/[bomb]
 }
 const marketStall = {
   name: "Market Stall",
   description: "A bright but lonely stall. You wonder how it got here - you're in a dungeon, after all.",
   lootAttack: [rustySword, rustyBow, sword, longbow, shield],
-  lootMagic: [slimeball, bone, greenToad],
+  lootMagic: [slimeball, bone, greenToad, poison],
   lootFood: [juice, tea]
 }
 const tavern = {
@@ -753,7 +765,7 @@ const blacksmith = {
   name: "Black smith", // naming
   description: "The air is thick with soot and powerful tools gleam on the walls.",
   lootAttack: [claymore, sword, longbow, mace, scimitar, shield],
-  lootMagic: [bone, forge],
+  lootMagic: [bone, forge, bomb],
   lootFood: [potato, potato, carrot]
 }
 const farmersmarket = {
@@ -774,7 +786,7 @@ const apothecary = {
   name: "Apothecary",
   description: "A dark and gloomy magic shop. Scary things gleam on the walls.",
   lootAttack: [eyeball, longbow, gem],
-  lootMagic: [eyeball, redSlimeball, skull, talon, palePotion],
+  lootMagic: [eyeball, skull, talon, palePotion, poison],
   lootFood: [carrot, tomato]
 }
 const eatery = {
@@ -802,7 +814,7 @@ const shady = {
   name: "Shady Corner",
   description: "Packed with traders of magic of all sorts.",
   lootAttack: [slimeball, redSlimeball, greenToad, palePotion],
-  lootMagic: [bone, skull, eyeball, poison],
+  lootMagic: [bone, skull, eyeball, poison, bomb],
   lootFood: [scrollI, scrollII, talon, bitterPoison]
 }
 const theBelovedScrollShop = {

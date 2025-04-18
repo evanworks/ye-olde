@@ -7,6 +7,15 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### a0.3.3
+More bugs than my basement.
+* I think I fixed forge not consuming itself
+* You can now use pale potion on magic and food cards
+* Fixed all the console errors
+* Fixed one wacky healthbar, yay, but monster health is still kind of ridiculous sometimes
+* Balanced the thing
+* Added bomb for fun
+
 ### a0.3.2
 Version name fix goddamit
 
@@ -253,4 +262,5 @@ Welcome Thorn
 
 ## Buglist
 
-* Forge might be broken
+* Frog sometimes freaks out and picks a card that isn't the least expensive
+* Shop sometimes freaks out

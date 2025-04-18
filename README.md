@@ -7,6 +7,10 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### a0.3.5
+* Fixed XP 8 dying
+* Fixed debug mode
+
 ### a0.3.4
 Fixed bomb being in first shop
 

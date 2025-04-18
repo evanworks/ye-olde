@@ -839,7 +839,7 @@ function chooseShop() {
     return getRandomItem([marketStall])
   } else if (xp >= 4 && xp < 8) {
     return getRandomItem([marketStall, tavern, blacksmith])
-  } else if (xp >= 4 && xp < 14) {
+  } else if (xp >= 8 && xp < 14) {
     return getRandomItem([marketStall, tavern, blacksmith, farmersmarket])
   } else if (xp >= 14 && xp < 20) {
     return getRandomItem([marketStall, tavern, blacksmith, farmersmarket, bagStore, apothecary])

@@ -7,6 +7,16 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### 0.3.8 [4-19-25]
+MAJOR code refactor:
+* Moved all of the cards' functions into the card itself
+* Split data.js into src/data/...
+Other stuff
+* Removed pixi.js referrer in the index?
+* made bitter potion actually work
+* split tea into three different teas because british
+
+
 ### a0.3.7
 * Actually removed debug mode
 

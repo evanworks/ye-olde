@@ -2,7 +2,8 @@
 function enterShop() {
 
   // checks to make sure the shop is closed before opening it
-  if (document.getElementById("shop").style.display == "none") { 
+  if (document.getElementById("shop").style.display == "none" && enteredShop == false) { 
+    enteredShop = true;
     // opens shop
     document.getElementById("battle").style.display = "none";
     document.getElementById("loot").style.opacity = 0;
@@ -30,6 +31,7 @@ function enterShop() {
     for (let i = 1; i < maxShopAttackSlots + 1; i++) {
       let slotID = "price-attack-slot"+i;
       let card = getRandomItem(shop.lootAttack);
+
       // big bag
       if (i == 1 && shop == bagStore && hasAllBags) {
         card = bigBag; 
@@ -109,61 +111,9 @@ function buyCardInShop(card, id) {
     }, 400)
     document.getElementById("price-"+id).style.display = "none";
 
-    // buying card stuff
-    if (card == bag) {
-      if (maxShopAttackSlots < 5) {
-        maxShopAttackSlots += 1;
-      }
-      if (maxShopMagicSlots < 5) {
-        maxShopMagicSlots += 1;
-      }
-      if (maxShopFoodSlots < 5) {
-        maxShopFoodSlots += 1;
-      }
-    } else if (card == greenBag) {
-      maxShopFoodSlots = 5;
-    } else if (card == crimsonBag) {
-      maxShopAttackSlots = 5;
-    } else if (card == violetBag) {
-      maxShopMagicSlots = 5;
-    } else if(card == bigBag) {
-      maxShopAttackSlots = 5;
-      maxShopMagicSlots = 5;
-      maxShopFoodSlots = 5;
-      deck = deck.filter(item => item !== bag);
-      deck = deck.filter(item => item !== greenBag);
-      deck = deck.filter(item => item !== crimsonBag);
-      deck = deck.filter(item => item !== violetBag);
-      fullDeck = deck;
-    } else if (card == scrollI || card == scrollII || card == scrollIII || card == scrollIV) {
-      const healthBar = document.getElementById("player-health-bar");
-      maxHealth += 5;
-      checkBars();
-      setTimeout(() => {
-        health = maxHealth;
-        document.getElementById("player-health-num").innerHTML = health;
-        setTimeout(function() { healthBar.classList.add("betterflash");    }, 900);
-        setTimeout(function() { checkBars();                               }, 1400);
-        setTimeout(function() { document.getElementById("player-health-num").innerHTML = health;
-                                healthBar.classList.remove("betterflash"); }, 4000);
-      }, 1000)
-    } else if (card == poison) {
-      removeItem(deck, card);
-      setTimeout(()=>{usePoison();}, 400);
-    } else if (card == palePotion) {
-      removeItem(deck, card);
-      setTimeout(()=>{usePalePotion();}, 400)
-    } else if (card == bomb) {
-      removeItem(deck, card);
-      for (let i = 0; i < 5; i++) {
-        if (deck.length > 0) {
-          setTimeout(()=>{
-            openInventory();
-            let index = Math.floor(Math.random() * deck.length)
-            deck.splice(index, 1);
-          }, 200)
-        }
-      }
+    // does consumable
+    if (card.consumable) {
+      card.consumable(card);
     }
   }
   document.getElementById("money").innerHTML = "$" + money;

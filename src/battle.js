@@ -21,6 +21,8 @@ function enterBattle() {
   selectedCards = ["-", "-", "-", "-", "-", "-"];
   idonthaveagoodnameforthis = 0; // great job past self
   collectedLoot = false;
+  enteredShop = false;
+  
   actions = maxActions;
   document.getElementById("actions-num").innerHTML = actions;
   hands = maxHands;

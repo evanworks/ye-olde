@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ye Olde - Updates</title>
+    <link rel="stylesheet" href="res/styles.css">
+    <link rel="icon" href="res/img/icons/thumbnail.png">
+    <style>
+      p {
+        font-size: 20px;
+      }
+      ul {
+        list-style-type:square;
+        margin-top: 10px;
+      }
+      li {
+        font-size: 20px;
+      }
+      h3 {
+        font-size: 25px;
+        margin-bottom: 10px;
+        margin-top: 30px;
+        font-family: "Jersey 25";
+      }
+      .firsth3 {
+        margin-top: 0px;
+      }
+      .update-block {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        margin-bottom: 24px;
+        justify-content: space-between;
+      }
+
+      .update-icon {
+          width: 50px;
+          height: 50px;
+          flex-shrink: 0;
+      }
+
+      .update-content {
+          flex: 1;
+      }
+    </style>
+  </head>
+  <body class="waveBackground" style="font-family: 'Jersey 10'; overflow: scroll; height: 100%; width: 50%;">
+    <div class="overlay" style="height: 100%"></div>
+    <a onclick="history.back();">< Go back</a>
+    <div id="updates" style="margin-left: 10px;">
+      <h3 id="0-3-8">0.3.8 [4-19-25]</h3>
+      <p>MAJOR code refactor:</p>
+      <ul>
+      <li>Moved all of the cards&#39; functions into the card itself</li>
+      <li>Split data.js into src/data/...</li>
+      </ul>
+      <p>Other stuff</p>
+      <ul>
+      <li>Removed pixi.js referrer in the index?</li>
+      <li>made bitter potion actually work</li>
+      <li>split tea into three different teas because british</li>
+      </ul>
+      <p>We now have an updates page, and the title screen yells at you</p>
+
+      <img src="res/img/food/tea/blackTea.png">
+      <img src="res/img/food/tea/greenTea.png">
+      <img src="res/img/food/tea/whiteTea.png">
+      <h3 id="a0-3-7">a0.3.7</h3>
+      <ul>
+      <li>Actually removed debug mode</li>
+      </ul>
+      <h3 id="a0-3-6">a0.3.6</h3>
+      <ul>
+      <li>Removed card in shop deselecting</li>
+      <li>Removed debug mode</li>
+      <li>Rebalanced shop prices</li>
+      </ul>
+      <h3 id="a0-3-5">a0.3.5</h3>
+      <ul>
+      <li>Fixed XP 8 dying</li>
+      <li>Fixed debug mode</li>
+      </ul>
+      <h3 id="a0-3-4">a0.3.4</h3>
+      <p>Fixed bomb being in first shop</p>
+      <h3 id="a0-3-3">a0.3.3</h3>
+      <p>More bugs than my basement.</p>
+      <ul>
+      <li>I think I fixed forge not consuming itself</li>
+      <li>You can now use pale potion on magic and food cards</li>
+      <li>Fixed all the console errors</li>
+      <li>Fixed one wacky healthbar, yay, but monster health is still kind of ridiculous sometimes</li>
+      <li>Balanced the thing</li>
+      <li>Added bomb for fun</li>
+      </ul>
+      <img src="res/img/magic/bomb.png">
+      <h3 id="a0-3-2">a0.3.2</h3>
+      <p>Version name fix goddamit</p>
+      <h3 id="a0-3-1">a0.3.1</h3>
+      <p>Quick image hotfix</p>
+      <h3 id="a0-3-0">a0.3.0</h3>
+      <p>Ye Olde 0.3.0: The Tiny Man Update!</p>
+      <p><strong>Here&#39;s what&#39;s new:</strong></p>
+      <ul>
+      <li>New cards to add variety,<ul>
+      <li>Gem (added this in last patch but whatever)</li>
+      <li>Pizza - op tomato</li>
+      <li>Rusty Bow - variant of rusty sword</li>
+      <li>Crossbow - better bow</li>
+      <li>Potions</li>
+      <li>Scrolls, permanently adding max health</li>
+      <li>Shield</li>
+      <li>Talon</li>
+      </ul>
+      </li>
+      <li>30+ New bosses and shops, but no one reads their descriptions so just trust me that they&#39;re in there</li>
+      <li>Each monster has its own background!</li>
+      </ul>
+      <p>We&#39;re planning on releasing 0.4.0 sometime in the next month (late April, early May)</p>
+      <p><strong>More fixes:</strong></p>
+      <ul>
+      <li>Fixed eyeball looking like it was incredibly unnecessarily overpowered</li>
+      <li>Fixed red slimeball, then fixed it again for good measure</li>
+      <li>Fixed healthbar (it was fun while it lasted)</li>
+      <li>Fixed 6-sword glitch</li>
+      <li>Fixed lots of bags thing</li>
+      <li>Balanced prices</li>
+      </ul>
+      <img src="res/img/potions/poison.png"><img src="res/img/scrolls/scrollI.png"><img src="res/img/attack/shield.png">
+      <h3 id="a0-2-4">a0.2.4</h3>
+      <p>The Bone Patch (literally all I did was fix the bone. that&#39;s it. i forgot what was wrong with it even lol)</p>
+      <h3 id="a0-2-3">a0.2.3</h3>
+      <p>Some rushed fixes and content, sorry for the downtime</p>
+      <ul>
+      <li>Made git ignore that DS Store</li>
+      <li>Fixed eyeball being incredibly unnecessarily overpowered</li>
+      <li>&quot;postprocessing&quot;</li>
+      <li>added Gem: 2 Damage, gains 2 Damage when played</li>
+      <li>added dragon</li>
+      </ul>
+      <img src="res/img/minerals/gem.png">
+      <h3 id="a0-2-2">a0.2.2</h3>
+      <p>Fixed starting with a billion flints</p>
+      <h3 id="a0-2-1">a0.2.1</h3>
+      <p>Made the forge actually possible to obtain</p>
+      <h3 id="a0-2-0">a0.2.0</h3>
+      <p>Ye Olde 0.2.0: The Farming Update! (Which is actually mostly devoid of farming).
+      <strong>Here&#39;s what&#39;s new:</strong> </p>
+      <ul>
+      <li>A whole bundle of bags!</li>
+      <li><p>New, extra-powerful attack and magic(?) cards:</p>
+      <ul>
+      <li>The Forge: Fuel your forge by feeding it unwanted attack cards</li>
+      <li>The Bag: Three new bags for each shop slot</li>
+      <li>Red Slimeball: New, extra-powerful slimeball variant</li>
+      <li>Flint: 1 Damage, gains 1 damage when played</li>
+      </ul>
+      </li>
+      <li><p>New monster: Golem</p>
+      </li>
+      <li>The bag shop, and more fun shop locations!</li>
+      <li>Secrets! OooOOOooOOo!</li>
+      </ul>
+      <p>And all the bugfixes:</p>
+      <ul>
+      <li>several balance changes to attack cards</li>
+      <li>enemy damage scales less</li>
+      <li>updates to font</li>
+      <li>fixed eyeball not taking into account monster level</li>
+      <li>fixed frog saying wrong price</li>
+      <li>fixed bone attacking thrice</li>
+      <li>fixed having too many bags just killing everything</li>
+      <li>fixed loot slot code throwing over 10,000 of the exact same error</li>
+      <li>who knows what else
+      Released this a little earlier than I wanted due to the lack of updates. Unrelated, but the Balatro inspiration seems to be slipping in...</li>
+      </ul>
+      <img src="res/img/bags/bag.png"><img src="res/img/magic/forge.png"><img src="res/img/minerals/flint.png">
+      <h3 id="a03-23-25-0-1-5-">a03-23-25[ 0.1.5 ]</h3>
+      <p>Fixed healthbar because it was annoying</p>
+      <h3 id="a03-23-25-0-1-4-">a03-23-25[ 0.1.4 ]</h3>
+      <p>If you look really closely at any of the art in this game, you&#39;re gonna find as many mistakes as you would bacteria on a petri dish. - <em>Evan Lee, 2025</em></p>
+      <ul>
+      <li>Put prices back to normal (it didn&#39;t work as I expected and generally made things not fun)</li>
+      <li>Removed negative monster health because it was misleading</li>
+      <li>nerfed frog</li>
+      <li>added monster stats</li>
+      <li>Made health overflow considerably cooler-looking</li>
+      <li>told mobile players to go away</li>
+      <li>qol: X button in inventory is now sticky (doesn&#39;t respond to scroll);</li>
+      <li>FIXED: some animations not repeating</li>
+      <li>FIXED: carrot sprite being potato</li>
+      <li>FIXED: both carrot and tomato giving incorrect health amounts</li>
+      <li>FIXED: playing really large and powerful hands kills you</li>
+      <li>FIXED: Inventory sound effect</li>
+      </ul>
+      <h3 id="a03-22-25-0-1-3-">a03-22-25[ 0.1.3 ]</h3>
+      <p>daily update # something</p>
+      <ul>
+      <li>add: Carrot (that was last update, but I forgot about it)</li>
+      <li>add: Tomato</li>
+      <li>add: Win SFX</li>
+      <li>⚖️: changed price of most things</li>
+      <li>qol: monsters give you less stuff</li>
+      <li>qol: buttons can&#39;t be pressed while enemy is attacking</li>
+      <li>qol: decreased wait time for enemy attack</li>
+      <li>fix: glitchy button animations</li>
+      <li>fix: Farmer&#39;s Market description described a blacksmith</li>
+      </ul>
+      <h3 id="a03-21-25-0-1-2-">a03-21-25[ 0.1.2 ]</h3>
+      <p>bugfixes and brief farming</p>
+      <ul>
+      <li>Made monsters other than Slime able to level up</li>
+      <li>attempted to make price not be white when not completing a purchase and leaving the shop but gave up</li>
+      <li>fixed strange-looking shop names</li>
+      <li><p>made monster damage level up as well</p>
+      </li>
+      <li><p>added Mini-spiders</p>
+      </li>
+      <li>added Farmer&#39;s Market</li>
+      </ul>
+      <h3 id="a03-21-25-0-1-1-">a03-21-25[ 0.1.1 ]</h3>
+      <p>Fixed starting with two eyeballs</p>
+      <h3 id="a03-21-25-0-1-0-">a03-21-25[ 0.1.0 ]</h3>
+      <p>Ye Olde 0.1.0: The Ample Update! <strong>So far you can...</strong></p>
+      <ul>
+      <li>Fight potentially lethal monsters!</li>
+      <li>Collect loot and treasure! </li>
+      <li>Upgrade your weapons in safe, friendly-looking shops!</li>
+      </ul>
+      <p><strong>Changelog:</strong></p>
+      <ul>
+      <li>Added inventory screen</li>
+      <li>Added 3 new cards:<ul>
+      <li>Tea: Heals 40% of total Health</li>
+      <li>Potato: Heals 100% of total Health</li>
+      <li>Bag: +1 of each card slot available in Shops</li>
+      <li>Eyeball: Mimics enemy&#39;s attack</li>
+      </ul>
+      </li>
+      <li>Added new enemies and shops</li>
+      <li>Green Toad resprite + price fix</li>
+      <li>Fixed &quot;card is undefined&quot; bug + Market Stall not having a food card</li>
+      </ul>
+      <p><strong>What&#39;s next?</strong>
+      I have a long spreadsheet of potential new cards, enemies, and shops! Further updates will focus on expanding content, allowing for longer play.</p>
+      <p>Also, please don&#39;t report any bugs. I am aware of most of them.</p>
+      <p><strong>Have fun!</strong></p>
+      <h3 id="a03-20-25-0-0-18-">a03-20-25[ 0.0.18 ]</h3>
+      <p><strong>we might be ready / tons of bugs</strong>
+      <br/></p>
+      <p>Bugfix update + deselecting:</p>
+      <ul>
+      <li>Finally added deselecting (it looks a little buggy but I&#39;m not a master programmer so I can&#39;t fix it)</li>
+      <li>Corrected some minor naming issues in the previous updates&#39; descriptions</li>
+      <li>Fixed money number not being gold-coloured after buying its card in shop</li>
+      <li>Fixed actions not resetting between hands
+      I know there&#39;s still a lot of bugs, but it seems like all that&#39;s left is 0.1.0! We might be ready.</li>
+      </ul>
+      <h3 id="a03-19-25-0-0-17-">a03-19-25[ 0.0.17 ]</h3>
+      <p><strong>i am smart trust me</strong>
+      <br/>
+      Fixed the death screen so that it allows you to actually play the game</p>
+      <h3 id="a03-19-25-0-0-16-">a03-19-25[ 0.0.16 ]</h3>
+      <p><strong>death + sound</strong>
+      <br/>
+      Added sound effects (the least important problem right now), and a death screen</p>
+      <h3 id="a03-18-25-0-0-15-">a03-18-25[ 0.0.15 ]</h3>
+      <p><strong>so that didn&#39;t work</strong>
+      <br/>
+      took four hours to hack together a stupid fix to a play timing thing... but on a better note, frog works, and it doesn&#39;t break when you play more than one hand anymore</p>
+      <h3 id="a03-18-25-0-0-14-">a03-18-25[ 0.0.14 ]</h3>
+      <p><strong>br/ + oh i&#39;m a liar now?</strong>
+      <br/>
+      layout issues</p>
+      <h3 id="a03-18-25-0-0-13-">a03-18-25[ 0.0.13 ]</h3>
+      <p><strong>now thats enough for one morning</strong>
+      <br/>
+      fixed slimeball, red slimeball, cards not playing in the right order, created bone</p>
+      <h3 id="a03-17-25-0-0-12-">a03-17-25[ 0.0.12 ]</h3>
+      <p><strong>versions lol</strong>
+      <br/>
+      Added version history to README</p>
+      <h3 id="a03-17-25-0-0-11-">a03-17-25[ 0.0.11 ]</h3>
+      <p><strong>oh don&#39;t mind the background</strong>
+      <br/>
+      I had the background set as an enjoyable rainbow because the programming experience was the opposite (reverted)</p>
+      <h3 id="a03-17-25-0-0-10-">a03-17-25[ 0.0.10 ]</h3>
+      <p><strong>INTO ENDLESS</strong>
+      <br/>
+      PART 2: made the game states work multiple times in a row. you can now play forever, if you wish.</p>
+      <h3 id="a03-17-25-0-0-9-">a03-17-25[ 0.0.9 ]</h3>
+      <p><strong>you can somewhat do another battle</strong>
+      <br/>
+      PART 1: halfway through making the game states work multiple times in a row, added juiciness and coincidentally also Juice</p>
+      <h3 id="a03-16-25-0-0-8-">a03-16-25[ 0.0.8 ]</h3>
+      <p><strong>now thats a lot of money</strong>
+      <br/>
+      Added the shop, title screen, and generally nicened things up a litte</p>
+      <h3 id="a03-15-25-0-0-7-">a03-15-25[ 0.0.7 ]</h3>
+      <p><strong>little mini for new beginnings</strong>
+      <br/>
+      Neatened the battle view, added hands or something</p>
+      <h3 id="a12-04-24-0-0-6-">a12-04-24[ 0.0.6 ]</h3>
+      <p><strong>bugs FIXED!!!</strong>
+      <br/>
+      preliminary balance changes, was an idiot and used chatgpt</p>
+      <h3 id="a11-23-24-0-0-5-">a11-23-24[ 0.0.5 ]</h3>
+      <p><strong>daily update 3</strong>
+      <br/>
+      Added actions, moves, and dealing</p>
+      <h3 id="a11-22-24-0-0-4-">a11-22-24[ 0.0.4 ]</h3>
+      <p><strong>select</strong>
+      <br/>
+      removed test buttons, added enemy health, ability to select cards, and oversized play button</p>
+      <h3 id="a11-21-24-0-0-3-">a11-21-24[ 0.0.3 ]</h3>
+      <p><strong>enemy</strong>
+      <br/>
+      added rudimentary enemy</p>
+      <h3 id="a11-19-24-0-0-2-">a11-19-24[ 0.0.2 ]</h3>
+      <p><strong>checklist lol</strong>
+      <br/>
+      added checklist</p>
+      <h3 id="a11-19-24-0-0-1-">a11-19-24[ 0.0.1 ]</h3>
+      <p><strong>cards</strong>
+      <br/>
+      init</p>
+      <h3 id="a11-19-24-0-0-0-">a11-19-24[ 0.0.0 ]</h3>
+      <p><strong>select</strong>
+      <br/>
+      Welcome Thorn</p>  
+    </div>
+  </body>
+  <script>
+const updatesDiv = document.querySelector('#updates')
+const h3s = updatesDiv.querySelectorAll('h3')
+
+if (h3s.length >= 2) {
+    h3s[0].classList.add('firsth3')
+
+    const wrapper = document.createElement('div')
+    wrapper.style.border = '2px solid white'
+    wrapper.style.width = 'fit-content'
+    wrapper.style.padding = '12px'
+    wrapper.style.paddingBottom = '4px'
+    wrapper.style.margin = '12px 0'
+
+    let node = h3s[0]
+    while (node && node !== h3s[1]) {
+        const next = node.nextSibling
+        wrapper.appendChild(node)
+        node = next
+    }
+
+    updatesDiv.insertBefore(wrapper, h3s[1])
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const container = document.querySelector("#updates"); // your parent element
+    const children = Array.from(container.children);
+    const updates = [];
+
+    let currentBlock = [];
+
+    children.forEach((el) => {
+        if (el.tagName === "H3") {
+            if (currentBlock.length > 0) updates.push(currentBlock);
+            currentBlock = [el];
+        } else {
+            currentBlock.push(el);
+        }
+    });
+
+    if (currentBlock.length > 0) updates.push(currentBlock);
+
+    updates.forEach((block) => {
+        const wrapper = document.createElement("div");
+        wrapper.classList.add("update-block");
+
+        const contentWrapper = document.createElement("div");
+        contentWrapper.className = "update-content";
+
+        block.forEach((el) => contentWrapper.appendChild(el));
+
+        wrapper.appendChild(contentWrapper);
+        container.appendChild(wrapper);
+    });
+
+    updates.flat().forEach((el) => container.removeChild(el));
+});
+  </script>
+</html>

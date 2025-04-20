@@ -1,27 +1,26 @@
 function useAttackCard(animatedCard, card, rect, cardNames) {
-  console.log("using attack card")
-  setTimeout(function(){
+  setTimeout(function() {
+    // ups minerals
     if (card == flint) {
-
       flintDamage += 1;
       card.damage = flintDamage;
     }
     if (card == gem) {
-
       gemDamage += 2;
       card.damage = gemDamage;
     }
-    //document.getElementById("attack_aud").play();
+
     juice_up(animatedCard)
+
+    // damage visual
     const damageIndicator = document.createElement("div");
     damageIndicator.className = "damage-indicator";
-    
+
     if (card == eyeball) {
       damageIndicator.innerText = `+${monster.damage + Math.floor(monster.scaling / 2) * window[monster.file+"Level"]} damage`;
     } else {
       if (paleBuffedCards.includes(card)) damageIndicator.innerText = `+${card.damage+5} damage`;
       else damageIndicator.innerText = `+${card.damage} damage`;
-      
     }
     damageIndicator.style.left = `${rect.left + 30}px`;
     damageIndicator.style.top = `${rect.top+70}px`;
@@ -29,60 +28,21 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
 
     damageIndicator.addEventListener("animationend", () => damageIndicator.remove());
   }, 200)
+
+  // sends attack function
   if (card == eyeball) {
     attack(monster.damage + Math.floor(monster.scaling / 2) * window[monster.file+"Level"]);
-    
   } else {
     if (paleBuffedCards.includes(card)) attack(card.damage + 5);
     else attack(card.damage);
   }
-  let ifithasbone = howMany(cardNames,"bone");
-  if (ifithasbone > 0 && card.damage <= 10) {
-    boneUsed = true;
-    setTimeout(function(){
-      juice_up(animatedCard);
-      for(let i = 0; i < ifithasbone;i++) { useBone(rect.left, rect.top, card.damage); }
-    }, 400);
-  }
-  if (cardNames.includes("skull") && card.damage <= 20) {
-    skullUsed = true;
-    setTimeout(function(){
-      juice_up(animatedCard);
-      useSkull(rect.left, rect.top, card.damage);
-    }, 400);
-  }
-  if (cardNames.includes("slimeball")) {
-    useSlimeball(rect, rect.left, rect.top, card, cardNames, animatedCard);
-    setTimeout(function(){
-      juice_up(animatedCard);
-    }, 400);
-  }
-  if (cardNames.includes("talon")) {
-    useTalon(rect, rect.left, rect.top, card, cardNames, animatedCard);
-    setTimeout(function(){
-      juice_up(animatedCard);
-    }, 400);
-  }
-  if (cardNames.includes("redSlimeball")) {
-    useRedSlimeball(rect.left, rect.top, card.damage);
-    setTimeout(function(){
-      juice_up(animatedCard);
-    }, 400);
-  }
-  if (cardNames.includes("greenToad")) {
-    lowestCard = "";
-    lowestPrice = 1000000; // infinity
-    for (i in cardNames) {
-      if (cardNames[i] !== "greenToad") {
-        cardPrice = eval(cardNames[i]).price;
-        if (cardPrice < lowestPrice) {
-          useFrog(rect, rect.left, rect.top, card, cardNames, animatedCard)
-        }
-      }
+
+  // modifiers
+  for (i in cardNames) {
+    actualCard = eval(cardNames[i])
+    if (actualCard.modifier) {
+      actualCard.modifier(animatedCard, card, rect, cardNames);
     }
-    setTimeout(function(){
-      juice_up(animatedCard);
-    }, 400);
   }
 }
 
@@ -142,112 +102,6 @@ function useFoodCard(animatedCard, card, rect) {
   }
 }
 
-function useSlimeball(rect, targetX, targetY, card, cardNames, animatedCard) {
-  removeItem(cardNames, "slimeball");
-  setTimeout(() => {
-    const slimeEffectIndicator = document.createElement("div");
-    slimeEffectIndicator.className = "slime-effect";
-    slimeEffectIndicator.innerText = `Again!`;
-    slimeEffectIndicator.style.left = `${targetX + 50}px`;
-    slimeEffectIndicator.style.top = `${targetY + 55}px`;
-    document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-  
-    useAttackCard(animatedCard, card, rect, cardNames);
-    slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
-  }, 400) 
-}
-function useFrog(rect, targetX, targetY, card, cardNames, animatedCard) {
-  removeItem(cardNames, "greenToad");
-  setTimeout(() => {
-    const slimeEffectIndicator = document.createElement("div");
-    slimeEffectIndicator.className = "slime-effect";
-    slimeEffectIndicator.innerText = `Again!`;
-    slimeEffectIndicator.style.left = `${targetX + 40}px`;
-    slimeEffectIndicator.style.top = `${targetY + 55}px`;
-    document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-  
-    useAttackCard(animatedCard, card, rect, cardNames);
-    slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
-
-    setTimeout(() => {
-      const moneyEffectIndicator = document.createElement("div");
-      moneyEffectIndicator.className = "money-effect";
-      moneyEffectIndicator.innerText = "$" + Math.floor(card.price / 2);
-      moneyEffectIndicator.style.left = `${targetX + 60}px`;
-      moneyEffectIndicator.style.top = `${targetY + 35}px`;
-      document.getElementById("animation-area").appendChild(moneyEffectIndicator);
-      moneyEffectIndicator.addEventListener("animationend", () => moneyEffectIndicator.remove());
-
-      money += Math.floor(card.price / 2);
-      document.getElementById("money").innerHTML = "$" + money;
-    }, 400)
-  }, 400) 
-}
-
-function useRedSlimeball(targetX, targetY, damage) {
-  removeItem(cardNames, "redSlimeball");
-  setTimeout(() => {
-    const slimeEffectIndicator = document.createElement("div");
-    slimeEffectIndicator.className = "slime-effect";
-    slimeEffectIndicator.innerText = `Again! Again!`;
-    slimeEffectIndicator.style.left = `${targetX + 50}px`;
-    slimeEffectIndicator.style.top = `${targetY + 55}px`;
-    document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-  
-    useAttackCard(animatedCard, card, rect, cardNames);
-    useAttackCard(animatedCard, card, rect, cardNames);
-    slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
-  }, 400) 
-}
-
-function useBone(targetX, targetY, damage) {
-  let slimeEffectIndicator = document.createElement("div");
-  slimeEffectIndicator.className = "bone-effect";
-  slimeEffectIndicator.innerText = `2x damage`;
-  slimeEffectIndicator.style.left = `${targetX + 40}px`;
-  slimeEffectIndicator.style.top = `${targetY + 35}px`;
-  document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-
-  attack(damage);
-  slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
-  return "animationComplete";
-}
-function useSkull(targetX, targetY, damage) {
-  let slimeEffectIndicator = document.createElement("div");
-  slimeEffectIndicator.className = "bone-effect";
-  slimeEffectIndicator.innerText = `3x damage`;
-  slimeEffectIndicator.style.left = `${targetX + 40}px`;
-  slimeEffectIndicator.style.top = `${targetY + 35}px`;
-  document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-
-  attack(damage);
-  attack(damage);
-  slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
-  return "animationComplete";
-}
-
-function useTalon(rect, targetX, targetY, card, cardNames, animatedCard) {
-  setTimeout(() => {
-    const slimeEffectIndicator = document.createElement("div");
-    slimeEffectIndicator.className = "slime-effect";
-    slimeEffectIndicator.innerText = `Destroyed!`;
-    slimeEffectIndicator.style.left = `${targetX + 50}px`;
-    slimeEffectIndicator.style.top = `${targetY + 55}px`;
-    document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-    
-    slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
-
-    for (card in cardNames) {
-      card = eval(cardNames[card]);
-      if (card != forge && card.type == "attack") {
-        deck = deck.filter(item => item !== card);
-      }  
-    }
-
-    attack(card.damage);
-  }, 400) 
-}
-
 n = 0;
 const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 function useForge(targetX, targetY, cardNames) {
@@ -280,10 +134,4 @@ function useForge(targetX, targetY, cardNames) {
     img: 'magic/forgeSword.png'
   }
   deck.push(window["forgeSword"+alphabet[n]]);
-}
-function usePoison() {
-  openInventory(true, poison);
-}
-function usePalePotion() {
-  openInventory(true, palePotion)
 }

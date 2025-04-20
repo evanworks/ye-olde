@@ -184,6 +184,7 @@
   <script>
     window.onload = function() {
       let version = document.getElementById('version').innerHTML;
+      version = version.replace('<a href="updates.html" style="color: white; text-decoration: none;">', '')
       version = version.split(' ')[0];
       if (version != localStorage.getItem('version')) {
         document.getElementById("isThereAnUpdate").style.display = "block";

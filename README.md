@@ -7,6 +7,9 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### a0.3.9 [4-19-25]
+Fixed starting with teas, also I didn't actually make bitter potion work last update
+
 ### 0.3.8 [4-19-25]
 MAJOR code refactor:
 * Moved all of the cards' functions into the card itself

@@ -1,11 +1,12 @@
 function useAttackCard(animatedCard, card, rect, cardNames) {
-  setTimeout(function() {
+
+  setTimeout(function () {
     // ups minerals
-    if (card == flint) {
+    if (card === flint) {
       flintDamage += 1;
       card.damage = flintDamage;
     }
-    if (card == gem) {
+    if (card === gem) {
       gemDamage += 2;
       card.damage = gemDamage;
     }
@@ -16,14 +17,14 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
     const damageIndicator = document.createElement("div");
     damageIndicator.className = "damage-indicator";
 
-    if (card == eyeball) {
-      damageIndicator.innerText = `+${monster.damage + Math.floor(monster.scaling / 2) * window[monster.file+"Level"]} damage`;
+    if (card === eyeball) {
+      damageIndicator.innerText = `+${monster.damage + Math.floor(monster.scaling / 2) * window[monster.file + "Level"]} damage`;
     } else {
-      if (paleBuffedCards.includes(card)) damageIndicator.innerText = `+${card.damage+5} damage`;
+      if (paleBuffedCards.includes(card)) damageIndicator.innerText = `+${card.damage + 5} damage`;
       else damageIndicator.innerText = `+${card.damage} damage`;
     }
     damageIndicator.style.left = `${rect.left + 30}px`;
-    damageIndicator.style.top = `${rect.top+70}px`;
+    damageIndicator.style.top = `${rect.top + 70}px`;
     document.getElementById("animation-area").appendChild(damageIndicator);
 
     damageIndicator.addEventListener("animationend", () => damageIndicator.remove());
@@ -31,7 +32,7 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
 
   // sends attack function
   if (card == eyeball) {
-    attack(monster.damage + Math.floor(monster.scaling / 2) * window[monster.file+"Level"]);
+    attack(monster.damage + Math.floor(monster.scaling / 2) * window[monster.file + "Level"]);
   } else {
     if (paleBuffedCards.includes(card)) attack(card.damage + 5);
     else attack(card.damage);
@@ -47,12 +48,13 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
 }
 
 function useFoodCard(animatedCard, card, rect) {
-  if (health >= maxHealth && card.overflow == false) { } else {
+  if (health >= maxHealth && card.overflow == false) {
+  } else {
     tinyHealth = maxHealth / 100;
     healthToHeal = tinyHealth * card.health;
-  
+
     let percent = 0
-  
+
     if (health + healthToHeal > maxHealth && card.overflow == false && healthOverflow == false) {
       health = maxHealth
     } else {
@@ -72,31 +74,31 @@ function useFoodCard(animatedCard, card, rect) {
     } else {
       document.getElementById("player-health-bar").classList.add("flash");
     }
-  
-    setTimeout(function() {
+
+    setTimeout(function () {
       document.getElementById("player-health-num").innerHTML = health;
       document.getElementById("player-health-bar").style.width = newWidth + unit;
       checkBars();
     }, 500);
-  
-    setTimeout(function() {
+
+    setTimeout(function () {
       if (overflowing) {
         document.getElementById("player-health-bar").classList.remove("gold-flash");
       } else {
         document.getElementById("player-health-bar").classList.remove("flash");
       }
     }, 3100)
-    
+
     // visual
-    setTimeout(function() {
+    setTimeout(function () {
       juice_up(animatedCard)
       const healthIndicator = document.createElement("div");
       healthIndicator.className = "health-indicator";
       healthIndicator.innerText = `+${healthToHeal} Health`;
       healthIndicator.style.left = `${rect.left + 30}px`;
-      healthIndicator.style.top = `${rect.top+70}px`;
+      healthIndicator.style.top = `${rect.top + 70}px`;
       document.getElementById("animation-area").appendChild(healthIndicator);
-  
+
       healthIndicator.addEventListener("animationend", () => healthIndicator.remove());
     }, 200)
   }
@@ -104,6 +106,7 @@ function useFoodCard(animatedCard, card, rect) {
 
 n = 0;
 const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
 function useForge(targetX, targetY, cardNames) {
   n += 1;
   for (card in cardNames) {
@@ -111,20 +114,22 @@ function useForge(targetX, targetY, cardNames) {
     if (card != forge && card.type == "attack") {
       forgePower += card.damage;
       deck = deck.filter(item => item !== card);
-    }  
+    }
   }
   let slimeEffectIndicator = document.createElement("div");
   slimeEffectIndicator.className = "slime-effect";
   slimeEffectIndicator.innerText = `+${forgePower} power`;
   slimeEffectIndicator.style.left = `${targetX + 40}px`;
   slimeEffectIndicator.style.top = `${targetY + 75}px`;
-  setTimeout(()=>{document.getElementById("animation-area").appendChild(slimeEffectIndicator);}, 300)
+  setTimeout(() => {
+    document.getElementById("animation-area").appendChild(slimeEffectIndicator);
+  }, 300)
   slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
 
   removeItem(deck, forge)
   let a = forgePower;
-  window["forgeSword"+alphabet[n]] = {
-    file: "forgeSword"+alphabet[n],
+  window["forgeSword" + alphabet[n]] = {
+    file: "forgeSword" + alphabet[n],
     name: "Sword (Forged)",
     type: "attack",
     damage: a,
@@ -133,5 +138,5 @@ function useForge(targetX, targetY, cardNames) {
     action: '',
     img: 'magic/forgeSword.png'
   }
-  deck.push(window["forgeSword"+alphabet[n]]);
+  deck.push(window["forgeSword" + alphabet[n]]);
 }

@@ -2,14 +2,14 @@ function collectLoot(monster) {
   // make sure all the health bars are in the right place
   checkBars()
 
-  fullDeck = deck;
+  //let fullDeck = deck;
   // clears remaining cards
   clearSlots(document.getElementById('playercards'));
 
   document.getElementById("battle").style.display = "none";
   document.getElementById("loot").style.display = "block";
   setTimeout(() => {
-    document.getElementById("loot").style.opacity = 1
+    document.getElementById("loot").style.opacity = "1";
   }, 400)
 
   document.getElementById("win-msg").innerHTML = "You defeated " + monster.name + "!"
@@ -18,7 +18,7 @@ function collectLoot(monster) {
 
   let loot;
   // displays loot
-  if (xp == 0) {
+  if (xp === 0) {
     /*
     In the following line of code, we witness a crucial operation that
 
@@ -53,13 +53,13 @@ function collectLoot(monster) {
   document.getElementById("XP").innerHTML = xp + " XP";
 
   // levels up monster
-  window[monster.file+"Level"] += 1;
+  window[monster.file + "Level"] += 1;
 }
 
 
 // inventory
-function openInventory(destroy = false, triggerCard = "") {
-  clickedBitterPoison = 0;
+function openInventory(destroy = false, triggerCard = {}) {
+  let clickedBitterPoison = 0;
   // makes it appear
   document.getElementById("inventory").style.display = "block";
   document.getElementById("inv-cards").innerHTML = "";
@@ -73,23 +73,23 @@ function openInventory(destroy = false, triggerCard = "") {
     if (destroy) slot.classList.add("victim");
     document.getElementById("inv-cards").appendChild(slot)
     // creates cards
-    let card = deck[i-1];
+    let card = deck[i - 1];
     displayCard(card, "inv-slot");
 
     if (destroy) {
       slot.addEventListener("click", () => {
-        if (triggerCard == poison) { 
+        if (triggerCard === poison) {
           slot.style.transition = "1.5s";
           slot.style.opacity = "0%";
-          removeItem(deck, card); 
+          removeItem(deck, card);
           setTimeout(closeInventory, 2000)
-        } else if (triggerCard == palePotion) {
+        } else if (triggerCard === palePotion) {
           paleBuffedCards.push(card);
           setTimeout(closeInventory, 2000);
-        } else if (triggerCard == bitterPoison) {
+        } else if (triggerCard === bitterPoison) {
           slot.style.transition = "1.5s";
           slot.style.opacity = "0%";
-          removeItem(deck, card); 
+          removeItem(deck, card);
           clickedBitterPoison += 1;
           if (clickedBitterPoison >= 2) {
             setTimeout(closeInventory, 2000);
@@ -98,7 +98,7 @@ function openInventory(destroy = false, triggerCard = "") {
       })
     }
   }
-  
+
 }
 
 function closeInventory() {
@@ -118,7 +118,9 @@ setInterval(() => {
   // healthbar debug
   let r = window.getComputedStyle(document.getElementById("monster-health-bar"))
   document.getElementById("debug-amwidth").innerHTML = ((parseFloat(r.getPropertyValue("width")) / parseFloat(a)) * 100).toFixed(3) + "%";
-  if (typeof enemyHealth !== 'undefined') {document.getElementById("debug-truemwidth").innerHTML = (enemyHealth / (currentMonster.health + (monster.scaling * window[monster.file+"Level"])) * 100).toFixed(3) + "%"; }
+  if (typeof enemyHealth !== 'undefined') {
+    document.getElementById("debug-truemwidth").innerHTML = (enemyHealth / (currentMonster.health + (monster.scaling * window[monster.file + "Level"])) * 100).toFixed(3) + "%";
+  }
 
   let t = window.getComputedStyle(document.getElementById("player-health-bar"))
   document.getElementById("debug-apwidth").innerHTML = ((parseFloat(t.getPropertyValue("width")) / parseFloat(b)) * 100).toFixed(3) + "%";
@@ -127,15 +129,16 @@ setInterval(() => {
 }, 100)
 
 function checkBars() {
-  document.getElementById("monster-health-bar").style.width = (enemyHealth / (currentMonster.health + (monster.scaling * window[monster.file+"Level"])) * 100).toFixed(3) + "%";
+  document.getElementById("monster-health-bar").style.width = (enemyHealth / (currentMonster.health + (monster.scaling * window[monster.file + "Level"])) * 100).toFixed(3) + "%";
   document.getElementById("player-health-bar").style.width = (health / maxHealth * 100).toFixed(3) + "%";
 }
 
 function healFully() {
   health = maxHealth;
   checkBars();
-  document.getElementById("player-health-num").innerHTML = health;
+  document.getElementById("player-health-num").innerHTML = health.toString();
 }
+
 function fifthSuicide() {
   health -= 10;
   checkBars();

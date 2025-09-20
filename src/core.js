@@ -2,15 +2,17 @@ function deal(amount, first) {
   if (first) {
     shuffledDeck = shuffle(fullDeck);
   } else {
-    if (JSON.stringify(shuffledDeck) != "[]") {
+    if (JSON.stringify(shuffledDeck) !== "[]") {
       shuffledDeck = shuffle(shuffledDeck);
     } else {
-      if (noCards(document.getElementById("playercards")) == 0 && battle == true) {
-        setTimeout(()=>{die()}, 200);
+      if (noCards(document.getElementById("playercards")) === 0 && battle === true) {
+        setTimeout(() => {
+          die()
+        }, 200);
       }
     }
   }
-  for (let i = 0; i < amount; i++) { 
+  for (let i = 0; i < amount; i++) {
     if (shuffledDeck.length < amount) {
       for (let card in shuffledDeck) {
         displayCard(shuffledDeck.pop(), 'slot');
@@ -26,7 +28,7 @@ function displayCard(card, parent) {
   const necessaryDiv = document.createElement("div");
   necessaryDiv.className = "tooltip";
   const img = document.createElement("img");
-  img.src = "res/img/"+card.img;
+  img.src = "res/img/" + card.img;
   img.draggable = false;
   img.id = card.file + idonthaveagoodnameforthis;
   idonthaveagoodnameforthis += 1;
@@ -42,9 +44,9 @@ function displayCard(card, parent) {
       isNull = true;
       console.log("Yeah so parent+sample is null. Here's the parent: " + parent + " and the sample: " + sample);
       break;
-    } else if (el.innerHTML == "") {
+    } else if (el.innerHTML === "") {
       parent += sample;
-      
+
       break;
     }
   }
@@ -55,32 +57,32 @@ function displayCard(card, parent) {
 
   const tooltip = document.createElement("span");
   tooltip.classList.add("tooltiptext");
-  if (card.type == "food" && parent.includes("food"))
-  tooltip.classList.add("above");
-  
+  if (card.type === "food" && parent.includes("food"))
+    tooltip.classList.add("above");
+
   // displays name in bold
-  tooltip.innerHTML = `<span style="font-family: 'Jersey 10';">${card.name}</span><br/>`;
+  tooltip.innerHTML = `<span style="font-family: 'Jersey 10',monospace;">${card.name}</span><br/>`;
 
   // displays damage
-  if (card.damage != 0) {
-    tooltip.innerHTML += "<i style='color: var(--healthFull)'>"+card.damage+" damage</i><br/>";
+  if (card.damage !== 0) {
+    tooltip.innerHTML += "<i style='color: var(--healthFull)'>" + card.damage + " damage</i><br/>";
   }
   if (paleBuffedCards.includes(card)) {
     tooltip.innerHTML += "<i style='color: var(--bone)'>+5 damage</i><br/>";
   }
 
   // displays extra actions in yellow
-  if (card.actions != 0) {
-    if (card.actions == 1) {
+  if (card.actions !== 0) {
+    if (card.actions === 1) {
       g = "action"
     } else {
       g = "actions"
     }
-    tooltip.innerHTML += "<i style='color: #fbff86;'>+"+card.actions+" "+g+"</i><br/>";
+    tooltip.innerHTML += "<i style='color: #fbff86;'>+" + card.actions + " " + g + "</i><br/>";
   }
 
   // displays card effect which i dumbly called actions
-  if (card.action != "") {
+  if (card.action !== "") {
     tooltip.innerHTML += card.action;
     if (card.action.length > 200) {
       tooltip.style.width = "240px";
@@ -100,16 +102,16 @@ function displayCard(card, parent) {
   img.cardHasBeenSelected = false;
 
   if (element.parentElement.id !== "inv-cards") {
-    img.addEventListener("click", function() {
+    img.addEventListener("click", function () {
       selectCard(card, parent, img, img.cardHasBeenSelected)
-    }); 
+    });
   }
 }
 
 function selectCard(card, parent, img) {
   document.getElementById("click_aud").play();
 
-  if (document.getElementById("shop").style.display == "block") {
+  if (document.getElementById("shop").style.display === "block") {
     selectShopCard(card, parent, img);
   } else {
     if (!img.cardHasBeenSelected) {
@@ -129,10 +131,10 @@ function selectCard(card, parent, img) {
         event.target.classList.add('selected-card');
 
         // deselection
-        img.addEventListener("click", function() {
+        img.addEventListener("click", function () {
           img.removeEventListener("click", arguments.callee); // i can't believe this is a thing
-          deselectCard(card,parent,img);
-          img.addEventListener("click", function() {
+          deselectCard(card, parent, img);
+          img.addEventListener("click", function () {
             event.preventDefault();
             selectCard(card, parent, img);
           });
@@ -146,7 +148,8 @@ function selectCard(card, parent, img) {
     }
   }
 }
-function deselectCard(card,parent,img) {
+
+function deselectCard(card, parent, img) {
   actions -= card.actions;
   actions += 1;
   document.getElementById("actions-num").innerHTML = actions;
@@ -178,6 +181,7 @@ function select() {
   element.parentElement.style.top = "-30px";
   /*elementH.parentElement.style.background = "transparent";*/
 }
+
 function deselect() {
   element = event.target;
   elementH = element.parentElement;
@@ -190,7 +194,7 @@ function clearSlots(parent) {
   const children = parent.children;
   for (let i = 0; i < children.length; i++) {
     let child = children[i];
-    if (child.id == "loot-money") {
+    if (child.id === "loot-money") {
       // pass
     } else {
       child.innerHTML = "";
@@ -218,7 +222,6 @@ function die() {
 setInterval(() => {
   document.getElementById("money").innerHTML = "$" + money;
   document.getElementById("actions-num").innerHTML = actions;
-  document.getElementById("hands-num").innerHTML = actions;
   if (health > maxHealth) {
     healthOverflow = true;
     document.getElementById("player-health-num").style.color = "var(--healthFullGold)";

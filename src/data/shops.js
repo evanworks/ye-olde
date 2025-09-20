@@ -18,7 +18,7 @@ const tavern = {
   description: "A lively yet strangely quiet tavern. The air smells musty and tired.",
   lootAttack: [claymore, rustyBow, sword, longbow, mace, mace, shield], // maces are popular here due to the strange number of orcs
   lootMagic: [greenToad, bag, poison, palePotion],
-  lootFood: [juice, tea, potato]
+  lootFood: [juice, greenTea, potato]
 }
 const blacksmith = {
   name: "Black smith", // naming
@@ -51,16 +51,16 @@ const apothecary = {
 const eatery = {
   name: "Eatery",
   description: "A lively restaurant.",
-  lootAttack: [carrot, tomato, pizza, tea],
-  lootMagic: [carrot, tomato, pizza, tea],
-  lootFood: [carrot, tomato, pizza, tea]
+  lootAttack: [carrot, tomato, pizza, greenTea],
+  lootMagic: [carrot, tomato, pizza, blackTea],
+  lootFood: [carrot, tomato, pizza, whiteTea]
 }
 const hut = {
   name: "Hut",
   description: "A hut",
   lootAttack: [eyeball, gem],
   lootMagic: [skull, talon, violetBag, scrollI, poison, palePotion, bitterPoison],
-  lootFood: [carrot, tomato]
+  lootFood: [carrot, tomato, greenTea]
 }
 const metalsmith = {
   name: "Metalsmith",
@@ -90,6 +90,7 @@ const potionShop = {
   lootMagic: [palePotion],
   lootFood: [bitterPoison],
 }
+
 // chooses valid shops and returns a random one based on xp
 function chooseShop() {
   if (xp < 2) {
@@ -106,9 +107,7 @@ function chooseShop() {
     return getRandomItem([marketStall, tavern, blacksmith, farmersmarket, bagStore, apothecary, hut, eatery])
   } else if (xp >= 24 && xp < 30) {
     return getRandomItem([marketStall, tavern, blacksmith, farmersmarket, bagStore, apothecary, hut, eatery, metalsmith, shady])
-  } 
-
-  else {
+  } else {
     return getRandomItem([marketStall, tavern, blacksmith, farmersmarket, bagStore, apothecary, hut, eatery, metalsmith, shady, theBelovedScrollShop, potionShop]) // all of them
   }
 }

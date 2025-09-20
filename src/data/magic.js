@@ -7,7 +7,7 @@ const slimeball = {
   price: 6,
   action: 'Triggers first played attack card <span style="color:var(--magic);">twice</span>',
   img: "magic/slimeball.png",
-  modifier: (animatedCard, card, rect, cardNames) => { 
+  modifier: (animatedCard, card, rect, cardNames) => {
     removeItem(cardNames, "slimeball");
     setTimeout(() => {
       juice_up(animatedCard);
@@ -15,13 +15,13 @@ const slimeball = {
       const slimeEffectIndicator = document.createElement("div");
       slimeEffectIndicator.className = "slime-effect";
       slimeEffectIndicator.innerText = `Again!`;
-      slimeEffectIndicator.style.left = `${targetX + 50}px`;
-      slimeEffectIndicator.style.top = `${targetY + 55}px`;
+      slimeEffectIndicator.style.left = `${rect.left + 50}px`;
+      slimeEffectIndicator.style.top = `${rect.top + 55}px`;
       document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-    
+
       useAttackCard(animatedCard, card, rect, cardNames);
       slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
-    }, 400) 
+    }, 400)
   }
 }
 const redSlimeball = {
@@ -33,7 +33,7 @@ const redSlimeball = {
   price: 20,
   action: 'Triggers first played attack card <span style="color:var(--magic);">thrice</span>',
   img: "magic/redSlimeball.png",
-  modifier: (animatedCard, card, rect, cardNames) => { 
+  modifier: (animatedCard, card, rect, cardNames) => {
     removeItem(cardNames, "redSlimeball");
     setTimeout(() => {
       juice_up(animatedCard)
@@ -41,14 +41,14 @@ const redSlimeball = {
       const slimeEffectIndicator = document.createElement("div");
       slimeEffectIndicator.className = "slime-effect";
       slimeEffectIndicator.innerText = `Again! Again!`;
-      slimeEffectIndicator.style.left = `${targetX + 50}px`;
-      slimeEffectIndicator.style.top = `${targetY + 55}px`;
+      slimeEffectIndicator.style.left = `${rect.left + 50}px`;
+      slimeEffectIndicator.style.top = `${rect.top + 55}px`;
       document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-    
+
       useAttackCard(animatedCard, card, rect, cardNames);
       useAttackCard(animatedCard, card, rect, cardNames);
       slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
-    }, 400) 
+    }, 400)
   }
 }
 const greenToad = {
@@ -60,7 +60,7 @@ const greenToad = {
   price: 6,
   action: 'Repeat least expensive <span style="color: var(--attack)">Attack</span> card and earn half its <span style="var(--money)">sell value</span>',
   img: 'magic/greenToad.png',
-  modifier: (animatedCard, card, rect, cardNames) => { 
+  modifier: (animatedCard, card, rect, cardNames) => {
     lowestCard = "";
     lowestPrice = 1000000; // infinity
     for (i in cardNames) {
@@ -72,30 +72,30 @@ const greenToad = {
             const slimeEffectIndicator = document.createElement("div");
             slimeEffectIndicator.className = "slime-effect";
             slimeEffectIndicator.innerText = `Again!`;
-            slimeEffectIndicator.style.left = `${targetX + 40}px`;
-            slimeEffectIndicator.style.top = `${targetY + 55}px`;
+            slimeEffectIndicator.style.left = `${rect.left + 40}px`;
+            slimeEffectIndicator.style.top = `${rect.top + 55}px`;
             document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-          
+
             useAttackCard(animatedCard, card, rect, cardNames);
             slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
-        
+
             setTimeout(() => {
               const moneyEffectIndicator = document.createElement("div");
               moneyEffectIndicator.className = "money-effect";
               moneyEffectIndicator.innerText = "$" + Math.floor(card.price / 2);
-              moneyEffectIndicator.style.left = `${targetX + 60}px`;
-              moneyEffectIndicator.style.top = `${targetY + 35}px`;
+              moneyEffectIndicator.style.left = `${rect.left + 60}px`;
+              moneyEffectIndicator.style.top = `${rect.top + 35}px`;
               document.getElementById("animation-area").appendChild(moneyEffectIndicator);
               moneyEffectIndicator.addEventListener("animationend", () => moneyEffectIndicator.remove());
-        
+
               money += Math.floor(card.price / 2);
               document.getElementById("money").innerHTML = "$" + money;
             }, 400)
-          }, 400) 
+          }, 400)
         }
       }
     }
-    setTimeout(function(){
+    setTimeout(function () {
       juice_up(animatedCard);
     }, 400);
   }
@@ -108,21 +108,21 @@ const bone = {
   actions: 1,
   price: 8,
   action: '<span style="padding-left:4px;padding-right:4px;background:var(--healthFull);">2x</span> damage on all played attack cards below <span style="color:var(--healthFull)">10</span> damage',
-  img: "magic/bone.png",  
-  modifier: (animatedCard, card, rect, cardNames) => { 
-    let ifithasbone = howMany(cardNames,"bone");
+  img: "magic/bone.png",
+  modifier: (animatedCard, card, rect, cardNames) => {
+    let ifithasbone = howMany(cardNames, "bone");
     if (ifithasbone > 0 && card.damage <= 10) {
       boneUsed = true;
-      setTimeout(function(){
+      setTimeout(function () {
         juice_up(animatedCard);
-        for(let i = 0; i < ifithasbone;i++) { 
+        for (let i = 0; i < ifithasbone; i++) {
           let slimeEffectIndicator = document.createElement("div");
           slimeEffectIndicator.className = "bone-effect";
           slimeEffectIndicator.innerText = `2x damage`;
-          slimeEffectIndicator.style.left = `${targetX + 40}px`;
-          slimeEffectIndicator.style.top = `${targetY + 35}px`;
+          slimeEffectIndicator.style.left = `${rect.left + 40}px`;
+          slimeEffectIndicator.style.top = `${rect.top + 35}px`;
           document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-        
+
           attack(damage);
           slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
         }
@@ -139,20 +139,20 @@ const skull = {
   price: 22,
   action: '<span style="padding-left:4px;padding-right:4px;background:var(--healthFull);">3x</span> damage on all played attack cards below <span style="color:var(--healthFull)">20</span> damage',
   img: "magic/skull.png",
-  modifier: (animatedCard, card, rect, cardNames) => { 
-    let ifithasskull = howMany(cardNames,"skull");
+  modifier: (animatedCard, card, rect, cardNames) => {
+    let ifithasskull = howMany(cardNames, "skull");
     if (ifithasskull > 0 && card.damage <= 20) {
       skullUsed = true;
-      setTimeout(function(){
+      setTimeout(function () {
         juice_up(animatedCard);
-        for(let i = 0; i < ifithasskull;i++) { 
+        for (let i = 0; i < ifithasskull; i++) {
           let slimeEffectIndicator = document.createElement("div");
           slimeEffectIndicator.className = "bone-effect";
           slimeEffectIndicator.innerText = `3x damage`;
-          slimeEffectIndicator.style.left = `${targetX + 40}px`;
-          slimeEffectIndicator.style.top = `${targetY + 35}px`;
+          slimeEffectIndicator.style.left = `${rect.left + 40}px`;
+          slimeEffectIndicator.style.top = `${rect.top + 35}px`;
           document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-        
+
           attack(damage);
           attack(damage);
           slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
@@ -185,28 +185,28 @@ const talon = {
   price: 18,
   action: 'All played cards will deal <span style="color:var(--magic);">2x damage</span> and be <span style="color: var(--healthFull)">destroyed</span>',
   img: 'magic/talon.png',
-  modifier: (animatedCard, card, rect, cardNames) => { 
+  modifier: (animatedCard, card, rect, cardNames) => {
     setTimeout(() => {
       juice_up(animatedCard);
 
       const slimeEffectIndicator = document.createElement("div");
       slimeEffectIndicator.className = "slime-effect";
       slimeEffectIndicator.innerText = `Destroyed!`;
-      slimeEffectIndicator.style.left = `${targetX + 50}px`;
-      slimeEffectIndicator.style.top = `${targetY + 55}px`;
+      slimeEffectIndicator.style.left = `${rect.left + 50}px`;
+      slimeEffectIndicator.style.top = `${rect.top + 55}px`;
       document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-      
+
       slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
-  
+
       for (card in cardNames) {
         card = eval(cardNames[card]);
         if (card != forge && card.type == "attack") {
           deck = deck.filter(item => item !== card);
-        }  
+        }
       }
-  
+
       attack(card.damage);
-    }, 400) 
+    }, 400)
   }
 }
 
@@ -234,7 +234,7 @@ const bomb = {
     removeItem(deck, card);
     for (let i = 0; i < 5; i++) {
       if (deck.length > 0) {
-        setTimeout(()=>{
+        setTimeout(() => {
           openInventory();
           let index = Math.floor(Math.random() * deck.length)
           deck.splice(index, 1);
@@ -267,7 +267,9 @@ const poison = {
   img: "potions/poison.png",
   consumable: (card) => {
     removeItem(deck, card);
-    setTimeout(()=>{openInventory(true, poison);}, 400);
+    setTimeout(() => {
+      openInventory(true, poison);
+    }, 400);
   }
 }
 const bitterPoison = {
@@ -282,7 +284,9 @@ const bitterPoison = {
   img: "potions/bitterPoison.png",
   consumable: (card) => {
     removeItem(deck, card);
-    setTimeout(()=>{openInventory(true, bitterPoison);}, 400)
+    setTimeout(() => {
+      openInventory(true, bitterPoison);
+    }, 400)
   }
 }
 let paleBuffedCards = []
@@ -298,7 +302,9 @@ const palePotion = {
   img: "potions/palePotion.png",
   consumable: (card) => {
     removeItem(deck, card);
-    setTimeout(()=>{openInventory(true, palePotion);}, 400)
+    setTimeout(() => {
+      openInventory(true, palePotion);
+    }, 400)
   }
 }
 
@@ -321,7 +327,7 @@ const bag = {
     }
     if (maxShopFoodSlots < 5) {
       maxShopFoodSlots += 1;
-    }    
+    }
   }
 }
 const bigBag = {
@@ -399,10 +405,16 @@ const scrollI = {
     setTimeout(() => {
       health = maxHealth;
       document.getElementById("player-health-num").innerHTML = health;
-      setTimeout(function() { healthBar.classList.add("betterflash");    }, 900);
-      setTimeout(function() { checkBars();                               }, 1400);
-      setTimeout(function() { document.getElementById("player-health-num").innerHTML = health;
-                              healthBar.classList.remove("betterflash"); }, 4000);
+      setTimeout(function () {
+        healthBar.classList.add("betterflash");
+      }, 900);
+      setTimeout(function () {
+        checkBars();
+      }, 1400);
+      setTimeout(function () {
+        document.getElementById("player-health-num").innerHTML = health;
+        healthBar.classList.remove("betterflash");
+      }, 4000);
     }, 1000)
   }
 }
@@ -422,10 +434,16 @@ const scrollII = {
     setTimeout(() => {
       health = maxHealth;
       document.getElementById("player-health-num").innerHTML = health;
-      setTimeout(function() { healthBar.classList.add("betterflash");    }, 900);
-      setTimeout(function() { checkBars();                               }, 1400);
-      setTimeout(function() { document.getElementById("player-health-num").innerHTML = health;
-                              healthBar.classList.remove("betterflash"); }, 4000);
+      setTimeout(function () {
+        healthBar.classList.add("betterflash");
+      }, 900);
+      setTimeout(function () {
+        checkBars();
+      }, 1400);
+      setTimeout(function () {
+        document.getElementById("player-health-num").innerHTML = health;
+        healthBar.classList.remove("betterflash");
+      }, 4000);
     }, 1000)
   }
 }
@@ -445,10 +463,16 @@ const scrollIII = {
     setTimeout(() => {
       health = maxHealth;
       document.getElementById("player-health-num").innerHTML = health;
-      setTimeout(function() { healthBar.classList.add("betterflash");    }, 900);
-      setTimeout(function() { checkBars();                               }, 1400);
-      setTimeout(function() { document.getElementById("player-health-num").innerHTML = health;
-                              healthBar.classList.remove("betterflash"); }, 4000);
+      setTimeout(function () {
+        healthBar.classList.add("betterflash");
+      }, 900);
+      setTimeout(function () {
+        checkBars();
+      }, 1400);
+      setTimeout(function () {
+        document.getElementById("player-health-num").innerHTML = health;
+        healthBar.classList.remove("betterflash");
+      }, 4000);
     }, 1000)
   }
 }
@@ -468,10 +492,16 @@ const scrollIV = {
     setTimeout(() => {
       health = maxHealth;
       document.getElementById("player-health-num").innerHTML = health;
-      setTimeout(function() { healthBar.classList.add("betterflash");    }, 900);
-      setTimeout(function() { checkBars();                               }, 1400);
-      setTimeout(function() { document.getElementById("player-health-num").innerHTML = health;
-                              healthBar.classList.remove("betterflash"); }, 4000);
+      setTimeout(function () {
+        healthBar.classList.add("betterflash");
+      }, 900);
+      setTimeout(function () {
+        checkBars();
+      }, 1400);
+      setTimeout(function () {
+        document.getElementById("player-health-num").innerHTML = health;
+        healthBar.classList.remove("betterflash");
+      }, 4000);
     }, 1000)
   }
 }

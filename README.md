@@ -7,6 +7,31 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### 0.4.0r1 [8-19-25]
+Switched to webstorm then immediately switched back to visual studio because it locked me at quadruple-spaced
+* Made it so the game would actually work (it hasn't worked since 3.8 :/)
+* Commented out all the secret new features
+* Fixed actions showing hands
+* Removed hands (whatever those are??)
+* actually added tea
+
+...also my code is really really messed up; i'll fix this someday
+
+<!--### a0.4.0 [4-21-25]
+Let's give a round of applesauce to Ye Olde! You were successfull, little one. 
+
+**Features added in the final update:**
+* 10+ new monsters, and a final boss!
+* Poison bomb
+
+Small and not-so-small bugfixes:
+* Actually made bitter potion work
+* Bomb has a little visual
+* Fixed actions showing hands
+* Removed hands
+* Made tea in shops now
+* Changed favicon to something a little more tasteful-->
+
 ### a0.3.10 [4-19-25]
 Fixed versioning for the FINAL TIME
 

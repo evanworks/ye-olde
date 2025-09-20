@@ -1,9 +1,7 @@
 let deck = [];
 let selectedCards = ["-", "-", "-", "-", "-", "-"];
-let squad = []; // not sure yet if this is gonna be used at all // it's not
 let turn = true;
 let idonthaveagoodnameforthis = 0;
-let animationList = [];
 let collectedLoot = false;
 let enteredShop = false;
 
@@ -13,8 +11,6 @@ let healthOverflow = true;
 
 let maxActions = 1;
 let actions = maxActions;
-let maxHands = 2;
-let hands = maxHands;
 
 let battle = true;
 let currentMonster;
@@ -30,7 +26,11 @@ let a;
 let b;
 
 function start() {
-  if(!debug) {deck.push(rustySword, rustySword, rustySword);} else { deck.push(blackTea, whiteTea, greenTea) }
+  if (!debug) {
+    deck.push(rustySword, rustySword, rustySword);
+  } else {
+    deck.push(blackTea, whiteTea, greenTea)
+  }
   if (deck.length > 6 && !debug) {
     deck = [rustySword, rustySword, rustySword, rustySword, rustySword, rustySword]
   }

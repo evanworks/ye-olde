@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <title>Ye Olde</title>
     <link rel="stylesheet" href="res/styles.css">
-    <link rel="icon" href="res/img/icons/thumbnail.png">
+    <link rel="icon" href="res/img/icons/bag.png">
     <script src="src/utilities.js"></script>
     <script src="src/core.js"></script>
     <script src="src/cards.js"></script>
@@ -39,7 +39,7 @@
     </div>
     <div id="not-mobile">
       <div id="deathScreen">
-        <div id="center">
+        <div class="center">
           <div>Game Over</div>
           <button id="game_over_btn" onclick="location.reload();document.getElementById('click_aud').play();"> RESTART </button>
         </div>
@@ -48,15 +48,15 @@
 
       <div id="title" style="display: block;">
         <a href="updates.html" style="color: white; text-decoration: none;"><div id="version">a0.3.10 <a id="isThereAnUpdate" class="version-tooltiptext" href="updates.html">New update!</a> </div></a>
-        <div id="center">
+        <div class="center">
           <div id="title-text">Ye Olde</div>
-          <img id="title-playbutton" src="res/img/buttons/play.png" onclick="start();document.getElementById('click_aud').play();">
+          <img alt="PLAY" id="title-playbutton" src="res/img/buttons/play.png" onclick="start();document.getElementById('click_aud').play();">
         </div>
       </div>
 
       <div id="inventory" style="display: none;">
         <div id="modal">
-          <img id="x" src="res/img/icons/x.png" onclick="closeInventory()">
+          <img alt="x" id="x" src="res/img/icons/x.png" onclick="closeInventory()">
           <div id="inv-cards">
           </div>
         </div>
@@ -71,7 +71,7 @@
             <span id="monster-health-num"></span>
           </div>
           <div id="monster-details">
-            <img id="monster-img" style="display: none;">
+            <img alt="im never gonna use this sry" src="" id="monster-img" style="display: none;">
             <b><div id="monster-name"></div></b>
             <div style="margin-left: 10px; color: lightgreen;" id="monster-lvl"></div><br/>
             <div id="monster-desc"></div>
@@ -90,7 +90,6 @@
             <div class="slot" id="slot6"></div>
           </div>
           <div id="actions"><img style="width:24px;margin:0px;image-rendering:pixelated;"src="res/img/icons/sword.png"> <span style="margin-left: 3px;" id="actions-num">1</span></div>
-          <div id="plays"><img style="width:24px;margin:0px;image-rendering:pixelated;"src="res/img/icons/hand.png"> <span style="margin-left: 3px;" id="hands-num">2</span></div>
           <div id="playButton" onclick="play();document.getElementById('click_aud').play();"><img id="playbuttonimg" src="res/img/buttons/play.png"></div>
         </div>
       </div>

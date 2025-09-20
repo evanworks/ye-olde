@@ -9,11 +9,11 @@ function juice_up(card) {
 // coolaj68 on Stack Overflow...
 
 function shuffle(array) {
-  shuffledArray = [...array];
+  let shuffledArray = [...array];
   let currentIndex = shuffledArray.length;
 
   // While there remain elements to shuffle...
-  while (currentIndex != 0) {
+  while (currentIndex !== 0) {
 
     // Pick a remaining element...
     let randomIndex = Math.floor(Math.random() * currentIndex);
@@ -33,9 +33,11 @@ function removeItem(array, item) {
     array.splice(index, 1); // 2nd parameter means remove one item only
   }
 }
+
 function removeAllOccurrences(array, itemToRemove) {
   return array.filter(item => item !== itemToRemove);
 }
+
 function getRandomItem(array) {
   const randomIndex = Math.floor(Math.random() * array.length);
   return array[randomIndex];
@@ -44,10 +46,13 @@ function getRandomItem(array) {
 function removeNumbers(str) {
   return str.replace(/[0-9]/g, ''); // oh i love this stuff
 }
-function howMany(array,value){
-  var n = 0;
-  for(i = 0; i < array.length; i++){
-      if(array[i] == value){n++}
+
+function howMany(array, value) {
+  let n = 0;
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === value) {
+      n++
+    }
   }
   return n;
 }

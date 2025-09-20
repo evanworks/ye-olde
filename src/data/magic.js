@@ -10,17 +10,19 @@ const slimeball = {
   modifier: (animatedCard, card, rect, cardNames) => {
     removeItem(cardNames, "slimeball");
     setTimeout(() => {
-      juice_up(animatedCard);
 
-      const slimeEffectIndicator = document.createElement("div");
+      useAttackCard(animatedCard, card, rect, cardNames);
+      juice_up(animatedCard);
+      let slimeEffectAnim = new Animation(1000, "text-effect",
+        {rect: rect.left + 50, top: rect.top + 50, color: colors.magic, size: 18, text: "Again!"});
+      animationQueue.add(slimeEffectAnim);
+
+      /*const slimeEffectIndicator = document.createElement("div");
       slimeEffectIndicator.className = "slime-effect";
       slimeEffectIndicator.innerText = `Again!`;
       slimeEffectIndicator.style.left = `${rect.left + 50}px`;
       slimeEffectIndicator.style.top = `${rect.top + 55}px`;
-      document.getElementById("animation-area").appendChild(slimeEffectIndicator);
-
-      useAttackCard(animatedCard, card, rect, cardNames);
-      slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
+      document.getElementById("animation-area").appendChild(slimeEffectIndicator);*/
     }, 400)
   }
 }

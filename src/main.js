@@ -1,4 +1,5 @@
 let deck = [];
+let fullDeck;
 let selectedCards = ["-", "-", "-", "-", "-", "-"];
 let turn = true;
 let idonthaveagoodnameforthis = 0;
@@ -14,6 +15,7 @@ let actions = maxActions;
 
 let battle = true;
 let currentMonster;
+let enemyHealth;
 
 let xp = 0;
 let money = 0;
@@ -24,6 +26,10 @@ let maxShopFoodSlots = 1;
 let debug = false;
 let a;
 let b;
+
+let colors = getAllCSSVariables();
+
+const animationQueue = new AnimationQueue();
 
 function start() {
   if (!debug) {
@@ -44,9 +50,8 @@ function start() {
 
   a = window.getComputedStyle(document.getElementById("monster-health-bar"))
   a = a.getPropertyValue("width");
-  b = window.getComputedStyle(document.getElementById("monster-health-bar"))
+  b = window.getComputedStyle(document.getElementById("player-health-bar"))
   b = b.getPropertyValue("width");
 
-  //if (debug) { document.getElementById("debug").style.display = "block"; }
+  if (debug) { document.getElementById("debug").style.display = "block"; }
 }
-

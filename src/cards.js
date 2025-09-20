@@ -1,23 +1,25 @@
 function useAttackCard(animatedCard, card, rect, cardNames) {
-
-  setTimeout(function () {
-    // ups minerals
-    if (card === flint) {
-      flintDamage += 1;
-      card.damage = flintDamage;
-    }
-    if (card === gem) {
-      gemDamage += 2;
-      card.damage = gemDamage;
-    }
-
-    juice_up(animatedCard)
+  // ups minerals
+  if (card === flint) {
+    flintDamage += 1;
+    card.damage = flintDamage;
+  }
+  if (card === gem) {
+    gemDamage += 2;
+    card.damage = gemDamage;
+  }
 
     // damage visual
-    const damageIndicator = document.createElement("div");
-    damageIndicator.className = "damage-indicator";
+    /*const damageIndicator = document.createElement("div");
+    damageIndicator.className = "damage-indicator";*/
 
-    if (card === eyeball) {
+  juice_up(animatedCard);
+
+  let damageAnim = new Animation(1000, "text-effect",
+    {left: rect.left + 30, top: rect.top + 70, color: colors.special, size: 24, text: `+${card.damage} damage`});
+  animationQueue.add(damageAnim);
+
+    /*(if (card === eyeball) {
       damageIndicator.innerText = `+${monster.damage + Math.floor(monster.scaling / 2) * window[monster.file + "Level"]} damage`;
     } else {
       if (paleBuffedCards.includes(card)) damageIndicator.innerText = `+${card.damage + 5} damage`;
@@ -27,18 +29,17 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
     damageIndicator.style.top = `${rect.top + 70}px`;
     document.getElementById("animation-area").appendChild(damageIndicator);
 
-    damageIndicator.addEventListener("animationend", () => damageIndicator.remove());
-  }, 200)
+    damageIndicator.addEventListener("animationend", () => damageIndicator.remove());*/
 
   // sends attack function
-  if (card == eyeball) {
+  if (card === eyeball) {
     attack(monster.damage + Math.floor(monster.scaling / 2) * window[monster.file + "Level"]);
   } else {
     if (paleBuffedCards.includes(card)) attack(card.damage + 5);
     else attack(card.damage);
   }
 
-  // modifiers
+  // modifiers (eg. slimeball is called from attack method)
   for (i in cardNames) {
     actualCard = eval(cardNames[i])
     if (actualCard.modifier) {

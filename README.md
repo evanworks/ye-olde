@@ -7,8 +7,13 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### 0.4.0r2 [8-20-25]
+no no no no no no no no
+* did a bunch of animation stuff that broke everything but atleast the code is more nice now
+* (Just noticed the play button is a different color on hover)
+
 ### 0.4.0r1 [8-19-25]
-Switched to webstorm then immediately switched back to visual studio because it locked me at quadruple-spaced
+Switched to webstorm then immediately switched back to visual studio
 * Made it so the game would actually work (it hasn't worked since 3.8 :/)
 * Commented out all the secret new features
 * Fixed actions showing hands

@@ -1,9 +1,6 @@
 // yells at a card to rotate
 function juice_up(card) {
-  card.classList.add("juicy");
-  setTimeout(() => {
-    card.classList.remove("juicy");
-  }, 500)
+  animationQueue.add(new Animation(1, "juice-up", {card: card}));
 }
 
 // coolaj68 on Stack Overflow...
@@ -55,4 +52,16 @@ function howMany(array, value) {
     }
   }
   return n;
+}
+// thank you chatgpt sir
+function getAllCSSVariables() {
+  const computed = getComputedStyle(document.documentElement);
+  const vars = {};
+  for (let i = 0; i < computed.length; i++) {
+    const name = computed[i];
+    if (name.startsWith("--")) {
+      vars[name.replace("--", "")] = computed.getPropertyValue(name).trim();
+    }
+  }
+  return vars;
 }

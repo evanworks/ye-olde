@@ -9,7 +9,7 @@ function enterBattle() {
 
   battle = true; // these two may do nothing
   turn = true;
-  monster = chooseMonster()
+  monster = chooseMonster();
   displayMonsterInfo(monster);
   let gradient = "linear-gradient(120deg, " + monster.bg[0] + ", " + monster.bg[1] + ")"
   document.body.style.backgroundImage = gradient;
@@ -54,7 +54,7 @@ function play() {
   // turns array with empty slots ("-") into array with just the card names
   const animationArea = document.getElementById("animation-area");
   for (i in selectedCards) {
-    if (selectedCards[i] == "-") {
+    if (selectedCards[i] === "-") {
       selectedCards = removeAllOccurrences(selectedCards, "-")
     }
   }
@@ -66,66 +66,74 @@ function play() {
     cardNames[index] = removeNumbers(card);
   });
 
-  cardsToAnimate.forEach((card, index) => {
-    let cardName = removeNumbers(card)
-    const cardElement = document.getElementById(card);
-    const rect = cardElement.getBoundingClientRect();
+  let animatedCards = [];
 
-    const animatedCard = document.createElement("img");
-    fakeCard = eval(cardName);
-    animatedCard.src = "res/img/" + fakeCard.img;
-    animatedCard.className = "card-animation";
-    animatedCard.style.left = `${rect.left}px`;
-    animatedCard.style.top = `${rect.top + 140 + 150}px`;
-    animationArea.appendChild(animatedCard);
+  const allPromises = cardsToAnimate.map((card, index) => {
+    return new Promise((resolve) => {
+      let cardName = removeNumbers(card)
+      const cardElement = document.getElementById(card);
+      const rect = cardElement.getBoundingClientRect();
 
-    animatedCard.style.transition = "0.1s";
+      const animatedCard = document.createElement("img");
+      fakeCard = eval(cardName);
+      animatedCard.src = "res/img/" + fakeCard.img;
+      animatedCard.className = "card-animation";
+      animatedCard.style.left = `${rect.left}px`;
+      animatedCard.style.top = `${rect.top + 140 + 150}px`;
+      animationArea.appendChild(animatedCard);
 
-    // settimeout necessary for some reason
-    setTimeout(() => {
+      animatedCard.style.transition = "0.1s";
+
       // moves card upward for scoring
-      animatedCard.style.transform = `translate(0px,-200px)`;
-      animatedCard.classList.add("show");
+      let raise = new Animation(50, "card-raise", {card: animatedCard});
+      animationQueue.add(raise);
 
-      setTimeout(() => {
+      raise.then(() => {
         card = eval(cardName); // e.g. str "rustySword" -> var rustySword
         if (card.type === "attack") {
           useAttackCard(animatedCard, card, rect, cardNames)
-
         } else if (card.type === "food") {
           useFoodCard(animatedCard, card, rect)
           if (paleBuffedCards.includes(card)) attack(5);
         } else {
-          setTimeout(() => {
-            juice_up(animatedCard);
-          }, 200);
-          if (card == forge) {
+          juice_up(animatedCard);
+          if (card === forge) {
             useForge(rect.left, rect.top, cardNames);
           }
           if (paleBuffedCards.includes(card)) attack(5);
         }
-        setTimeout(() => {
-          animatedCard.style.opacity = 0;
-          animatedCard.addEventListener("transitionend", () => animatedCard.remove());
-        }, 1000);
-      }, index * 200);
-
+        resolve(animatedCards);
+      });
       // bye bye
       discardCard(card);
+      animatedCards.push(animatedCard);
     });
-  }, 0)
+  });
 
-  setTimeout(() => {
-    deal(6, false);
-  }, 2000 + selectedCards.length * 200);
+  Promise.all(allPromises).then((results) => {
+    let fade;
+    animatedCards.forEach((card, index) => {
+      fade = new Animation(1, "fade", {element: card});
+      animationQueue.add(fade);
+    });
+
+    fade.then(() => {
+      if (enemyHealth < 1) {
+        battle = false;
+        if (!collectedLoot) {
+          collectedLoot = true;
+          collectLoot(currentMonster);
+        }
+      }
+
+      if (turn === true) {
+        monsterAttack()
+      }
+      deal(6, false);
+    });
+  });
 
   selectedCards = ["-", "-", "-", "-", "-", "-"]
-  setTimeout(() => {
-    if (turn == true) {
-      monsterAttack()
-    }
-    ;
-  }, 3000)
 }
 
 function monsterAttack() {
@@ -143,7 +151,7 @@ function monsterAttack() {
   health -= damage;
 
   // hydra
-  if (monster == hydra) {
+  if (monster === hydra) {
     enemyHealth += 5;
     document.getElementById("monster-health-num").innerHTML = enemyHealth;
 
@@ -170,47 +178,28 @@ function monsterAttack() {
   if (health <= 0) {
     die();
   }
-
-
 }
 
 // THESE TWO ARE SEPARATE ( i've had enough mistakes already )
 
 function attack(damage) {
-  console.log("damage:" + damage)
-  // healthbar
+  console.log("damage:" + damage);
+
   const healthBar = document.getElementById("monster-health-bar");
   const healthNum = document.getElementById("monster-health-num");
 
-  let percent = (damage * 100) / enemyHealth;
-  let newWidth = healthBar.offsetWidth - (healthBar.offsetWidth / 100) * percent;
+  const attackAnim = new Animation(200, "monster-health", {damage: damage});
+  animationQueue.add(attackAnim);
 
-  enemyHealth -= damage;
+  animationQueue.showQueue();
 
-  if (enemyHealth <= 0) {
-    turn = false;
-  }
-
-
-  // Update health number and animate bar to shrink gosh chatgpt
-  setTimeout(function () {
-    if (enemyHealth > 0) {
-      healthNum.innerHTML = enemyHealth;
-      healthBar.style.width = newWidth + "px";
-    } else {
-      healthNum.innerHTML = 0;
-      // win
+  attackAnim.then(() => {
+    if (enemyHealth <= 0) {
+      healthNum.innerHTML = "0";
       healthBar.style.width = "0px";
-      battle = false;
-      document.getElementById("win_aud").play();
-      setTimeout(function () {
-        if (!collectedLoot) {
-          collectedLoot = true;
-          collectLoot(currentMonster);
-        }
-      }, 2000)
+      turn = false;
     }
-  }, 200);
+  });
 }
 
 // Idea based on spelling mistake: APIder?

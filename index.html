@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <title>Ye Olde</title>
     <link rel="stylesheet" href="res/styles.css">
     <link rel="icon" href="res/img/icons/bag.png">
+    <script src="src/animation.js"></script>
     <script src="src/utilities.js"></script>
     <script src="src/core.js"></script>
     <script src="src/cards.js"></script>
@@ -18,183 +19,223 @@
 
     <script src="src/data/monsters.js"></script>
     <script src="src/data/shops.js"></script>
-  </head>
-  <body class="waveBackground">
-    <div class="overlay"></div>
-    <div id="debug">
-      <p>Debug Mode <span style="color:lawngreen">active</span></p>
-      <p>------------------</p>
-      <p>Current monster bar width: <span id="debug-amwidth"></span></p>
-      <p style="margin-bottom: 5px;">Current monster health: <span id="debug-truemwidth"></span></p>
-      <p>Current player bar width: <span id="debug-apwidth"></span></p>
-      <p style="margin-bottom: 5px;">Current player health: <span id="debug-truepwidth"></span></p>
-      <button class="debug_btn" onclick="healFully()">Heal fully</button><button class="debug_btn" onclick="fifthSuicide()">Take 10 dmg</button>
-      <br/>
-      <button class="debug_btn" onclick="collectLoot(currentMonster)">Defeat Munester</button>
-      <br/>
-      <button class="debug_btn" onclick="money += 10">$10</button>
-    </div>
-    <div id="mobile">
-      This game does not currently support mobile or tiny-screen play. If you'd like to risk a cramped space, press <button class="unsafe_btn" onclick="document.getElementById('mobile').style.display = 'none';document.getElementById('not-mobile').style.display = 'block';">here</button>
-    </div>
-    <div id="not-mobile">
-      <div id="deathScreen">
+</head>
+<body class="waveBackground">
+<div class="overlay"></div>
+<div id="debug">
+    <p>Debug Mode <span style="color:lawngreen">active</span></p>
+    <p>------------------</p>
+    <p>Current monster bar width: <span id="debug-amwidth"></span></p>
+    <p style="margin-bottom: 5px;">Current monster health: <span id="debug-truemwidth"></span></p>
+    <p>Current player bar width: <span id="debug-apwidth"></span></p>
+    <p style="margin-bottom: 5px;">Current player health: <span id="debug-truepwidth"></span></p>
+    <button class="debug_btn" onclick="healFully()">Heal fully</button>
+    <button class="debug_btn" onclick="fifthSuicide()">Take 10 dmg</button>
+    <br/>
+    <button class="debug_btn" onclick="collectLoot(currentMonster)">Defeat Munester</button>
+    <br/>
+    <button class="debug_btn" onclick="money += 10">$10</button>
+</div>
+<div id="mobile">
+    This game does not currently support mobile or tiny-screen play. If you'd like to risk a cramped space, press
+    <button class="unsafe_btn"
+            onclick="document.getElementById('mobile').style.display = 'none';document.getElementById('not-mobile').style.display = 'block';">
+        here
+    </button>
+</div>
+<div id="not-mobile">
+    <div id="deathScreen">
         <div class="center">
-          <div>Game Over</div>
-          <button id="game_over_btn" onclick="location.reload();document.getElementById('click_aud').play();"> RESTART </button>
+            <div>Game Over</div>
+            <button id="game_over_btn" onclick="location.reload();document.getElementById('click_aud').play();">
+                RESTART
+            </button>
         </div>
-        <audio id="game_over_aud"><source src="res/aud/game_over.mp3"></audio>
-      </div>
+        <audio id="game_over_aud">
+            <source src="res/aud/game_over.mp3">
+        </audio>
+    </div>
 
-      <div id="title" style="display: block;">
-        <a href="updates.html" style="color: white; text-decoration: none;"><div id="version">a0.3.10 <a id="isThereAnUpdate" class="version-tooltiptext" href="updates.html">New update!</a> </div></a>
+    <div id="title" style="display: block;">
+        <a href="updates.html" style="color: white; text-decoration: none;">
+            <div id="version">a0.4.0r2 <a id="isThereAnUpdate" class="version-tooltiptext" href="updates.html">New
+                update!</a></div>
+        </a>
         <div class="center">
-          <div id="title-text">Ye Olde</div>
-          <img alt="PLAY" id="title-playbutton" src="res/img/buttons/play.png" onclick="start();document.getElementById('click_aud').play();">
+            <div id="title-text">Ye Olde</div>
+            <img alt="PLAY" id="title-playbutton" src="res/img/buttons/play.png"
+                 onclick="start();document.getElementById('click_aud').play();">
         </div>
-      </div>
+    </div>
 
-      <div id="inventory" style="display: none;">
+    <div id="inventory" style="display: none;">
         <div id="modal">
-          <img alt="x" id="x" src="res/img/icons/x.png" onclick="closeInventory()">
-          <div id="inv-cards">
-          </div>
-        </div>
-      </div>
-
-      <div id="battle" style="display: none;">
-        <div id="top">
-          <div id="monster-health">
-            <div style="background: #2e222f; width: 93vw; display: inline-block;">
-              <div id="monster-health-bar"></div>
+            <img alt="x" id="x" src="res/img/icons/x.png" onclick="closeInventory()">
+            <div id="inv-cards">
             </div>
-            <span id="monster-health-num"></span>
-          </div>
-          <div id="monster-details">
-            <img alt="im never gonna use this sry" src="" id="monster-img" style="display: none;">
-            <b><div id="monster-name"></div></b>
-            <div style="margin-left: 10px; color: lightgreen;" id="monster-lvl"></div><br/>
-            <div id="monster-desc"></div>
-            <div id="monster-stats" style="margin-left: 10px; margin-top: 4px;font-family: 'Jersey 10'; font-size: 25px;"><span id="monster-atk">ATK: 6</span><span style="margin-left: 60px;"id="monster-health-stat">50 HP</span></div>
-          </div>
-          <div id="animation-area"></div>
+        </div>
+    </div>
+
+    <div id="battle" style="display: none;">
+        <div id="top">
+            <div id="monster-health">
+                <div style="background: #2e222f; width: 93vw; display: inline-block;">
+                    <div id="monster-health-bar"></div>
+                </div>
+                <span id="monster-health-num"></span>
+            </div>
+            <div id="monster-details">
+                <img alt="im never gonna use this sry" src="" id="monster-img" style="display: none;">
+                <b>
+                    <div id="monster-name"></div>
+                </b>
+                <div style="margin-left: 10px; color: lightgreen;" id="monster-lvl"></div>
+                <br/>
+                <div id="monster-desc"></div>
+                <div id="monster-stats"
+                     style="margin-left: 10px; margin-top: 4px;font-family: 'Jersey 10'; font-size: 25px;"><span
+                        id="monster-atk">ATK: 6</span><span style="margin-left: 60px;"
+                                                            id="monster-health-stat">50 HP</span></div>
+            </div>
+            <div id="animation-area"></div>
         </div>
 
         <div id="bottom">
-          <div id="playercards" style="margin-left: 180px;">
-            <div class="slot" id="slot1"></div>
-            <div class="slot" id="slot2"></div>
-            <div class="slot" id="slot3"></div>
-            <div class="slot" id="slot4"></div>
-            <div class="slot" id="slot5"></div>
-            <div class="slot" id="slot6"></div>
-          </div>
-          <div id="actions"><img style="width:24px;margin:0px;image-rendering:pixelated;"src="res/img/icons/sword.png"> <span style="margin-left: 3px;" id="actions-num">1</span></div>
-          <div id="playButton" onclick="play();document.getElementById('click_aud').play();"><img id="playbuttonimg" src="res/img/buttons/play.png"></div>
+            <div id="playercards" style="margin-left: 180px;">
+                <div class="slot" id="slot1"></div>
+                <div class="slot" id="slot2"></div>
+                <div class="slot" id="slot3"></div>
+                <div class="slot" id="slot4"></div>
+                <div class="slot" id="slot5"></div>
+                <div class="slot" id="slot6"></div>
+            </div>
+            <div id="actions"><img style="width:24px;margin:0px;image-rendering:pixelated;"
+                                   src="res/img/icons/sword.png"> <span style="margin-left: 3px;"
+                                                                        id="actions-num">1</span></div>
+            <div id="playButton" onclick="play();document.getElementById('click_aud').play();"><img id="playbuttonimg"
+                                                                                                    src="res/img/buttons/play.png">
+            </div>
         </div>
-      </div>
-      
-      <div id="player" style="display: none;">
-        <img src="res/img/icons/bag.png" id="bag-icon" onclick="document.getElementById('click_aud').play();setTimeout(openInventory, 100)">
-        <div id="player-details" >
-          <span id="money">$0</span>
-          <span id="XP">0 XP</span>
+    </div>
+
+    <div id="player" style="display: none;">
+        <img src="res/img/icons/bag.png" id="bag-icon"
+             onclick="document.getElementById('click_aud').play();setTimeout(openInventory, 100)">
+        <div id="player-details">
+            <span id="money">$0</span>
+            <span id="XP">0 XP</span>
         </div>
         <div id="player-health">
-          <div id="player-health-hug" style="background: #2e222f; width: 93vw; display: inline-block;">
-            <div id="player-health-bar"></div>
-          </div>
-          <span id="player-health-num">50</span>
+            <div id="player-health-hug" style="background: #2e222f; width: 93vw; display: inline-block;">
+                <div id="player-health-bar"></div>
+            </div>
+            <span id="player-health-num">50</span>
         </div>
-      </div>
+    </div>
 
-      <div id="loot" style="opacity: 0;">
+    <div id="loot" style="opacity: 0;">
         <div id="win-msg"></div>
         <div id="lootslots">
-          <div class="slot" id="loot-slot1"></div>
-          <div class="slot" id="loot-slot2" style="display: none;"></div>
-          <div class="slot" style="text-align: center;" id="loot-money"><div style="margin-top: 45%; animation: idle 4s infinite;" id="loot-money-txt">$NaN</div></div>
+            <div class="slot" id="loot-slot1"></div>
+            <div class="slot" id="loot-slot2" style="display: none;"></div>
+            <div class="slot" style="text-align: center;" id="loot-money">
+                <div style="margin-top: 45%; animation: idle 4s infinite;" id="loot-money-txt">$NaN</div>
+            </div>
         </div>
-        <div id="collectButton" style="text-align: center;" onclick="enterShop();document.getElementById('click_aud').play();"><img id="collectbuttonimg" src="res/img/buttons/collect.png"></div>
-      </div>
+        <div id="collectButton" style="text-align: center;"
+             onclick="enterShop();document.getElementById('click_aud').play();"><img id="collectbuttonimg"
+                                                                                     src="res/img/buttons/collect.png">
+        </div>
+    </div>
 
-      <div id="shop" style="display: none;">
+    <div id="shop" style="display: none;">
         <div id="shop-details">
-          <div id="shop-name"></div>
-          <div id="shop-desc"></div>
+            <div id="shop-name"></div>
+            <div id="shop-desc"></div>
         </div>
-        <div id="leaveButton" onclick="enterBattle();document.getElementById('click_aud').play();"><img id="leavebuttonimg" src="res/img/buttons/leave.png"></div>
+        <div id="leaveButton" onclick="enterBattle();document.getElementById('click_aud').play();"><img
+                id="leavebuttonimg" src="res/img/buttons/leave.png"></div>
 
         <div id="attack-row">
-          <div class="price" id="price-attack-slot1">$0</div>
-          <div class="slot shop-slot" id="attack-slot1"></div>
-          <div class="price" id="price-attack-slot2">$0</div>
-          <div class="slot shop-slot" id="attack-slot2"></div>
-          <div class="price" id="price-attack-slot3">$0</div>
-          <div class="slot shop-slot" id="attack-slot3"></div>
-          <div class="price" id="price-attack-slot4">$0</div>
-          <div class="slot shop-slot" id="attack-slot4"></div>
-          <div class="price" id="price-attack-slot5">$0</div>
-          <div class="slot shop-slot" id="attack-slot5"></div>
+            <div class="price" id="price-attack-slot1">$0</div>
+            <div class="slot shop-slot" id="attack-slot1"></div>
+            <div class="price" id="price-attack-slot2">$0</div>
+            <div class="slot shop-slot" id="attack-slot2"></div>
+            <div class="price" id="price-attack-slot3">$0</div>
+            <div class="slot shop-slot" id="attack-slot3"></div>
+            <div class="price" id="price-attack-slot4">$0</div>
+            <div class="slot shop-slot" id="attack-slot4"></div>
+            <div class="price" id="price-attack-slot5">$0</div>
+            <div class="slot shop-slot" id="attack-slot5"></div>
         </div>
         <div id="magic-row">
-          <div class="price" id="price-magic-slot1">$0</div>
-          <div class="slot shop-slot" id="magic-slot1"></div>
-          <div class="price" id="price-magic-slot2">$0</div>
-          <div class="slot shop-slot" id="magic-slot2"></div>
-          <div class="price" id="price-magic-slot3">$0</div>
-          <div class="slot shop-slot" id="magic-slot3"></div>
-          <div class="price" id="price-magic-slot4">$0</div>
-          <div class="slot shop-slot" id="magic-slot4"></div>
-          <div class="price" id="price-magic-slot5">$0</div>
-          <div class="slot shop-slot" id="magic-slot5"></div>
+            <div class="price" id="price-magic-slot1">$0</div>
+            <div class="slot shop-slot" id="magic-slot1"></div>
+            <div class="price" id="price-magic-slot2">$0</div>
+            <div class="slot shop-slot" id="magic-slot2"></div>
+            <div class="price" id="price-magic-slot3">$0</div>
+            <div class="slot shop-slot" id="magic-slot3"></div>
+            <div class="price" id="price-magic-slot4">$0</div>
+            <div class="slot shop-slot" id="magic-slot4"></div>
+            <div class="price" id="price-magic-slot5">$0</div>
+            <div class="slot shop-slot" id="magic-slot5"></div>
         </div>
         <div id="food-row">
-          <div class="price" id="price-food-slot1">$0</div>
-          <div class="slot shop-slot" id="food-slot1"></div>
-          <div class="price" id="price-food-slot2">$0</div>
-          <div class="slot shop-slot" id="food-slot2"></div>
-          <div class="price" id="price-food-slot3">$0</div>
-          <div class="slot shop-slot" id="food-slot3"></div>
-          <div class="price" id="price-food-slot4">$0</div>
-          <div class="slot shop-slot" id="food-slot4"></div>
-          <div class="price" id="price-food-slot5">$0</div>
-          <div class="slot shop-slot" id="food-slot5"></div>
+            <div class="price" id="price-food-slot1">$0</div>
+            <div class="slot shop-slot" id="food-slot1"></div>
+            <div class="price" id="price-food-slot2">$0</div>
+            <div class="slot shop-slot" id="food-slot2"></div>
+            <div class="price" id="price-food-slot3">$0</div>
+            <div class="slot shop-slot" id="food-slot3"></div>
+            <div class="price" id="price-food-slot4">$0</div>
+            <div class="slot shop-slot" id="food-slot4"></div>
+            <div class="price" id="price-food-slot5">$0</div>
+            <div class="slot shop-slot" id="food-slot5"></div>
         </div>
-      </div>
+    </div>
 
-      <audio id="click_aud"><source src="res/aud/click.mp3"></audio>
-      <audio id="title_aud"><source src="res/aud/title.mp3"></audio>
-      <audio id="money_aud"><source src="res/aud/money.mp3"></audio>
-      <audio id="attack_aud"><source src="res/aud/attack.mp3"></audio>
-      <audio id="win_aud"><source src="res/aud/win.mp3"></audio>
+    <audio id="click_aud">
+        <source src="res/aud/click.mp3">
+    </audio>
+    <audio id="title_aud">
+        <source src="res/aud/title.mp3">
+    </audio>
+    <audio id="money_aud">
+        <source src="res/aud/money.mp3">
+    </audio>
+    <audio id="attack_aud">
+        <source src="res/aud/attack.mp3">
+    </audio>
+    <audio id="win_aud">
+        <source src="res/aud/win.mp3">
+    </audio>
 
 
-      <div id="secluded-area" style="z-index: -10000000000000000000000000;">
+    <div id="secluded-area" style="z-index: -10000000000000000000000000;">
         <img src="res/img/buttons/play-hover.png" style="width: 1px; height: 1px;">
         <img src="res/img/buttons/play-active.png" style="width: 1px; height: 1px;">
         <img src="res/img/buttons/collect-hover.png" style="width: 1px; height: 1px;">
         <img src="res/img/buttons/collect-active.png" style="width: 1px; height: 1px;">
         <img src="res/img/buttons/leave-hover.png" style="width: 1px; height: 1px;">
         <img src="res/img/buttons/leave-active.png" style="width: 1px; height: 1px;">
-      </div>
     </div>
-  </body>
-  <script>
-    window.onload = function() {
-      let version = document.getElementById('version').innerHTML;
-      version = version.replace('<a href="updates.html" style="color: white; text-decoration: none;">', '')
-      version = version.split(' ')[0];
-      if (version != localStorage.getItem('version')) {
-        document.getElementById("isThereAnUpdate").style.display = "block";
-      } else {
-        document.getElementById("isThereAnUpdate").style.display = "none";
-      }
-      localStorage.setItem('version', version)
-      
-      setTimeout(() => {
-        document.getElementById("secluded-area").style.display = "none";
-      }, 600);
+</div>
+</body>
+<script>
+  window.onload = function () {
+    let version = document.getElementById('version').innerHTML;
+    version = version.replace('<a href="updates.html" style="color: white; text-decoration: none;">', '')
+    version = version.split(' ')[0];
+    if (version !== localStorage.getItem('version')) {
+      document.getElementById("isThereAnUpdate").style.display = "block";
+    } else {
+      document.getElementById("isThereAnUpdate").style.display = "none";
     }
-  </script>
+    localStorage.setItem('version', version)
+
+    setTimeout(() => {
+      document.getElementById("secluded-area").style.display = "none";
+    }, 600);
+  }
+</script>
 </html>

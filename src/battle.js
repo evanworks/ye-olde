@@ -26,7 +26,7 @@ function enterBattle() {
   actions = maxActions;
   document.getElementById("actions-num").innerHTML = actions;
 
-  deal(6, true);
+  deal(5, true);
 }
 
 function displayMonsterInfo(monster) {
@@ -97,26 +97,28 @@ function play() {
       card.rect = rect;
 
       // moves card upward for scoring
-      let raise = new Animation(10, "card-raise", {card: animatedCard});
+      let raise = new Animation(0, "card-raise", {card: animatedCard});
       animationQueue.add(raise);
 
       raise.then(() => {
-        card = card.card; // e.g. str "rustySword" -> var rustySword
-        if (card.type === "attack") {
-          useAttackCard(animatedCard, card, rect, cardNames);
-        } else if (card.type === "food") {
-          useFoodCard(animatedCard, card, rect);
-          if (paleBuffedCards.includes(card)) attack(5);
-        } else if (card.type === "magic") {
-          useMagicCard(animatedCard, card, rect, cardNames);
-        } else {
-          juice_up(animatedCard);
-          if (card === forge) {
-            useForge(rect.left, rect.top, cardNames);
+        setTimeout(() => {
+          card = card.card; // e.g. str "rustySword" -> var rustySword
+          if (card.type === "attack") {
+            useAttackCard(animatedCard, card, rect, cardNames);
+          } else if (card.type === "food") {
+            useFoodCard(animatedCard, card, rect);
+            if (paleBuffedCards.includes(card)) attack(5);
+          } else if (card.type === "magic") {
+            useMagicCard(animatedCard, card, rect, cardNames);
+          } else {
+            juice_up(animatedCard);
+            if (card === forge) {
+              useForge(rect.left, rect.top, cardNames);
+            }
+            if (paleBuffedCards.includes(card)) attack(5);
           }
-          if (paleBuffedCards.includes(card)) attack(5);
-        }
-        resolve(animatedCards);
+          resolve(animatedCards);
+        }, 200)
       });
       // bye bye
       discardCard(card.el);
@@ -143,7 +145,7 @@ function play() {
       if (turn === true) {
         monsterAttack();
       }
-      deal(6, false);
+      deal(5, false);
     });
   });
 

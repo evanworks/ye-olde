@@ -115,7 +115,13 @@ let flint = {
   actions: 1,
   price: 5,
   action: 'Gains <span style="color:var(--healthFull);">1 Damage</span> when played',
-  img: "minerals/flint.png"
+  img: "minerals/flint.png",
+  context: {
+    individual: (animatedCard, card, rect, cardNames) => {
+      flintDamage += 1;
+      flint.damage = flintDamage;
+    }
+  }
 }
 let gemDamage = 2;
 let gem = {
@@ -126,5 +132,11 @@ let gem = {
   actions: 1,
   price: 10,
   action: 'Gains <span style="color:var(--healthFull);">2 Damage</span> when played',
-  img: "minerals/gem.png"
+  img: "minerals/gem.png",
+  context: {
+    individual: (animatedCard, card, rect, cardNames) => {
+      gemDamage += 1;
+      gem.damage = gemDamage;
+    }
+  }
 }

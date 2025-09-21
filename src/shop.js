@@ -23,7 +23,6 @@ function enterShop() {
         document.getElementById("shop-desc").innerHTML = shop.description
 
         // checks if you have all the bags
-
         let hasAllBags = deck.includes(greenBag) && deck.includes(violetBag) && deck.includes(crimsonBag);
         // STOCKS SHOP
         for (let i = 1; i < maxShopAttackSlots + 1; i++) {

@@ -7,7 +7,7 @@ function deal(amount, first) {
     } else {
       if (noCards(document.getElementById("playercards")) === 0 && battle === true) {
         setTimeout(() => {
-          die()
+          die();
         }, 200);
       }
     }
@@ -15,14 +15,18 @@ function deal(amount, first) {
   for (let i = 0; i < amount; i++) {
     if (shuffledDeck.length < amount) {
       for (let card in shuffledDeck) {
-        let card = shuffledDeck.pop()
+        let card = shuffledDeck.pop();
+        console.log(card.file);
         hand.push(card);
+        console.log(...hand);
         displayCard(card, 'slot');
       }
     } else {
-      let card = shuffledDeck.pop()
+      let card = shuffledDeck.pop();
+      console.log("-" + card.file);
       hand.push(card);
-      displayCard(shuffledDeck.pop(), 'slot');
+      console.log(...hand);
+      displayCard(card, 'slot');
     }
   }
 }

@@ -1,5 +1,6 @@
 let deck = [];
 let fullDeck;
+let shuffledDeck;
 
 let hand = [];
 let selectedCards = ["-", "-", "-", "-", "-", "-"];
@@ -38,7 +39,7 @@ function start() {
   if (!debug) {
     deck.push(rustySword, rustySword, rustySword);
   } else {
-    deck.push(rustySword, rustySword, rustySword, slimeball);
+    deck.push(rustySword, talon, greenToad, slimeball, bone, shield, longbow);
   }
   if (deck.length > 6 && !debug) {
     deck = [rustySword, rustySword, rustySword, rustySword, rustySword, rustySword]

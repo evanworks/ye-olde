@@ -11,7 +11,6 @@ const slimeball = {
     individual: (animatedCard, card, rect, cardNames) => {
       let maybeAttackCard;
       for (let i = 0; i < cardNames.length; i++) {
-        console.log(cardNames[i].card);
         if (cardNames[i].card) {
           if (cardNames[i].card.type === "attack") {
             maybeAttackCard = cardNames[i];
@@ -29,20 +28,6 @@ const slimeball = {
         useAttackCard(maybeAttackCard.anim, maybeAttackCard.card, attackRect, cardNames);
       }
     }
-  },
-  modifier: (animatedCard, card, rect, cardNames) => {
-    useAttackCard(animatedCard, card, rect, cardNames);
-    juice_up(animatedCard);
-    let slimeEffectAnim = new Animation(1000, "text-effect",
-      {rect: rect.left + 50, top: rect.top + 50, color: colors.magic, size: 18, text: "Again!"});
-    animationQueue.add(slimeEffectAnim);
-
-      /*const slimeEffectIndicator = document.createElement("div");
-      slimeEffectIndicator.className = "slime-effect";
-      slimeEffectIndicator.innerText = `Again!`;
-      slimeEffectIndicator.style.left = `${rect.left + 50}px`;
-      slimeEffectIndicator.style.top = `${rect.top + 55}px`;
-      document.getElementById("animation-area").appendChild(slimeEffectIndicator);*/
   }
 }
 const redSlimeball = {

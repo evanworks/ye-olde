@@ -4,10 +4,18 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 <b>Play now!</b> <a href="https://evanworks.github.io/ye-olde">Web Version (currently the only version but whatever)</a>
 
+## Todo
+* Make all the cards work
+* Playtest and balance
+* add more random stuff
 
 ## Version history
 
-### 0.4.0r3 [8-1-25]
+### 0.4.0r4 [8-1-25]
+must... keep... programming...
+* Fixed issue where the game broke after playing for one second
+
+### 0.4.0r3 [8-21-25]
 
 * basically rewrote the entire game
 * nothing works anymore

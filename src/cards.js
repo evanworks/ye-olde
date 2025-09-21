@@ -1,51 +1,22 @@
 function useAttackCard(animatedCard, card, rect, cardNames) {
-  // ups minerals
-  if (card === flint) {
-    flintDamage += 1;
-    card.damage = flintDamage;
-  }
-  if (card === gem) {
-    gemDamage += 2;
-    card.damage = gemDamage;
+  if (card.context) {
+    if (card.context.individual) card.context.individual(animatedCard, card, rect, cardNames);
   }
 
-    // damage visual
-    /*const damageIndicator = document.createElement("div");
-    damageIndicator.className = "damage-indicator";*/
+  let damage = card.damage;
+  if (card === eyeball) {
+    damage = monster.damage + Math.floor(monster.scaling / 2) * window[monster.file + "Level"]
+  }
 
   juice_up(animatedCard);
-
-  let damageAnim = new Animation(1000, "text-effect",
-    {left: rect.left + 30, top: rect.top + 70, color: colors.special, size: 24, text: `+${card.damage} damage`});
+  let damageAnim = new Animation(500, "text-effect",
+    {left: rect.left + 20, top: rect.top + 70, color: colors.special, size: 24, text: `+${damage} damage`});
   animationQueue.add(damageAnim);
 
-    /*(if (card === eyeball) {
-      damageIndicator.innerText = `+${monster.damage + Math.floor(monster.scaling / 2) * window[monster.file + "Level"]} damage`;
-    } else {
-      if (paleBuffedCards.includes(card)) damageIndicator.innerText = `+${card.damage + 5} damage`;
-      else damageIndicator.innerText = `+${card.damage} damage`;
-    }
-    damageIndicator.style.left = `${rect.left + 30}px`;
-    damageIndicator.style.top = `${rect.top + 70}px`;
-    document.getElementById("animation-area").appendChild(damageIndicator);
+  attack(damage);
 
-    damageIndicator.addEventListener("animationend", () => damageIndicator.remove());*/
-
-  // sends attack function
-  if (card === eyeball) {
-    attack(monster.damage + Math.floor(monster.scaling / 2) * window[monster.file + "Level"]);
-  } else {
-    if (paleBuffedCards.includes(card)) attack(card.damage + 5);
-    else attack(card.damage);
-  }
-
-  /*// modifiers (eg. slimeball is called from attack method)
-  for (i in cardNames) {
-    actualCard = eval(cardNames[i])
-    if (actualCard.modifier) {
-      actualCard.modifier(animatedCard, card, rect, cardNames);
-    }
-  }*/
+  // TODO wtf even is this
+  if (paleBuffedCards.includes(card)) attack(card.damage + 5);
 }
 
 function useMagicCard(animatedCard, card, rect, cardNames) {
@@ -55,11 +26,12 @@ function useMagicCard(animatedCard, card, rect, cardNames) {
   }
 }
 
+
 function useFoodCard(animatedCard, card, rect) {
   if (health >= maxHealth && card.overflow === false) {
   } else {
-    tinyHealth = maxHealth / 100;
-    healthToHeal = tinyHealth * card.health;
+    let tinyHealth = maxHealth / 100;
+    let healthToHeal = tinyHealth * card.health;
 
     let percent = 0;
 
@@ -115,6 +87,7 @@ function useFoodCard(animatedCard, card, rect) {
 n = 0;
 const alphabet = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
+// TODO delete this card entirely or make a context for it?
 function useForge(targetX, targetY, cardNames) {
   n += 1;
   for (card in cardNames) {

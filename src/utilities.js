@@ -21,7 +21,7 @@ function shuffle(array) {
       shuffledArray[randomIndex], shuffledArray[currentIndex]];
   }
 
-  return shuffledArray
+  return shuffledArray;
 }
 
 function removeItem(array, item) {
@@ -53,6 +53,24 @@ function howMany(array, value) {
   }
   return n;
 }
+
+function placeRedDot(x, y) {
+  // Create the dot
+  const dot = document.createElement("div");
+  // Style it completely in JS
+  dot.style.position = "absolute";
+  dot.style.width = "10px";
+  dot.style.height = "10px";
+  dot.style.backgroundColor = "red";
+  dot.style.borderRadius = "50%";
+  dot.style.pointerEvents = "none"; // so it doesn't block clicks
+  dot.style.left = `${x}px`;
+  dot.style.top = `${y}px`;
+
+  // Add to the page
+  document.body.appendChild(dot);
+}
+
 // thank you chatgpt sir
 function getAllCSSVariables() {
   const computed = getComputedStyle(document.documentElement);

@@ -1,0 +1,7 @@
+LIST OF CONTEXTS FOR ME PURPOSES
+
+`before`:
+before all cards played
+
+`individual`:
+when self is played

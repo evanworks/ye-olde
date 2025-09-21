@@ -111,3 +111,12 @@ function chooseShop() {
     return getRandomItem([marketStall, tavern, blacksmith, farmersmarket, bagStore, apothecary, hut, eatery, metalsmith, shady, theBelovedScrollShop, potionShop]) // all of them
   }
 }
+
+const registry = {
+  rustySword,
+  mace,
+  claymore,
+  sword,
+  scimitar,
+  rustyBow,
+}

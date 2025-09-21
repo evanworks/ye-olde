@@ -493,7 +493,7 @@ START OF CHAPGPT
     background: var(--healthEmpty);
     border: 2px solid var(--shadow);
     height: 25px;
-    transition: width 0.2s ease-in-out; /* Smooth transition */
+    transition: width 0.2s ease-in-out; /* Smooth transition */ /* wow really chatgpt */
 }
 
 #player-health-bar {

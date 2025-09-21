@@ -44,8 +44,16 @@ function displayMonsterInfo(monster) {
 }
 
 function play() {
+  if (JSON.stringify(selectedCards) === JSON.stringify(["-", "-", "-", "-", "-", "-"])) return;
 
-  if (JSON.stringify(selectedCards) == JSON.stringify(["-", "-", "-", "-", "-", "-"])) return;
+  let newHand = [...hand];
+
+  for (let i = hand.length - 1; i >= 0; i--) {
+    if (selectedCards[i] !== "-") {
+      newHand.splice(i, 1);
+    }
+  }
+  hand = [...newHand];
 
   document.getElementById("playButton").style.pointerEvents = "none";
   actions = maxActions;
@@ -53,48 +61,54 @@ function play() {
 
   // turns array with empty slots ("-") into array with just the card names
   const animationArea = document.getElementById("animation-area");
-  for (i in selectedCards) {
+  for (let i in selectedCards) {
     if (selectedCards[i] === "-") {
       selectedCards = removeAllOccurrences(selectedCards, "-")
     }
   }
+
   const cardsToAnimate = [...selectedCards];
-  const cardNames = [...cardsToAnimate]
+  const cardNames = [...cardsToAnimate];
 
   // e.g. rustySword7 -> rustySword
-  cardNames.forEach((card, index) => {
-    cardNames[index] = removeNumbers(card);
-  });
+  /*cardNames.forEach((card, index) => {
+     cardNames[index] = card.card.file;
+  });*/
 
   let animatedCards = [];
 
   const allPromises = cardsToAnimate.map((card, index) => {
     return new Promise((resolve) => {
-      let cardName = removeNumbers(card)
-      const cardElement = document.getElementById(card);
+      let cardName = card.card.file;
+      const cardElement = card.el;
       const rect = cardElement.getBoundingClientRect();
 
       const animatedCard = document.createElement("img");
-      fakeCard = eval(cardName);
+      let fakeCard = card.card;
       animatedCard.src = "res/img/" + fakeCard.img;
       animatedCard.className = "card-animation";
-      animatedCard.style.left = `${rect.left}px`;
+      animatedCard.style.left = `${rect.left - 10}px`;
       animatedCard.style.top = `${rect.top + 140 + 150}px`;
       animationArea.appendChild(animatedCard);
 
       animatedCard.style.transition = "0.1s";
 
+      card.anim = animatedCard;
+      card.rect = rect;
+
       // moves card upward for scoring
-      let raise = new Animation(50, "card-raise", {card: animatedCard});
+      let raise = new Animation(10, "card-raise", {card: animatedCard});
       animationQueue.add(raise);
 
       raise.then(() => {
-        card = eval(cardName); // e.g. str "rustySword" -> var rustySword
+        card = card.card; // e.g. str "rustySword" -> var rustySword
         if (card.type === "attack") {
-          useAttackCard(animatedCard, card, rect, cardNames)
+          useAttackCard(animatedCard, card, rect, cardNames);
         } else if (card.type === "food") {
-          useFoodCard(animatedCard, card, rect)
+          useFoodCard(animatedCard, card, rect);
           if (paleBuffedCards.includes(card)) attack(5);
+        } else if (card.type === "magic") {
+          useMagicCard(animatedCard, card, rect, cardNames);
         } else {
           juice_up(animatedCard);
           if (card === forge) {
@@ -105,7 +119,7 @@ function play() {
         resolve(animatedCards);
       });
       // bye bye
-      discardCard(card);
+      discardCard(card.el);
       animatedCards.push(animatedCard);
     });
   });
@@ -127,13 +141,13 @@ function play() {
       }
 
       if (turn === true) {
-        monsterAttack()
+        monsterAttack();
       }
       deal(6, false);
     });
   });
 
-  selectedCards = ["-", "-", "-", "-", "-", "-"]
+  selectedCards = ["-", "-", "-", "-", "-", "-"];
 }
 
 function monsterAttack() {
@@ -142,7 +156,7 @@ function monsterAttack() {
 
   let monster = currentMonster;
 
-  damage = monster.damage + Math.floor(monster.scaling / 2) * window[monster.file + "Level"];
+  let damage = monster.damage + Math.floor(monster.scaling / 2) * window[monster.file + "Level"];
 
 
   let percent = (damage * 100) / health;
@@ -180,23 +194,13 @@ function monsterAttack() {
   }
 }
 
-// THESE TWO ARE SEPARATE ( i've had enough mistakes already )
-
 function attack(damage) {
-  console.log("damage:" + damage);
-
-  const healthBar = document.getElementById("monster-health-bar");
-  const healthNum = document.getElementById("monster-health-num");
-
+  // contains enemyHealth -= damage for some reason
   const attackAnim = new Animation(200, "monster-health", {damage: damage});
   animationQueue.add(attackAnim);
 
-  animationQueue.showQueue();
-
   attackAnim.then(() => {
     if (enemyHealth <= 0) {
-      healthNum.innerHTML = "0";
-      healthBar.style.width = "0px";
       turn = false;
     }
   });

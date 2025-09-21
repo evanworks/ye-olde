@@ -92,16 +92,19 @@ class Animation {
 
         const {damage} = this.params;
 
-        enemyHealth -= damage;
-
         const healthBar = document.getElementById("monster-health-bar");
         const healthNum = document.getElementById("monster-health-num");
 
-        let percent = (damage * 100) / currentMonster.health;
-        let newWidth = healthBar.offsetWidth - (healthBar.offsetWidth / 100) * percent;
+        enemyHealth -= damage;
 
         healthNum.innerHTML = enemyHealth;
-        healthBar.style.width = newWidth + "px";
+        healthBar.style.width = (enemyHealth / (currentMonster.health + (monster.scaling * window[monster.file + "Level"])) * 100).toFixed(3) + "%";
+
+        if (enemyHealth <= 0) {
+          healthNum.innerHTML = "0";
+          healthBar.style.width = "0px";
+          turn = false;
+        }
       }
     } else {
       return progress => console.warn("no animation!!");

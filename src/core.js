@@ -15,9 +15,13 @@ function deal(amount, first) {
   for (let i = 0; i < amount; i++) {
     if (shuffledDeck.length < amount) {
       for (let card in shuffledDeck) {
-        displayCard(shuffledDeck.pop(), 'slot');
+        let card = shuffledDeck.pop()
+        hand.push(card);
+        displayCard(card, 'slot');
       }
     } else {
+      let card = shuffledDeck.pop()
+      hand.push(card);
       displayCard(shuffledDeck.pop(), 'slot');
     }
   }
@@ -125,8 +129,12 @@ function selectCard(card, parent, img) {
 
         // adds to selectedCards array
         let cardPlacement = event.target.parentElement.parentElement.id;
-        let cardIndex = cardPlacement.charAt(cardPlacement.length - 1);
-        selectedCards[parseInt(cardIndex) - 1] = event.target.id;
+        let cardIndex = parseInt(cardPlacement.charAt(cardPlacement.length - 1)) - 1;
+
+        selectedCards[cardIndex] = {
+          card: hand[cardIndex],
+          el: event.target
+        } /*event.target.id*/;
 
         event.target.classList.add('selected-card');
 
@@ -159,8 +167,8 @@ function deselectCard(card, parent, img) {
 
   // removes from selectedCards array
   let cardPlacement = event.target.parentElement.parentElement.id;
-  let cardIndex = cardPlacement.charAt(cardPlacement.length - 1);
-  selectedCards[parseInt(cardIndex) - 1] = "-";
+  let cardIndex = parseInt(cardPlacement.charAt(cardPlacement.length - 1)) - 1;
+  selectedCards[cardIndex] = "-";
 
   event.target.classList.remove('selected-card');
 
@@ -171,7 +179,7 @@ function deselectCard(card, parent, img) {
 }
 
 function discardCard(card) {
-  document.getElementById(card).parentElement.remove();
+  card.parentElement.remove();
 }
 
 function select() {

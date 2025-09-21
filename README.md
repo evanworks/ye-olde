@@ -7,6 +7,12 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### 0.4.0r3 [8-1-25]
+
+* basically rewrote the entire game
+* nothing works anymore
+* except the code is now wonderful
+
 ### 0.4.0r2 [8-20-25]
 no no no no no no no no
 * did a bunch of animation stuff that broke everything but atleast the code is more nice now

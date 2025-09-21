@@ -1,6 +1,9 @@
 let deck = [];
 let fullDeck;
+
+let hand = [];
 let selectedCards = ["-", "-", "-", "-", "-", "-"];
+
 let turn = true;
 let idonthaveagoodnameforthis = 0;
 let collectedLoot = false;
@@ -35,7 +38,7 @@ function start() {
   if (!debug) {
     deck.push(rustySword, rustySword, rustySword);
   } else {
-    deck.push(blackTea, whiteTea, greenTea)
+    deck.push(rustySword, rustySword, rustySword, slimeball);
   }
   if (deck.length > 6 && !debug) {
     deck = [rustySword, rustySword, rustySword, rustySword, rustySword, rustySword]

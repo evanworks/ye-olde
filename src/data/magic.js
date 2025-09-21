@@ -7,15 +7,35 @@ const slimeball = {
   price: 6,
   action: 'Triggers first played attack card <span style="color:var(--magic);">twice</span>',
   img: "magic/slimeball.png",
-  modifier: (animatedCard, card, rect, cardNames) => {
-    removeItem(cardNames, "slimeball");
-    setTimeout(() => {
+  context: {
+    individual: (animatedCard, card, rect, cardNames) => {
+      let maybeAttackCard;
+      for (let i = 0; i < cardNames.length; i++) {
+        console.log(cardNames[i].card);
+        if (cardNames[i].card) {
+          if (cardNames[i].card.type === "attack") {
+            maybeAttackCard = cardNames[i];
+            break;
+          }
+        }
+      }
 
-      useAttackCard(animatedCard, card, rect, cardNames);
-      juice_up(animatedCard);
-      let slimeEffectAnim = new Animation(1000, "text-effect",
-        {rect: rect.left + 50, top: rect.top + 50, color: colors.magic, size: 18, text: "Again!"});
-      animationQueue.add(slimeEffectAnim);
+      if (maybeAttackCard) {
+        let attackRect = maybeAttackCard.rect;
+        juice_up(animatedCard);
+        let slimeAnim = new Animation(1000, "text-effect",
+          {left: attackRect.left + 30, top: attackRect.top + 70, color: colors.magic, size: 24, text: `Again!`});
+        animationQueue.add(slimeAnim);
+        useAttackCard(maybeAttackCard.anim, maybeAttackCard.card, attackRect, cardNames);
+      }
+    }
+  },
+  modifier: (animatedCard, card, rect, cardNames) => {
+    useAttackCard(animatedCard, card, rect, cardNames);
+    juice_up(animatedCard);
+    let slimeEffectAnim = new Animation(1000, "text-effect",
+      {rect: rect.left + 50, top: rect.top + 50, color: colors.magic, size: 18, text: "Again!"});
+    animationQueue.add(slimeEffectAnim);
 
       /*const slimeEffectIndicator = document.createElement("div");
       slimeEffectIndicator.className = "slime-effect";
@@ -23,7 +43,6 @@ const slimeball = {
       slimeEffectIndicator.style.left = `${rect.left + 50}px`;
       slimeEffectIndicator.style.top = `${rect.top + 55}px`;
       document.getElementById("animation-area").appendChild(slimeEffectIndicator);*/
-    }, 400)
   }
 }
 const redSlimeball = {
@@ -534,4 +553,3 @@ const vipCard = {
   action: 'Grants you <span style="color:var(--special)">unique benefits</span> at the eatery and its chains.',
   img: "luckPotion.png"
 }
-

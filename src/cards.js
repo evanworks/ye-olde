@@ -39,24 +39,31 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
     else attack(card.damage);
   }
 
-  // modifiers (eg. slimeball is called from attack method)
+  /*// modifiers (eg. slimeball is called from attack method)
   for (i in cardNames) {
     actualCard = eval(cardNames[i])
     if (actualCard.modifier) {
       actualCard.modifier(animatedCard, card, rect, cardNames);
     }
+  }*/
+}
+
+function useMagicCard(animatedCard, card, rect, cardNames) {
+  removeItem(cardNames, card.file);
+  if (card.context.individual) {
+    card.context.individual(animatedCard, card, rect, cardNames);
   }
 }
 
 function useFoodCard(animatedCard, card, rect) {
-  if (health >= maxHealth && card.overflow == false) {
+  if (health >= maxHealth && card.overflow === false) {
   } else {
     tinyHealth = maxHealth / 100;
     healthToHeal = tinyHealth * card.health;
 
-    let percent = 0
+    let percent = 0;
 
-    if (health + healthToHeal > maxHealth && card.overflow == false && healthOverflow == false) {
+    if (health + healthToHeal > maxHealth && card.overflow === false && healthOverflow === false) {
       health = maxHealth
     } else {
       percent = (healthToHeal * 100) / health;
@@ -112,7 +119,7 @@ function useForge(targetX, targetY, cardNames) {
   n += 1;
   for (card in cardNames) {
     card = eval(cardNames[card]);
-    if (card != forge && card.type == "attack") {
+    if (card !== forge && card.type === "attack") {
       forgePower += card.damage;
       deck = deck.filter(item => item !== card);
     }

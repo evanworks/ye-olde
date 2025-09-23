@@ -11,6 +11,9 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### 0.4.0r5
+I think i did some stuff that might've done some other stuff that made something do something?????
+
 ### 0.4.0r4 [8-1-25]
 must... keep... programming...
 * Fixed issue where the game broke after playing for one second

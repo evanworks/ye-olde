@@ -19,6 +19,7 @@ function enterBattle() {
 
   // resets all values
   selectedCards = ["-", "-", "-", "-", "-", "-"];
+  hand = ["-", "-", "-", "-", "-", "-"];
   idonthaveagoodnameforthis = 0; // great job past self
   collectedLoot = false;
   enteredShop = false;
@@ -48,12 +49,14 @@ function play() {
 
   let newHand = [...hand];
 
-  for (let i = hand.length - 1; i >= 0; i--) {
+  for (let i = 0; i >= hand.length; i--) {
     if (selectedCards[i] !== "-") {
       newHand.splice(i, 1);
     }
   }
   hand = [...newHand];
+
+  console.log(hand);
 
   document.getElementById("playButton").style.pointerEvents = "none";
   actions = maxActions;
@@ -85,6 +88,7 @@ function play() {
 
       const animatedCard = document.createElement("img");
       let fakeCard = card.card;
+      animatedCard.src = "res/img/" + fakeCard.img;
       animatedCard.src = "res/img/" + fakeCard.img;
       animatedCard.className = "card-animation";
       animatedCard.style.left = `${rect.left - 10}px`;
@@ -121,7 +125,7 @@ function play() {
         }, 200)
       });
       // bye bye
-      discardCard(card.el);
+      discardCard(card);
       animatedCards.push(animatedCard);
     });
   });

@@ -14,18 +14,31 @@ function deal(amount, first) {
   }
   for (let i = 0; i < amount; i++) {
     if (shuffledDeck.length < amount) {
+      console.log("yeah");
       for (let card in shuffledDeck) {
+        let pos = 0;
+
+        for (let x in hand) {
+          if (hand[x] === '-') {
+            pos = x;
+            break;
+          }
+        }
         let card = shuffledDeck.pop();
-        console.log(card.file);
-        hand.push(card);
-        console.log(...hand);
+        hand[pos] = card;
         displayCard(card, 'slot');
       }
     } else {
+      let pos = 0;
+
+      for (let x in hand) {
+        if (hand[x] === '-') {
+          pos = x;
+          break;
+        }
+      }
       let card = shuffledDeck.pop();
-      console.log("-" + card.file);
-      hand.push(card);
-      console.log(...hand);
+      hand[pos] = card;
       displayCard(card, 'slot');
     }
   }
@@ -137,7 +150,8 @@ function selectCard(card, parent, img) {
 
         selectedCards[cardIndex] = {
           card: hand[cardIndex],
-          el: event.target
+          el: event.target,
+          place: cardIndex,
         } /*event.target.id*/;
 
         event.target.classList.add('selected-card');
@@ -183,7 +197,10 @@ function deselectCard(card, parent, img) {
 }
 
 function discardCard(card) {
-  card.parentElement.remove();
+  card.el.parentElement.remove();
+  //console.log(hand);
+  hand[card.place] = "-";
+  //console.log(hand);
 }
 
 function select() {

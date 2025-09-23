@@ -22,7 +22,7 @@ const slimeball = {
       if (maybeAttackCard) {
         let attackRect = maybeAttackCard.rect;
         juice_up(animatedCard);
-        let slimeAnim = new Animation(1000, "text-effect",
+        let slimeAnim = new Animation(500, "text-effect",
           {left: attackRect.left + 30, top: attackRect.top + 70, color: colors.magic, size: 24, text: `Again!`});
         animationQueue.add(slimeAnim);
         useAttackCard(maybeAttackCard.anim, maybeAttackCard.card, attackRect, cardNames);

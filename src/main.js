@@ -2,7 +2,7 @@ let deck = [];
 let fullDeck;
 let shuffledDeck;
 
-let hand = [];
+let hand = ["-", "-", "-", "-", "-", "-"];
 let selectedCards = ["-", "-", "-", "-", "-", "-"];
 
 let turn = true;
@@ -27,7 +27,7 @@ let maxShopAttackSlots = 3;
 let maxShopMagicSlots = 2;
 let maxShopFoodSlots = 1;
 
-let debug = false;
+let debug = true;
 let a;
 let b;
 
@@ -39,7 +39,7 @@ function start() {
   if (!debug) {
     deck.push(rustySword, rustySword, rustySword);
   } else {
-    deck.push(rustySword, talon, greenToad, slimeball, bone, shield, longbow);
+    deck.push(rustySword, rustySword, rustySword, slimeball, slimeball);
   }
   if (deck.length > 6 && !debug) {
     deck = [rustySword, rustySword, rustySword, rustySword, rustySword, rustySword]

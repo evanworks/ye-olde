@@ -26,6 +26,11 @@
     --special: #fbff86;
 }
 
+img {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+}
+
 body {
     font-family: "Micro 5", sans-serif;
     background: linear-gradient(120deg, #313638, #3d4345);

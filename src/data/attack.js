@@ -8,6 +8,7 @@ const rustySword = {
   action: '', // describes special quality
   img: "attack/rustySword.png" // img file (res/img/...)
 }
+
 // battle axe
 // club
 const mace = {

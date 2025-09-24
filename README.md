@@ -11,6 +11,18 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### 0.4.0c1 
+
+New stage of revival: more random stuff =D
+
+**Cards finished:**
+* [x] Rusty Sword
+* [x] Rusty Bow (can a bow even be rusty???)
+* [x] Sword
+* [x] Slimeball
+* [ ] Bone
+* [ ] Juice
+
 ### 0.4.0r5
 I think i did some stuff that might've done some other stuff that made something do something?????
 

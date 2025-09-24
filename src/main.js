@@ -27,7 +27,7 @@ let maxShopAttackSlots = 3;
 let maxShopMagicSlots = 2;
 let maxShopFoodSlots = 1;
 
-let debug = true;
+let debug = false;
 let a;
 let b;
 

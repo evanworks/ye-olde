@@ -106,6 +106,7 @@ const greenToad = {
     }, 400);
   }
 }
+
 const bone = {
   file: "bone",
   name: "Bone",
@@ -115,24 +116,25 @@ const bone = {
   price: 8,
   action: '<span style="padding-left:4px;padding-right:4px;background:var(--healthFull);">2x</span> damage on all played attack cards below <span style="color:var(--healthFull)">10</span> damage',
   img: "magic/bone.png",
-  modifier: (animatedCard, card, rect, cardNames) => {
-    let ifithasbone = howMany(cardNames, "bone");
-    if (ifithasbone > 0 && card.damage <= 10) {
-      boneUsed = true;
-      setTimeout(function () {
-        juice_up(animatedCard);
-        for (let i = 0; i < ifithasbone; i++) {
-          let slimeEffectIndicator = document.createElement("div");
-          slimeEffectIndicator.className = "bone-effect";
-          slimeEffectIndicator.innerText = `2x damage`;
-          slimeEffectIndicator.style.left = `${rect.left + 40}px`;
-          slimeEffectIndicator.style.top = `${rect.top + 35}px`;
-          document.getElementById("animation-area").appendChild(slimeEffectIndicator);
+  context: {
+    before: (card, cardNames) => {
+      for (let i = 0; i < cardNames.length; i++) {
+        if (cardNames[i].card) {
+          if (cardNames[i].card.type === "attack") {
+            if (cardNames[i].card.damage <= 10) {
+              cardNames[i].modifiers.push((rect, animatedCard, damage) => {
+                juice_up(animatedCard);
 
-          attack(damage);
-          slimeEffectIndicator.addEventListener("animationend", () => slimeEffectIndicator.remove());
+                let boneAnim = new Animation(500, "text-effect",
+                  {left: rect.left + 20, top: rect.top + 70, color: colors.bone, size: 24, text: `2x Damage!`});
+                animationQueue.add(boneAnim);
+
+                attack(damage);
+              });
+            }
+          }
         }
-      }, 400);
+      }
     }
   }
 }

@@ -11,6 +11,11 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### 0.4.0c2
+I think most food cards should work now...?
+* [x] Bone
+* [x] Juice
+
 ### 0.4.0c1 
 
 New stage of revival: more random stuff =D

@@ -14,7 +14,6 @@ function deal(amount, first) {
   }
   for (let i = 0; i < amount; i++) {
     if (shuffledDeck.length < amount) {
-      console.log("yeah");
       for (let card in shuffledDeck) {
         let pos = 0;
 
@@ -152,6 +151,7 @@ function selectCard(card, parent, img) {
           card: hand[cardIndex],
           el: event.target,
           place: cardIndex,
+          modifiers: []
         } /*event.target.id*/;
 
         event.target.classList.add('selected-card');

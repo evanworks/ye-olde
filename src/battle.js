@@ -56,8 +56,6 @@ function play() {
   }
   hand = [...newHand];
 
-  console.log(hand);
-
   document.getElementById("playButton").style.pointerEvents = "none";
   actions = maxActions;
   document.getElementById("actions-num").innerHTML = actions;
@@ -80,9 +78,16 @@ function play() {
 
   let animatedCards = [];
 
+  cardsToAnimate.forEach(card => {
+    if (card.card.context) if (card.card.context.before) {
+      card.card.context.before(card, cardNames);
+    }
+  })
+
   const allPromises = cardsToAnimate.map((card, index) => {
     return new Promise((resolve) => {
       let cardName = card.card.file;
+      let oldCard = card;
       const cardElement = card.el;
       const rect = cardElement.getBoundingClientRect();
 
@@ -107,10 +112,12 @@ function play() {
       raise.then(() => {
         setTimeout(() => {
           card = card.card; // e.g. str "rustySword" -> var rustySword
+
           if (card.type === "attack") {
-            useAttackCard(animatedCard, card, rect, cardNames);
+            useAttackCard(animatedCard, oldCard, rect, cardNames);
           } else if (card.type === "food") {
             useFoodCard(animatedCard, card, rect);
+            // TODO :/
             if (paleBuffedCards.includes(card)) attack(5);
           } else if (card.type === "magic") {
             useMagicCard(animatedCard, card, rect, cardNames);
@@ -119,6 +126,7 @@ function play() {
             if (card === forge) {
               useForge(rect.left, rect.top, cardNames);
             }
+            // TODO :/
             if (paleBuffedCards.includes(card)) attack(5);
           }
           resolve(animatedCards);

@@ -1,4 +1,5 @@
-function useAttackCard(animatedCard, card, rect, cardNames) {
+function useAttackCard(animatedCard, oldCard, rect, cardNames) {
+  let card = oldCard.card;
   if (card.context) {
     if (card.context.individual) card.context.individual(animatedCard, card, rect, cardNames);
   }
@@ -6,6 +7,12 @@ function useAttackCard(animatedCard, card, rect, cardNames) {
   let damage = card.damage;
   if (card === eyeball) {
     damage = monster.damage + Math.floor(monster.scaling / 2) * window[monster.file + "Level"]
+  }
+
+  if (oldCard.modifiers.length > 0) {
+    for (let i in oldCard.modifiers) {
+      oldCard.modifiers[i](rect, animatedCard, damage);
+    }
   }
 
   juice_up(animatedCard);
@@ -28,25 +35,32 @@ function useMagicCard(animatedCard, card, rect, cardNames) {
 
 
 function useFoodCard(animatedCard, card, rect) {
-  if (health >= maxHealth && card.overflow === false) {
+  if (health >= maxHealth && card.overflow === false) return;
+
+  let tinyHealth = maxHealth / 100;
+  let healthToHeal = tinyHealth * card.health;
+
+  let percent = 0;
+
+  if (health + healthToHeal > maxHealth && card.overflow === false && healthOverflow === false) {
+    health = maxHealth
   } else {
-    let tinyHealth = maxHealth / 100;
-    let healthToHeal = tinyHealth * card.health;
+    percent = (healthToHeal * 100) / health;
+    health += healthToHeal;
+  }
+  let unit = "px"
+  let newWidth = document.getElementById("player-health-bar").offsetWidth - (document.getElementById("player-health-bar").offsetWidth / 100) * -percent;
+  if (card.health >= 100) {
+    newWidth = "93";
+    unit = "vw";
+  }
 
-    let percent = 0;
+  juice_up(animatedCard)
+  let healthAnim = new Animation(500, "text-effect",
+    {left: rect.left + 20, top: rect.top + 70, color: colors.healthFull, size: 24, text: `+${card.health} health`});
+  animationQueue.add(healthAnim);
 
-    if (health + healthToHeal > maxHealth && card.overflow === false && healthOverflow === false) {
-      health = maxHealth
-    } else {
-      percent = (healthToHeal * 100) / health;
-      health += healthToHeal;
-    }
-    let unit = "px"
-    let newWidth = document.getElementById("player-health-bar").offsetWidth - (document.getElementById("player-health-bar").offsetWidth / 100) * -percent;
-    if (card.health >= 100) {
-      newWidth = "93";
-      unit = "vw";
-    }
+  healthAnim.then(() => {
     let overflowing = false;
     if (healthOverflow) {
       overflowing = true;
@@ -55,11 +69,9 @@ function useFoodCard(animatedCard, card, rect) {
       document.getElementById("player-health-bar").classList.add("flash");
     }
 
-    setTimeout(function () {
-      document.getElementById("player-health-num").innerHTML = health;
-      document.getElementById("player-health-bar").style.width = newWidth + unit;
-      checkBars();
-    }, 500);
+    document.getElementById("player-health-num").innerHTML = health;
+    document.getElementById("player-health-bar").style.width = newWidth + unit;
+    checkBars();
 
     setTimeout(function () {
       if (overflowing) {
@@ -67,21 +79,8 @@ function useFoodCard(animatedCard, card, rect) {
       } else {
         document.getElementById("player-health-bar").classList.remove("flash");
       }
-    }, 3100)
-
-    // visual
-    setTimeout(function () {
-      juice_up(animatedCard)
-      const healthIndicator = document.createElement("div");
-      healthIndicator.className = "health-indicator";
-      healthIndicator.innerText = `+${healthToHeal} Health`;
-      healthIndicator.style.left = `${rect.left + 30}px`;
-      healthIndicator.style.top = `${rect.top + 70}px`;
-      document.getElementById("animation-area").appendChild(healthIndicator);
-
-      healthIndicator.addEventListener("animationend", () => healthIndicator.remove());
-    }, 200)
-  }
+    }, 2500)
+  });
 }
 
 n = 0;

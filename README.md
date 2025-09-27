@@ -11,6 +11,14 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### 0.4.0c3
+you can now play the entirety of early game *i think (nevermind it breaks after like 5 rounds :///)
+* [x] Longbow
+* [x] Shield
+* [x] frog, my beloved
+* [x] Poison
+* [ ] Tea
+
 ### 0.4.0c2
 I think most food cards should work now...?
 * [x] Bone

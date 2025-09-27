@@ -72,7 +72,7 @@ const longbow = {
   type: "attack",
   damage: 16,
   actions: 1,
-  price: 16,
+  price: 14,
   action: '',
   img: "attack/longbow.png"
 }

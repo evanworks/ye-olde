@@ -19,13 +19,15 @@ const slimeball = {
         }
       }
 
+      console.log(maybeAttackCard);
+
       if (maybeAttackCard) {
         let attackRect = maybeAttackCard.rect;
         juice_up(animatedCard);
         let slimeAnim = new Animation(500, "text-effect",
           {left: attackRect.left + 30, top: attackRect.top + 70, color: colors.magic, size: 24, text: `Again!`});
         animationQueue.add(slimeAnim);
-        useAttackCard(maybeAttackCard.anim, maybeAttackCard.card, attackRect, cardNames);
+        useAttackCard(maybeAttackCard.anim, maybeAttackCard, attackRect, cardNames);
       }
     }
   }
@@ -66,6 +68,40 @@ const greenToad = {
   price: 6,
   action: 'Repeat least expensive <span style="color: var(--attack)">Attack</span> card and earn half its <span style="var(--money)">sell value</span>',
   img: 'magic/greenToad.png',
+
+  context: {
+    individual: (animatedCard, card, rect, cardNames) => {
+      let lowestCard = { card: { price: 1000000000000 }};
+
+      for (let i = 0; i < cardNames.length; i++) {
+        if (cardNames[i].card) {
+          if (cardNames[i].card.type === "attack") {
+            if (cardNames[i].card.price < lowestCard.card.price) {
+              lowestCard = cardNames[i];
+            }
+          }
+        }
+      }
+
+      if (lowestCard) {
+        let attackRect = lowestCard.rect;
+        let moneyIncrease = Math.round(lowestCard.card.price / 2);
+        juice_up(animatedCard);
+        let frogAnim = new Animation(500, "text-effect",
+          {left: attackRect.left + 30, top: attackRect.top + 70, color: colors.magic, size: 24, text: `Again!`});
+        animationQueue.add(frogAnim);
+
+        let moneyAnim = new Animation(500, "text-effect",
+          {left: attackRect.left + 30, top: attackRect.top + 70, color: colors.money, size: 24, text: `+$${moneyIncrease}`});
+        animationQueue.add(moneyAnim);
+
+        useAttackCard(lowestCard.anim, lowestCard, attackRect, cardNames);
+        moneyAnim.then(() => {
+          money += moneyIncrease;
+        })
+      }
+    }
+  },
   modifier: (animatedCard, card, rect, cardNames) => {
     lowestCard = "";
     lowestPrice = 1000000; // infinity
@@ -273,12 +309,13 @@ const poison = {
   action: '<span style="color:var(--attack);">Destroy</span> a selected card in your inventory.',
   msg: "<div class='destroyText'>Choose a card to destroy</div>",
   img: "potions/poison.png",
-  consumable: (card) => {
-    removeItem(deck, card);
-    setTimeout(() => {
+  context: {
+    bought: (card) => {
+      removeItem(deck, card);
       openInventory(true, poison);
-    }, 400);
+    }
   }
+
 }
 const bitterPoison = {
   file: "bitterPoison",

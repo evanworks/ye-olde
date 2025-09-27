@@ -111,8 +111,8 @@ function buyCardInShop(card, id) {
         document.getElementById("price-" + id).style.display = "none";
 
         // does consumable
-        if (card.consumable) {
-            card.consumable(card);
+        if (card.context) if (card.context.bought) {
+            card.context.bought(card);
         }
     }
     document.getElementById("money").innerHTML = "$" + money;

@@ -11,7 +11,7 @@ let collectedLoot = false;
 let enteredShop = false;
 
 let maxHealth = 50;
-let health = maxHealth - 5;
+let health = maxHealth;
 let healthOverflow = true;
 
 let maxActions = 1;
@@ -27,7 +27,7 @@ let maxShopAttackSlots = 3;
 let maxShopMagicSlots = 2;
 let maxShopFoodSlots = 1;
 
-let debug = true;
+let debug = false;
 let a;
 let b;
 
@@ -39,7 +39,7 @@ function start() {
   if (!debug) {
     deck.push(rustySword, rustySword, rustySword);
   } else {
-    deck.push(rustySword, juice, rustySword, rustySword);
+    deck.push(rustySword, claymore, greenToad);
   }
   if (deck.length > 6 && !debug) {
     deck = [rustySword, rustySword, rustySword, rustySword, rustySword, rustySword]

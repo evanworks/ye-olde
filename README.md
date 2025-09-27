@@ -11,6 +11,10 @@ A dungeon crawler meets card game. *Build your deck and upgrade your weapons to 
 
 ## Version history
 
+### 0.4.0c4
+* [x] Tea
+* fixed food cards
+* music??????
 ### 0.4.0c3
 you can now play the entirety of early game *i think (nevermind it breaks after like 5 rounds :///)
 * [x] Longbow

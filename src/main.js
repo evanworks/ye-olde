@@ -39,13 +39,15 @@ function start() {
   if (!debug) {
     deck.push(rustySword, rustySword, rustySword);
   } else {
-    deck.push(rustySword, claymore, greenToad);
+    deck.push(rustySword, rustySword, rustySword, tea);
   }
   if (deck.length > 6 && !debug) {
     deck = [rustySword, rustySword, rustySword, rustySword, rustySword, rustySword]
   }
   fullDeck = deck;
   setTimeout(() => {
+    const firstPlayer = playTrack("bgm-player-1", pickRandomTrack());
+    scheduleNext(firstPlayer);
     enterBattle();
     document.getElementById("title").style.display = "none";
     document.getElementById("battle").style.display = "block";

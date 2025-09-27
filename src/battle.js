@@ -195,7 +195,7 @@ function monsterAttack() {
 
   setTimeout(function () {
     healthNum.innerHTML = health;
-    healthBar.style.width = newWidth + "px";
+    checkBars();
   }, 1400);
 
   setTimeout(function () {

@@ -143,3 +143,63 @@ class AnimationQueue {
     console.log("--");
   }
 }
+
+
+
+// List of background tunes (can be .mp3, .ogg, .wav)
+const tracks = [
+  "res/aud/bit.wav",
+  "res/aud/cave noises 2.wav",
+  "res/aud/descent.wav",
+  "res/aud/drummed.wav",
+  "res/aud/echo.wav",
+  "res/aud/minecraft cave noises.wav",
+  "res/aud/motif.wav",
+  "res/aud/skeleton.wav",
+  "res/aud/slime.wav",
+  "res/aud/spider.wav",
+
+];
+
+let currentIndex = null;
+let currentPlayer = 1;
+
+function pickRandomTrack() {
+  let next;
+  do {
+    next = Math.floor(Math.random() * tracks.length);
+  } while (next === currentIndex); // no immediate repeat
+  currentIndex = next;
+  return tracks[next];
+}
+
+function playTrack(playerId, trackUrl) {
+  const player = document.getElementById(playerId);
+  player.src = trackUrl;
+  player.volume = 1;
+  player.play();
+  return player;
+}
+
+function scheduleNext(currentPlayerEl) {
+  // Preload next track a little before the current one ends
+  currentPlayerEl.addEventListener("timeupdate", function checkTime() {
+    if (currentPlayerEl.duration - currentPlayerEl.currentTime < 0.1) {
+      // 0.5 sec before end, prepare next
+      currentPlayerEl.removeEventListener("timeupdate", checkTime);
+
+      // switch players for gapless play
+      currentPlayer = currentPlayer === 1 ? 2 : 1;
+      const nextPlayerId = `bgm-player-${currentPlayer}`;
+      const nextTrack = pickRandomTrack();
+
+      const nextPlayerEl = playTrack(nextPlayerId, nextTrack);
+      nextPlayerEl.currentTime = 0; // start immediately for overlap
+
+      // fade out the old one for smoothness
+      currentPlayerEl.pause();
+
+      scheduleNext(nextPlayerEl);
+    }
+  });
+}

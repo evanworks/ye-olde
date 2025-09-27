@@ -57,7 +57,7 @@ function useFoodCard(animatedCard, card, rect) {
 
   juice_up(animatedCard)
   let healthAnim = new Animation(500, "text-effect",
-    {left: rect.left + 20, top: rect.top + 70, color: colors.healthFull, size: 24, text: `+${card.health} health`});
+    {left: rect.left + 20, top: rect.top + 70, color: colors.healthFull, size: 24, text: `+${healthToHeal} health`});
   animationQueue.add(healthAnim);
 
   healthAnim.then(() => {
